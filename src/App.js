@@ -1,11 +1,23 @@
 import React from 'react';
 import './App.css';
+import CheckingControlContainer from './containers/CheckingControlContainer';
 
 
 function App() {
   return (
     <div className="App">
-      app
+      {/* nav bar */}
+      <div className="container-fluid">
+        <div className="container">
+          <div className="row">
+            <div className="col-4 nav-item-h">Partner</div>
+            <div className="col-4 nav-item-h">Checking Control</div>
+            <div className="col-4 nav-item-h">Excel Upload</div>
+          </div>
+        </div>
+      </div>
+      {/* end nav bar */}
+     <CheckingControlContainer/>
     </div>
   );
 }

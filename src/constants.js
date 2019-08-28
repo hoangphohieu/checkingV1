@@ -1,3 +1,8 @@
+export const  FETCH_URL_ITEMS = "https://5d62468626d62d0014a38826.mockapi.io/items";
+
+
+
+export const  GET_CHECKING_REQUEST = "GET_CHECKING_REQUEST";
 
 export const  GET_TOTAL_PAGE_REQUEST = "GET_TOTAL_PAGE_REQUEST";
 export const  GET_TOTAL_PAGE_SUCSESS = "GET_TOTAL_PAGE_SUCSESS";
