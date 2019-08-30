@@ -14,8 +14,8 @@ class CheckingInput extends Component {
             this.props.searchChecking(this.state.valueInput)
       }
       render() {
-            console.log(this.props);
-            console.log(this.state.valueInput);
+            // console.log(this.props);
+            // console.log(this.state.valueInput);
             return (
                   <React.Fragment>
                         <input type="text" className="form-control" placeholder="Recipient's username" onChange={this.changeValueInput} />

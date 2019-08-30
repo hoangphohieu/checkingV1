@@ -7,3 +7,4 @@ import * as type from './../constants';
 export function getCheckingAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({type: type.GET_CHECKING_REQUEST,payload})    // payload:valueToGetAPI
 }
+ 

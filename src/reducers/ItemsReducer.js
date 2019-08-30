@@ -13,9 +13,8 @@ export default (state = DEFAULT_STATE, action) => {
             return {
                 ...state,
                 isFetching: true,
-                listItem: action.payload
             }
-        case type.GET_TOTAL_PAGE_SUCSESS:
+        case type.GET_CHECKING_SUCSESS:
 
             return {
                 ...state,
@@ -26,7 +25,7 @@ export default (state = DEFAULT_STATE, action) => {
                 listItem: action.payload
             }
 
-        case type.GET_TOTAL_PAGE_RFAILURE:
+        case type.GET_CHECKING_RFAILURE:
             return {
                 ...state,
                 isFetching: false,

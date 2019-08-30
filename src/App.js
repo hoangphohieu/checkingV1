@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import CheckingControlContainer from './containers/CheckingControlContainer';
+import ExcelImportContainer from './containers/ExcelImportContainer';
 
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
         </div>
       </div>
       {/* end nav bar */}
-     <CheckingControlContainer/>
+     {/* <CheckingControlContainer/> */}
+     <ExcelImportContainer/>
     </div>
   );
 }

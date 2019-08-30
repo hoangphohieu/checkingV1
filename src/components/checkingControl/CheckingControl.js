@@ -4,10 +4,16 @@ import CheckingImage from './CheckingImage';
 import CheckingInput from './CheckingInput';
 
 class CheckingControl extends Component {
-    
+
       render() {
+            let itemChecking = this.props.dataChecking.listItem;
+            
+            
+            if (itemChecking !== []) {
+                  itemChecking = itemChecking.map((param, id) => { return <CheckingProperties {...this.props} proppertiesitem={param} key={id} /> })
 
-
+            }
+            
             return (
                   <React.Fragment>
                         <div>
@@ -18,7 +24,7 @@ class CheckingControl extends Component {
                                                 <div className="col-12">
                                                       <div className="row justify-content-center">
                                                             <div className="col-5 d-flex">
-                                                                  <CheckingInput {...this.props}/>
+                                                                  <CheckingInput {...this.props} />
                                                             </div>
                                                       </div>
                                                 </div>
@@ -27,12 +33,12 @@ class CheckingControl extends Component {
                                           <div className="row">
                                                 {/* left  */}
                                                 <div className="col-6 checking-right mt-3">
-                                                      <CheckingProperties />
+                                                      {itemChecking}
                                                 </div>
                                                 {/* end left  */}
                                                 {/* right  */}
                                                 <div className="col-6 checking-left mt-3">
-                                                      <CheckingImage />
+                                                      <CheckingImage {...this.props} />
                                                 </div>
                                                 {/* end right  */}
                                           </div>
