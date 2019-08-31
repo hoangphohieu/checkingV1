@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExcelImport from '../components/excelImport/ExcelImport';
-
+import * as actions from './../actions';
 function mapStateToProps(state) {
     return {
 
+    };
+}
+function mapDispatchToProps(dispatch) {
+    return {
+        postItem:(param)=>dispatch(actions.postItemAPI(param))
     };
 }
 
@@ -19,5 +24,5 @@ class ExcelImportContainer extends Component {
 }
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps,mapDispatchToProps
 )(ExcelImportContainer);

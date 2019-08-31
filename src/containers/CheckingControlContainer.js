@@ -10,12 +10,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
       return {
-            searchChecking: (param) => dispatch(actions.getCheckingAPI(param))
+            searchChecking: (param) => dispatch(actions.getCheckingAPI(param)),
+            changePrintStatus: (param) => dispatch(actions.changePrintStatusAPI(param))
       };
 }
 
 class CheckingControlContainer extends Component {
       render() {
+            
             return (
                   <React.Fragment>
                         <CheckingControl {...this.props}/>

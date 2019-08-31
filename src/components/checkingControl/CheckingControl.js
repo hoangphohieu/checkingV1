@@ -6,9 +6,8 @@ import CheckingInput from './CheckingInput';
 class CheckingControl extends Component {
 
       render() {
-            let itemChecking = this.props.dataChecking.listItem;
-            
-            
+
+            let itemChecking = this.props.dataChecking.listItem;       
             if (itemChecking !== []) {
                   itemChecking = itemChecking.map((param, id) => { return <CheckingProperties {...this.props} proppertiesitem={param} key={id} /> })
 

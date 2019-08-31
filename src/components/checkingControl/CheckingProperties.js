@@ -1,48 +1,35 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 class CheckingProperties extends Component {
-
+      // constructor(props, context) {
+      //       super(props, context);
+      //       this.state={
+      //             item:this.props.proppertiesitem
+      //       }
+      // }
+      
+      changePrintStatus = (param) => {
+            this.props.changePrintStatus(param)
+      }
 
       render() {
-            let item = this.props.proppertiesitem;
-            let {
-                  baseCost,
-                  id,
-                  day,
-                  checking,
-                  shippingName,
-                  shippingAddress1,
-                  shippingAddress2,
-                  shippingCity,
-                  shippingZip,
-                  shippingProvince,
-                  shippingCountry,
-                  shippingPhone,
-                  fee,
-                  lineitemQuantity,
-                  lineitemName,
-                  print } = item;
-            console.log(baseCost);
-
+            let item = _.toPairs(this.props.proppertiesitem); // props.proppertiesitem là object => array
+            let printStatus = item.filter(param => { return param[0] == "printStatus" });
+            let idStatus = item.filter(param => { return param[0] == "id" });
+            console.log(printStatus[0][1]);
+            
             return (
                   <React.Fragment>
-                        <button type="button" className="btn btn-primary checking-right-state">{print}</button>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Day: </span><span>{day}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Đối tác: </span><span>Dũng AZ</span></p>
-                        <p className="checking-item-name"><span className="checking-itemname-title">Checking: </span><span>{checking}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping Name: </span><span>{shippingName}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping Address1:</span><span>{shippingAddress1}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping Address2:</span><span>{shippingAddress2}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping City:</span><span>{shippingCity}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping Zip: </span><span>{shippingZip}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping Province: </span><span>{shippingProvince}</span> </p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping Country: </span><span>{shippingCountry}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Shipping Phone: </span><span>{shippingPhone}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Base cost: </span><span>{baseCost}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Fee: </span><span>{fee}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Lineitem quantity: </span><span>{lineitemQuantity}</span></p>
-                        <p className="checking-item-altribute"><span className="checking-item-title">Lineitem name: </span><span>{lineitemName}</span></p>
-
+                        <button onClick={() => this.changePrintStatus({ printStatus: !printStatus[0][1], idStatus: idStatus[0][1] })} type="button" className={"btn btn-" + ((printStatus[0][1] === true) ? "primary" : "danger") + " checking-right-state"}>
+                              {(printStatus[0][1] === true) ? "Done !" : "Print ..."}
+                        </button>
+                        {
+                              item.map((param, id) => {
+                                    if (param[0] !== "id" && param[0] !== "printStatus")
+                                          return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{param[1]}</span></p>
+                              })
+                        }
                   </React.Fragment>
             );
       }

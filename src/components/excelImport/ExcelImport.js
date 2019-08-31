@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import _ from 'lodash';
 import Exceltable from './Exceltable';
-
+import uuid from "uuid";
 class InputExcel extends Component {
     constructor(props) {
         super(props);
@@ -21,14 +21,14 @@ class InputExcel extends Component {
         var first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
         var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 });
         this.setState({ dataExcel: data })
-        
+
         //  end demo
     };
     readSingleFile = (e) => {
         let _this = this;
 
         //Validate whether File is valid Excel file.
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
+        let regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx|.csv)$/;
         if (regex.test(e.target.value.toLowerCase())) {
             if (typeof (FileReader) != "undefined") {
                 var reader = new FileReader();
@@ -41,9 +41,9 @@ class InputExcel extends Component {
                 } else {
                     //For IE Browser.
                     reader.onload = function (e) {
-                        var data = "";
-                        var bytes = new Uint8Array(e.target.result);
-                        for (var i = 0; i < bytes.byteLength; i++) {
+                        let data = "";
+                        let bytes = new Uint8Array(e.target.result);
+                        for (let i = 0; i < bytes.byteLength; i++) {
                             data += String.fromCharCode(bytes[i]);
                         }
                         _this.ProcessExcel(data);
@@ -57,7 +57,13 @@ class InputExcel extends Component {
             alert("Please upload a valid Excel file.");
         }
     }
+    postToServer = (param) => {
+       this.props.postItem(param);
+        
+    }
+    
     render() {
+        const uuidv1 = require('uuid/v1');
         let objectConvert;
         if (this.state.dataExcel !== []) {
             objectConvert = this.state.dataExcel.map((param, id) => {
@@ -70,6 +76,7 @@ class InputExcel extends Component {
                 }
             })
             objectConvert.shift();
+            objectConvert = objectConvert.map(param => { return { ...param, id: uuidv1(),printStatus:false } })
 
         }
         console.log(objectConvert);
@@ -77,7 +84,8 @@ class InputExcel extends Component {
         return (
             <div className="App mt-4">
                 <input type="file" id="fileinput" className="" onChange={this.readSingleFile} />
-                <Exceltable dataExcelTable={this.state.dataExcel}/>
+                <button type="button" className="btn btn-success" onClick={()=>this.postToServer(objectConvert[0])}>Post to Server</button>
+                <Exceltable dataExcelTable={this.state.dataExcel} />
             </div>
         );
     }
