@@ -17,7 +17,9 @@ class CheckingProperties extends Component {
             let item = _.toPairs(this.props.proppertiesitem); // props.proppertiesitem là object => array
             let printStatus = item.filter(param => { return param[0] == "printStatus" });
             let idStatus = item.filter(param => { return param[0] == "id" });
-            console.log(printStatus[0][1]);
+            
+            console.log(Math.random());
+            console.log(printStatus);
             
             return (
                   <React.Fragment>

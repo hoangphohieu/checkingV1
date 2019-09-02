@@ -1,4 +1,5 @@
 export const  FETCH_URL_ITEMS = "http://localhost:3001/items";
+export const   CLOUDINARY_URL_CDN = "https://res.cloudinary.com/hieudz/image/upload/v1566581774/demo%20tool/";
 
 
 

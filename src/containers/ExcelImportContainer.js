@@ -4,7 +4,7 @@ import ExcelImport from '../components/excelImport/ExcelImport';
 import * as actions from './../actions';
 function mapStateToProps(state) {
     return {
-
+        itemExcelReload:state.ItemExcelPost
     };
 }
 function mapDispatchToProps(dispatch) {

@@ -2,27 +2,45 @@ import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import _ from 'lodash';
 import Exceltable from './Exceltable';
-import uuid from "uuid";
 class InputExcel extends Component {
     constructor(props) {
         super(props);
         this.state = {
             items: null,
-            dataExcel: []
+            dataExcel: [],
+            numberTimeOut: 0
         }
     }
+    componentDidMount() {
+        if (JSON.parse(localStorage.getItem("ItemsExcel")) !== null) {
+            this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")) })
+        }
+
+    }
+
     ProcessExcel = (data) => {
+        const uuidv1 = require('uuid/v1'); // tao uuid
         //Read the Excel File data.
         var workbook = XLSX.read(data, {
             type: 'binary'
         });
-        // demo
         /* convert from workbook to array of arrays */
         var first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 });
-        this.setState({ dataExcel: data })
+        var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 }); // data= arr[]
+        let dataState = data.shift();
+        dataState.push("printStatus");
+        dataState.push("id");
+        data = data.map(param => { return [...param, false, uuidv1()] });
+        data.unshift(dataState);
+        // console.log(data);
 
-        //  end demo
+
+        // dua du lieu arr[] vao local storage
+        localStorage.setItem("ItemsExcel", JSON.stringify(data));
+        this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")) })
+        // console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
+
+        /*end  convert from workbook to array of arrays */
     };
     readSingleFile = (e) => {
         let _this = this;
@@ -57,34 +75,50 @@ class InputExcel extends Component {
             alert("Please upload a valid Excel file.");
         }
     }
-    postToServer = (param) => {
-       this.props.postItem(param);
-        
-    }
-    
-    render() {
-        const uuidv1 = require('uuid/v1');
+    postToServer = (param,number) => {
+        // console.log(param);
         let objectConvert;
-        if (this.state.dataExcel !== []) {
-            objectConvert = this.state.dataExcel.map((param, id) => {
+        if (param !== []) {
+            objectConvert = param.map((param2, id) => {
                 let obj = {};
-                for (let j = 0; j <= param.length - 1; j++) {
-                    obj[this.state.dataExcel[0][j]] = param[j]
+                for (let j = 0; j <= param2.length - 1; j++) {
+                    obj[param[0][j]] = param2[j]
                 }
                 return {
                     ...obj
                 }
             })
             objectConvert.shift();
-            objectConvert = objectConvert.map(param => { return { ...param, id: uuidv1(),printStatus:false } })
+            setTimeout(() => {
+                this.props.postItem(objectConvert[objectConvert.length - 1]);
+            }, number);
+        }
+        // console.log(objectConvert);
+
+
+
+
+    }
+
+    render() {
+        let payload = this.props.itemExcelReload;
+        if (payload.dataFetched === true) {
+            let items = JSON.parse(localStorage.getItem("ItemsExcel"));
+            if (items.length > 1) {
+                items.pop();
+                localStorage.setItem("ItemsExcel", JSON.stringify(items));
+                this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")),numberTimeOut:this.state.numberTimeOut+100 })
+                this.postToServer(this.state.dataExcel,this.state.numberTimeOut);
+            }
 
         }
-        console.log(objectConvert);
+
+        // console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
 
         return (
             <div className="App mt-4">
                 <input type="file" id="fileinput" className="" onChange={this.readSingleFile} />
-                <button type="button" className="btn btn-success" onClick={()=>this.postToServer(objectConvert[0])}>Post to Server</button>
+                <button type="button" className="btn btn-success" onClick={() => this.postToServer(this.state.dataExcel)}>Post to Server</button>
                 <Exceltable dataExcelTable={this.state.dataExcel} />
             </div>
         );

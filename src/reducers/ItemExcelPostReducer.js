@@ -22,7 +22,7 @@ export default (state = DEFAULT_STATE, action) => {
                 dataFetched: true,
                 error: false,
                 errorMessesage: null,
-                listItem: action.payload
+                listItem:action.payload
             }
 
         case type.POST_ITEM_EXCEL_RFAILURE:
@@ -30,6 +30,7 @@ export default (state = DEFAULT_STATE, action) => {
                 ...state,
                 isFetching: false,
                 error: true,
+                dataFetched: false,
                 errorMessesage: action.payload.errorMessesage
             }
             
