@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route,Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import CheckingControlContainer from './containers/CheckingControlContainer';
 import ExcelImportContainer from './containers/ExcelImportContainer';
-
-
+import JsBarcode from './components/JsBarcode';
 function App() {
   return (
     <div className="App">
+      <JsBarcode/>
       {/* nav bar */}
       <div className="container-fluid">
         <div className="container">

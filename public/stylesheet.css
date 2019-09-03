@@ -2,6 +2,10 @@
     margin: 0;padding: 0
 }
 
+.row.border-item-checking {
+    border: 1px solid;
+}
+
 .checking-right-state {
     position: absolute;
     right: 1.5rem;
@@ -41,6 +45,7 @@ p.checking-item-altribute {
     margin: 0;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
+    text-align: left;
 }
 
 p.checking-item-name {
