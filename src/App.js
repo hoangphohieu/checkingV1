@@ -4,12 +4,11 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import CheckingControlContainer from './containers/CheckingControlContainer';
 import ExcelImportContainer from './containers/ExcelImportContainer';
+import ExcelExport from './components/checkingControl/ExcelExport';
 import JsBarcode from './components/JsBarcode';
 function App() {
   return (
     <div className="App">
-      <JsBarcode/>
-      {/* nav bar */}
       <div className="container-fluid">
         <div className="container">
           <div className="row ">

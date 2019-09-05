@@ -2,6 +2,20 @@
     margin: 0;padding: 0
 }
 
+.container.relative {
+    position: relative;
+}
+
+.row.UtilitiesChecking_position {
+    position: absolute;
+    top: 0;
+    right: 15px;
+}
+
+button.state_itemChecking_button {
+    margin: 0.5rem;
+}
+
 .row.border-item-checking {
     border: 1px solid;
 }

@@ -11,7 +11,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
       return {
             searchChecking: (param) => dispatch(actions.getCheckingAPI(param)),
-            changePrintStatus: (param) => dispatch(actions.changePrintStatusAPI(param))
+            changePrintStatus: (param) => dispatch(actions.changePrintStatusAPI(param)),
+            patchItemCheckingProperties:(param)=>dispatch(actions.patchItemCheckingProperties(param)),
+            deleteItemChecking:(param)=>dispatch(actions.deleteItemChecking(param)),
+            itemsPrintFalse:()=>dispatch(actions.itemsPrintFalse()),
       };
 }
 

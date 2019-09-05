@@ -20,8 +20,8 @@ class CheckingInput extends Component {
             // console.log(this.props);
             // console.log(this.state.valueInput);
             return (
-                  <React.Fragment>
-                        <input type="text" className="form-control" placeholder="Recipient's username" onChange={this.changeValueInput} onKeyDown={this.SearchItemByEnter} />
+                  <React.Fragment> 
+                        <input type="text" className="form-control" placeholder="Recipient's username" onChange={this.changeValueInput} onKeyDown={this.SearchItemByEnter}  autoFocus />
                         <button type="button" className="btn btn-primary" onClick={this.searchChecking}>Search</button>
                   </React.Fragment>
             );
