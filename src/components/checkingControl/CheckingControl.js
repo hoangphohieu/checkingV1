@@ -8,7 +8,7 @@ class CheckingControl extends Component {
       render() {
 
             let itemChecking = this.props.dataChecking.listItem;
-            itemChecking=itemChecking.map(param=>{ let day = new Date((param.day-25569)*24*60*60*1000); return {...itemChecking,day:day}})
+            itemChecking=itemChecking.map(param=>{ let day = (param.day-25569)*24*60*60*1000 ; return {...param,day:day}})
             console.log(itemChecking);
             // let day=43713;
             // day=day-25568-1  ;

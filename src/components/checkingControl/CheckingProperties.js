@@ -32,7 +32,7 @@ class CheckingProperties extends Component {
       }
       deleteItemChecking = (param) => {
             this.handleDeleteClose();
-            this.props.deleteItemChecking({id:param})
+            this.props.deleteItemChecking({ id: param })
       }
 
 
@@ -41,7 +41,11 @@ class CheckingProperties extends Component {
       handleDeleteClose = () => { this.setState({ delete: false }) };
       handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
-            let item = _.toPairs(this.props.proppertiesitem); // props.proppertiesitem là object => array
+            let item = this.props.proppertiesitem;
+      console.log(item);
+      
+            item.day=(new Date(item.day)).toLocaleDateString();
+            item = _.toPairs(item); // props.proppertiesitem là object => array
             let printStatus = item.filter(param => { return param[0] === "printStatus" });
             let idStatus = item.filter(param => { return param[0] === "id" });
 
@@ -56,7 +60,8 @@ class CheckingProperties extends Component {
                                           {(printStatus[0][1] === true) ? "Done !" : "Print ..."}
                                     </button>
                                     {
-                                          item.map((param, id) => {if (param[0] !== "id" && param[0] !== "printStatus")
+                                          item.map((param, id) => {
+                                                if (param[0] !== "id" && param[0] !== "printStatus")
                                                       return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{param[1]}</span></p>
                                           })
                                     }
@@ -65,11 +70,11 @@ class CheckingProperties extends Component {
 
                               {/* modal */}
                               <div className="state_itemChecking">
-                              <Button className="state_itemChecking_button" variant="primary" onClick={this.handleShow}>
-                                    Thay đổi
+                                    <Button className="state_itemChecking_button" variant="primary" onClick={this.handleShow}>
+                                          Thay đổi
                               </Button>
-                              <Button className="state_itemChecking_button" variant="danger" onClick={this.handleDeleteShow}>
-                                    Xóa
+                                    <Button className="state_itemChecking_button" variant="danger" onClick={this.handleDeleteShow}>
+                                          Xóa
                               </Button>
                               </div>
 
@@ -103,7 +108,7 @@ class CheckingProperties extends Component {
 
 
                               {/* modal */}
-                              
+
 
                               <Modal show={this.state.delete} onHide={this.handleDeleteClose}>
                                     <Modal.Header closeButton>
