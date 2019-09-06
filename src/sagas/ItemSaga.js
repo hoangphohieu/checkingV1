@@ -69,14 +69,14 @@ function* patchPrintStatusItem(param) {     // lấy total page
 function* patchItemCheckingProperties(param) {     // lấy total page
     
     try {
-    // console.log(param,id);
+    // console.log(param);
 
-        let  res1 = yield patchItemCheckingPropertiesAPI(); //gọi API
+        let  res1 = yield patchItemCheckingPropertiesAPI(param.payload); //gọi API
         console.log(res1);
         
         yield put({
             type: type.GET_CHECKING_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
-            payload: res1
+            payload: [res1]
         })
     } catch (error) {
         yield put({

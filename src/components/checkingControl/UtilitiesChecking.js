@@ -9,7 +9,7 @@ class UtilitiesChecking extends Component {
         this.state = {
             change: false,
             itemsPrintFalse: [],
-            downClick:false
+            downClick: false
         }
     }
     handleClose = () => { this.setState({ change: false }) };
@@ -31,13 +31,16 @@ class UtilitiesChecking extends Component {
     }
 
     render() {
-        let itemsPrintFalse = this.props.dataChecking.listItem;
-
-        if (this.state.downClick === true && itemsPrintFalse.length!==0) {
-            let data =itemsPrintFalse;
+        let itemsPrintFalse = this.props.newItems;
+        console.log( this.itemsPrintFalse);
+        
+        if (this.state.downClick === true && itemsPrintFalse.length !== 0) {
+            let data = itemsPrintFalse;
+            data = data.map(param => {return { ...param, day: new Date(param.day) } });
+            
             try {
                 console.log(data);
-                
+
                 json2excel({
                     data,
                     name: 'Hieudz',
@@ -46,7 +49,7 @@ class UtilitiesChecking extends Component {
             } catch (e) {
                 console.error('export error');
             }
-        this.setState({downClick:false})
+            this.setState({ downClick: false })
         }
         return (
             <div>

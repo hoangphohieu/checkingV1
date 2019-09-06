@@ -8,17 +8,11 @@ class CheckingControl extends Component {
       render() {
 
             let itemChecking = this.props.dataChecking.listItem;
-            itemChecking=itemChecking.map(param=>{ let day = (param.day-25569)*24*60*60*1000 ; return {...param,day:day}})
             console.log(itemChecking);
-            // let day=43713;
-            // day=day-25568-1  ;
-            // day=day*24*60*60*1000;
-            // day= new Date(day)
-            // console.log(day);
-            
-            
 
-            
+            // itemChecking = itemChecking.map(param => { let day = (new Date((param.day - 25569) * 24 * 60 * 60 * 1000)).toLocaleDateString(); return { ...param, day: day } })
+            let newItems=itemChecking;
+
             if (itemChecking !== []) {
                   itemChecking = itemChecking.map((param, id) => { return <CheckingProperties {...this.props} proppertiesitem={param} key={id} /> })
             }
@@ -47,14 +41,14 @@ class CheckingControl extends Component {
                                                 {/* end left  */}
                                                 {/* right  */}
                                                 <div className="col-6 checking-left mt-3">
-                                                      <CheckingImage {...this.props} />
+                                                      <CheckingImage {...this.props} newItems={newItems} />
                                                 </div>
                                                 {/* end right  */}
                                           </div>
 
 
                                           <div className="row UtilitiesChecking_position">
-                                                <UtilitiesChecking {...this.props}/>
+                                                <UtilitiesChecking {...this.props} newItems={newItems}  />
                                           </div>
                                     </div>
                               </div></div>

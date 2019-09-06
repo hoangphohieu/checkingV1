@@ -4,6 +4,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import CheckingControlContainer from './containers/CheckingControlContainer';
 import ExcelImportContainer from './containers/ExcelImportContainer';
+import PartnerControlContainer from "./containers/PartnerControlContainer";
 import ExcelExport from './components/checkingControl/ExcelExport';
 import JsBarcode from './components/JsBarcode';
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Switch >
         <Route exact path="/" render={(props) => <CheckingControlContainer {...props} />} />
         <Route exact path="/excelImport" render={(props) => <ExcelImportContainer {...props} />} />
+        <Route exact path="/partner" render={(props) => <PartnerControlContainer {...props} />} />
       </Switch>
 
       {/* <CheckingControlContainer/> */}

@@ -42,9 +42,9 @@ class CheckingProperties extends Component {
       handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
             let item = this.props.proppertiesitem;
-      console.log(item);
+      // console.log(item);
       
-            item.day=(new Date(item.day)).toLocaleDateString();
+            // item.day=(new Date(item.day)).toLocaleDateString();
             item = _.toPairs(item); // props.proppertiesitem là object => array
             let printStatus = item.filter(param => { return param[0] === "printStatus" });
             let idStatus = item.filter(param => { return param[0] === "id" });
