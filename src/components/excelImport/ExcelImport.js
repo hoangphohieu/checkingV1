@@ -7,8 +7,14 @@ class InputExcel extends Component {
         super(props);
         this.state = {
             items: null,
-            dataExcel: [],
-            numberTimeOut: 0
+            dataExcel: {
+                listItem: null,
+                objectDay: null,
+                objectPartner: null,
+
+            },
+            numberTimeOut: 0,
+
         }
     }
     componentDidMount() {
@@ -27,7 +33,6 @@ class InputExcel extends Component {
         /* convert from workbook to array of arrays */
         var first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
         var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 }); // data= arr[]
-        // let dataState = data.shift();
         // console.log(data);
 
         let objectConvert;
@@ -42,10 +47,7 @@ class InputExcel extends Component {
                 }
             })
         }
-        console.log(objectConvert);
 
-        // objectConvert.shift();
-        // dataState.push("id");
         objectConvert = objectConvert.map(param => {
             let id = param["Name"].toUpperCase() + param["Base cost"] + _.kebabCase(param["Lineitem name"]);
             return { ...param, id: id }
@@ -61,20 +63,18 @@ class InputExcel extends Component {
         listDay = listDay.map(param => { return [param, param] });
         listDay = _.fromPairs(listDay);
 
-        // data = data.map(param => {let id=param.Name.toLowerCase()+ param[Base]; return [...param, uuidv1()] });
-        // data.unshift(dataState);
-        // console.log(data);
-
 
         // dua du lieu arr[] vao local storage
-        localStorage.setItem("ItemsExcel", JSON.stringify(data));
-        this.setState({
-            dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")),
-            objectDay:listDay,
-            objectPartner:listPartner
-        })
+        let dataExcel = {
+            listItem: objectConvert,
+            listPartner: listPartner,
+            listDay: listDay,
 
-        // console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
+        }
+        localStorage.setItem("ItemsExcel", JSON.stringify(dataExcel));
+        this.setState({
+            dataExcel: JSON.parse(localStorage.getItem("ItemsExcel"))
+        })
 
         /*end  convert from workbook to array of arrays */
     };
@@ -112,24 +112,18 @@ class InputExcel extends Component {
         }
     }
     postToServer = (param, number) => {
+        let listPartner = param.listPartner;
+        let listDay = param.listDay;
+        let listItem = param.listItem;
         // console.log(param);
-        let objectConvert;
         if (param !== []) {
-            objectConvert = param.map((param2, id) => {
-                let obj = {};
-                for (let j = 0; j <= param2.length - 1; j++) {
-                    obj[param[0][j]] = param2[j]
-                }
-                return {
-                    ...obj
-                }
-            })
-            objectConvert.shift();
+
+            listItem.shift();
             setTimeout(() => {
-                this.props.postItem(objectConvert[objectConvert.length - 1]);
+                this.props.postItem(listItem[listItem.length - 1]);
             }, number);
         }
-        // console.log(objectConvert);
+        // console.log(listItem);
 
 
 
@@ -137,18 +131,28 @@ class InputExcel extends Component {
     }
 
     render() {
-        console.log(this.state);
+        // console.log(this.state.dataExcel);
+
         let payload = this.props.itemExcelReload;
         if (payload.dataFetched === true) {
-            let items = JSON.parse(localStorage.getItem("ItemsExcel"));
-            if (items.length > 1) {
-                items.pop();
-                localStorage.setItem("ItemsExcel", JSON.stringify(items));
+            // console.log("sd,nbdvkjdsnvdksjn");
+
+            let param = JSON.parse(localStorage.getItem("ItemsExcel"));
+            let listPartner = param.listPartner;
+            let listDay = param.listDay;
+            let listItem = param.listItem;
+            
+            if (listItem.length > 1) {
+                listItem.pop();
+                localStorage.setItem("ItemsExcel", JSON.stringify({ ...param, listItem: listItem }));
                 this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")), numberTimeOut: this.state.numberTimeOut + 100 })
                 this.postToServer(this.state.dataExcel, this.state.numberTimeOut);
             }
 
         }
+        console.log(this.state.dataExcel.listDay);
+
+        let listItem = JSON.stringify(this.state.dataExcel.listItem);
 
         // console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
 
@@ -156,7 +160,7 @@ class InputExcel extends Component {
             <div className="App mt-4">
                 <input type="file" id="fileinput" className="" onChange={this.readSingleFile} />
                 <button type="button" className="btn btn-success" onClick={() => this.postToServer(this.state.dataExcel)}>Post to Server</button>
-                <Exceltable dataExcelTable={this.state.dataExcel} />
+                <Exceltable dataExcelTable={listItem} />
             </div>
         );
     }

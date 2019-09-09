@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 class Exceltable extends Component {
     render() {
-        // console.log(this.props.dataExcelTable);
-        let ten = [...this.props.dataExcelTable];
-        ten.shift();
-        // console.log(ten);
+        let titleDatalog=null;
+        let datalog = JSON.parse(this.props.dataExcelTable);
+        // console.log(datalog);
+        
+        if (datalog !== null) {
+            datalog = datalog.map(param => { return _.toPairs(param) });
+             titleDatalog=datalog.shift();
+            //  datalog.shift();
+        }
+        // console.log(titleDatalog);
+
         return (
             <React.Fragment>
                 <table className="table table-striped">
                     <thead>
-                        <tr>
-                            {(this.props.dataExcelTable[0] !== undefined) ? (this.props.dataExcelTable[0].map((param, id) => <th scope="col" key={id}>{param}</th>)) : ""}
-                        </tr>
+                        <tr>{(titleDatalog !== null) ? (titleDatalog.map((param, id) => <th scope="col" key={id}>{param[0]}</th>)) : ""}</tr>
                     </thead>
-                    <tbody>
-                        {(ten !== undefined) ?
-                            ten.map((param, id2) => {
+                    <tbody>{(datalog !== null) ?
+                            datalog.map((param, id2) => {
                                 let arrItem = [];
                                 for (let j = 0; j <= param.length - 1; j++) {
-                                    arrItem.push(<td key={j + 1}>{param[j]}</td>)
+                                    arrItem.push(<td key={j + 1}>{param[j][1]}</td>)
                                 }
                                 return <tr key={id2}>{arrItem}</tr>
                             }
                             )
                             : ""
-                        }
-                    </tbody>
+                        }</tbody>
                 </table>
             </React.Fragment>
         );

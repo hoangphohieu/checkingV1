@@ -3,6 +3,42 @@
     {
       "day": 43707,
       "partner": "atung",
+      "Name": "MJ9844",
+      "Shipping Name": "Maria c Garcia ",
+      "Shipping Address1": "1525 Woodbine Drive",
+      "Shipping Address2": null,
+      "Shipping City": "Round Lake Beach",
+      "Shipping Zip": 60073,
+      "Shipping Province": "IL",
+      "Shipping Country": "US",
+      "Shipping Phone": "(847) 997-9891",
+      "Base cost": 10.1,
+      "Fee": 5,
+      "Lineitem quantity": 1,
+      "Lineitem name": "Phone case iPhone Samsung dah120833 - Galaxy S10",
+      "id": "MJ984410.1phone-case-i-phone-samsung-dah-120833-galaxy-s-10"
+    },
+    {
+      "day": 43707,
+      "partner": "atung",
+      "Name": "MJ9845",
+      "Shipping Name": "Musaed Almahboub",
+      "Shipping Address1": "Sabah alsalem block 6 1ave 1st ",
+      "Shipping Address2": "House no. 70",
+      "Shipping City": "Kuwait",
+      "Shipping Zip": 44006,
+      "Shipping Province": null,
+      "Shipping Country": "KW",
+      "Shipping Phone": 99752868,
+      "Base cost": 10.1,
+      "Fee": 5,
+      "Lineitem quantity": 1,
+      "Lineitem name": "Luminous Glow Phone case iPhone Samsung dah260717 - iPhone Xs",
+      "id": "MJ984510.1luminous-glow-phone-case-i-phone-samsung-dah-260717-i-phone-xs"
+    },
+    {
+      "day": 43707,
+      "partner": "atung",
       "Name": "MJ9846",
       "Shipping Name": "Angela Parisi",
       "Shipping Address1": "14233 102nd Avenue",
@@ -12,12 +48,11 @@
       "Shipping Province": "FL",
       "Shipping Country": "US",
       "Shipping Phone": "(407) 398-4540",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Phone case iPhone Samsung add200812 - Galaxy S10",
-      "printStatus": false,
-      "id": "aafbf52a-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ984610.1phone-case-i-phone-samsung-add-200812-galaxy-s-10"
     },
     {
       "day": 43707,
@@ -31,12 +66,11 @@
       "Shipping Province": "WI",
       "Shipping Country": "US",
       "Shipping Phone": "(920) 382-1039",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dah070830 - Galaxy S10",
-      "printStatus": false,
-      "id": "aafbf529-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ984710.1luminous-glow-phone-case-i-phone-samsung-dah-070830-galaxy-s-10"
     },
     {
       "day": 43707,
@@ -50,12 +84,11 @@
       "Shipping Province": null,
       "Shipping Country": "GB",
       "Shipping Phone": "'+44 7701 343647",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dah260717 - iPhone X",
-      "printStatus": false,
-      "id": "aafbf528-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ984810.1luminous-glow-phone-case-i-phone-samsung-dah-260717-i-phone-x"
     },
     {
       "day": 43707,
@@ -69,12 +102,11 @@
       "Shipping Province": "IL",
       "Shipping Country": "US",
       "Shipping Phone": 6309910253,
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dah200832 - Galaxy S10",
-      "printStatus": false,
-      "id": "aafbf527-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ984910.1luminous-glow-phone-case-i-phone-samsung-dah-200832-galaxy-s-10"
     },
     {
       "day": 43707,
@@ -88,12 +120,11 @@
       "Shipping Province": "PA",
       "Shipping Country": "US",
       "Shipping Phone": "(717) 222-6643",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung nad200810 - Galaxy S8",
-      "printStatus": false,
-      "id": "aafbf526-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ985010.1luminous-glow-phone-case-i-phone-samsung-nad-200810-galaxy-s-8"
     },
     {
       "day": 43712,
@@ -107,12 +138,11 @@
       "Shipping Province": "CA",
       "Shipping Country": "US",
       "Shipping Phone": 8183262941,
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dah230816 - Galaxy S8+",
-      "printStatus": false,
-      "id": "aafbf525-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ985110.1luminous-glow-phone-case-i-phone-samsung-dah-230816-galaxy-s-8"
     },
     {
       "day": 43712,
@@ -126,12 +156,11 @@
       "Shipping Province": "FL",
       "Shipping Country": "US",
       "Shipping Phone": "(954) 410-1609",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dah290708 - iPhone Xs",
-      "printStatus": false,
-      "id": "aafbf524-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ985210.1luminous-glow-phone-case-i-phone-samsung-dah-290708-i-phone-xs"
     },
     {
       "day": 43712,
@@ -145,12 +174,11 @@
       "Shipping Province": "NJ",
       "Shipping Country": "US",
       "Shipping Phone": "(609) 675-4733",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung nah230831 - Galaxy S10 Plus",
-      "printStatus": false,
-      "id": "aafbf523-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98539.5luminous-glow-phone-case-i-phone-samsung-nah-230831-galaxy-s-10-plus"
     },
     {
       "day": 43712,
@@ -164,12 +192,11 @@
       "Shipping Province": "PA",
       "Shipping Country": "US",
       "Shipping Phone": "1 (724) 822-2308",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung natr220844 - iPhone Xr",
-      "printStatus": false,
-      "id": "aafbf522-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98549.5luminous-glow-phone-case-i-phone-samsung-natr-220844-i-phone-xr"
     },
     {
       "day": 43712,
@@ -183,12 +210,11 @@
       "Shipping Province": "IL",
       "Shipping Country": "US",
       "Shipping Phone": 7794354950,
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone, Samsung-datr010710 - iPhone X",
-      "printStatus": false,
-      "id": "aafbf521-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98559.5luminous-glow-phone-case-i-phone-samsung-datr-010710-i-phone-x"
     },
     {
       "day": 43712,
@@ -202,12 +228,11 @@
       "Shipping Province": "VA",
       "Shipping Country": "US",
       "Shipping Phone": "'+1 919-706-2577",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung natr150849 - iPhone Xs Max",
-      "printStatus": false,
-      "id": "aafbf520-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98569.5luminous-glow-phone-case-i-phone-samsung-natr-150849-i-phone-xs-max"
     },
     {
       "day": 43712,
@@ -221,12 +246,11 @@
       "Shipping Province": null,
       "Shipping Country": "IL",
       "Shipping Phone": "054-545-2722",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Phone case iPhone Samsung natr220805 - iPhone Xs",
-      "printStatus": false,
-      "id": "aafbf51f-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98579.5phone-case-i-phone-samsung-natr-220805-i-phone-xs"
     },
     {
       "day": 43712,
@@ -240,12 +264,11 @@
       "Shipping Province": "UT",
       "Shipping Country": "US",
       "Shipping Phone": "'+1 435-690-9927",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung add210822 - iPhone 7 8",
-      "printStatus": false,
-      "id": "aafbf51e-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98599.5luminous-glow-phone-case-i-phone-samsung-add-210822-i-phone-7-8"
     },
     {
       "day": 43712,
@@ -259,12 +282,11 @@
       "Shipping Province": "VA",
       "Shipping Country": "US",
       "Shipping Phone": "(757) 251-8198",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung natr090826 - Galaxy S8",
-      "printStatus": false,
-      "id": "aafbf51d-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98609.5luminous-glow-phone-case-i-phone-samsung-natr-090826-galaxy-s-8"
     },
     {
       "day": 43712,
@@ -278,12 +300,11 @@
       "Shipping Province": "CO",
       "Shipping Country": "US",
       "Shipping Phone": "'+1 720-343-0600",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dnd220811 - iPhone X",
-      "printStatus": false,
-      "id": "aafbf51c-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98619.5luminous-glow-phone-case-i-phone-samsung-dnd-220811-i-phone-x"
     },
     {
       "day": 43712,
@@ -297,12 +318,11 @@
       "Shipping Province": "NJ",
       "Shipping Country": "US",
       "Shipping Phone": "(772) 214-7023",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung - nah080822 - iPhone Xs Max",
-      "printStatus": false,
-      "id": "aafbf51b-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98629.5luminous-glow-phone-case-i-phone-samsung-nah-080822-i-phone-xs-max"
     },
     {
       "day": 43712,
@@ -316,12 +336,11 @@
       "Shipping Province": "TX",
       "Shipping Country": "US",
       "Shipping Phone": "(817) 937-6930",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Phone case iPhone Samsung dah120833 - Galaxy S9",
-      "printStatus": false,
-      "id": "aafbf51a-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98639.5phone-case-i-phone-samsung-dah-120833-galaxy-s-9"
     },
     {
       "day": 43712,
@@ -335,12 +354,11 @@
       "Shipping Province": "TX",
       "Shipping Country": "US",
       "Shipping Phone": "(325) 515-7147",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Phone case iPhone Samsung dah120833 - iPhone Xr",
-      "printStatus": false,
-      "id": "aafbf519-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ986410.1phone-case-i-phone-samsung-dah-120833-i-phone-xr"
     },
     {
       "day": 43712,
@@ -354,12 +372,11 @@
       "Shipping Province": "TX",
       "Shipping Country": "US",
       "Shipping Phone": 4692313713,
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone Case for Iphone, Samsung -  dd190605 - iPhone Xr",
-      "printStatus": false,
-      "id": "aafbf518-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ986510.1luminous-glow-phone-case-for-iphone-samsung-dd-190605-i-phone-xr"
     },
     {
       "day": 43712,
@@ -373,12 +390,11 @@
       "Shipping Province": "LA",
       "Shipping Country": "US",
       "Shipping Phone": "(334) 801-7061",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Phone case iPhone Samsung - natr230702 - Galaxy S10 Plus",
-      "printStatus": false,
-      "id": "aafbf517-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ986610.1phone-case-i-phone-samsung-natr-230702-galaxy-s-10-plus"
     },
     {
       "day": 43712,
@@ -392,12 +408,11 @@
       "Shipping Province": "AB",
       "Shipping Country": "CA",
       "Shipping Phone": "'+1 403-977-3960",
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung nam220805 - iPhone X",
-      "printStatus": false,
-      "id": "aafbf516-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ986710.1luminous-glow-phone-case-i-phone-samsung-nam-220805-i-phone-x"
     },
     {
       "day": 43712,
@@ -411,12 +426,11 @@
       "Shipping Province": null,
       "Shipping Country": "SE",
       "Shipping Phone": 761605215,
-      "Base cost": 4,
+      "Base cost": 10.1,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dntr220807 - iPhone Xs Max",
-      "printStatus": false,
-      "id": "aafbf515-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ986810.1luminous-glow-phone-case-i-phone-samsung-dntr-220807-i-phone-xs-max"
     },
     {
       "day": 43712,
@@ -430,12 +444,11 @@
       "Shipping Province": null,
       "Shipping Country": "GB",
       "Shipping Phone": "07857 093613",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung dah260717 - Galaxy S10 Plus",
-      "printStatus": false,
-      "id": "aafbf514-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98699.5luminous-glow-phone-case-i-phone-samsung-dah-260717-galaxy-s-10-plus"
     },
     {
       "day": 43713,
@@ -449,12 +462,11 @@
       "Shipping Province": "FL",
       "Shipping Country": "US",
       "Shipping Phone": "(787) 447-4447",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Phone case iPhone Samsung add200812 - Galaxy S9 Plus",
-      "printStatus": false,
-      "id": "aafbf513-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98709.5phone-case-i-phone-samsung-add-200812-galaxy-s-9-plus"
     },
     {
       "day": 43713,
@@ -468,12 +480,11 @@
       "Shipping Province": "OK",
       "Shipping Country": "US",
       "Shipping Phone": "(918) 261-1123",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung nah190807 - Galaxy Note 9",
-      "printStatus": false,
-      "id": "aafbf512-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98719.5luminous-glow-phone-case-i-phone-samsung-nah-190807-galaxy-note-9"
     },
     {
       "day": 43713,
@@ -487,12 +498,11 @@
       "Shipping Province": "NY",
       "Shipping Country": "US",
       "Shipping Phone": 3158251145,
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung natr050843 - Galaxy S10",
-      "printStatus": false,
-      "id": "aafbf511-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98729.5luminous-glow-phone-case-i-phone-samsung-natr-050843-galaxy-s-10"
     },
     {
       "day": 43713,
@@ -506,12 +516,11 @@
       "Shipping Province": "AZ",
       "Shipping Country": "US",
       "Shipping Phone": "(520) 639-3709",
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Luminous Glow Phone case iPhone Samsung natr230830 - Galaxy S10 Plus",
-      "printStatus": false,
-      "id": "aafbf510-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98739.5luminous-glow-phone-case-i-phone-samsung-natr-230830-galaxy-s-10-plus"
     },
     {
       "day": 43713,
@@ -525,62 +534,23 @@
       "Shipping Province": null,
       "Shipping Country": "SG",
       "Shipping Phone": 98515422,
-      "Base cost": 4,
+      "Base cost": 9.5,
       "Fee": 5,
       "Lineitem quantity": 1,
       "Lineitem name": "Phone case iPhone Samsung tlm290706 - iPhone X",
-      "printStatus": false,
-      "id": "aafbce00-d079-11e9-b34c-01f6a5cdeaf2"
+      "id": "MJ98749.5phone-case-i-phone-samsung-tlm-290706-i-phone-x"
     },
     {
-      "id": "xXCDN-w"
+      "id": "listPartner",
+      "adung": "adung",
+      "atuan": "atuan",
+      "atung": "atung"
     },
     {
-      "id": "46-YyNL"
-    },
-    {
-      "id": "mg5gu5g"
-    },
-    {
-      "id": "3bl0gzY"
-    },
-    {
-      "day": 43707,
-      "partner": "atung",
-      "Name": "MJ9846",
-      "Shipping Name": "Angela Parisi",
-      "Shipping Address1": "14233 102nd Avenue",
-      "Shipping Address2": null,
-      "Shipping City": "Largo",
-      "Shipping Zip": 33774,
-      "Shipping Province": "FL",
-      "Shipping Country": "US",
-      "Shipping Phone": "(407) 398-4540",
-      "Base cost": 4,
-      "Fee": 5,
-      "Lineitem quantity": 1,
-      "Lineitem name": "Phone case iPhone Samsung add200812 - Galaxy S10",
-      "printStatus": false,
-      "id": "aafb"
-    },
-    {
-      "day": 43707,
-      "partner": "atung",
-      "Name": "MJ9846",
-      "Shipping Name": "Angela Parisi",
-      "Shipping Address1": "14233 102nd Avenue",
-      "Shipping Address2": null,
-      "Shipping City": "Largo",
-      "Shipping Zip": 33774,
-      "Shipping Province": "FL",
-      "Shipping Country": "US",
-      "Shipping Phone": "(407) 398-4540",
-      "Base cost": 4,
-      "Fee": 5,
-      "Lineitem quantity": 1,
-      "Lineitem name": "Phone case iPhone Samsung add200812 - Galaxy S10",
-      "printStatus": false,
-      "id": "aafbv.546hg-ghmnhmghm"
+      "id": "listDay",
+      "43707": 43707,
+      "43712": 43712,
+      "43713": 43713
     }
   ]
 }

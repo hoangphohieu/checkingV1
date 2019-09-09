@@ -47,6 +47,9 @@ class CheckingProperties extends Component {
             // item.day=(new Date(item.day)).toLocaleDateString();
             item = _.toPairs(item); // props.proppertiesitem là object => array
             let printStatus = item.filter(param => { return param[0] === "printStatus" });
+            if(printStatus.length===0){printStatus=[["printStatus",false]]}
+            // console.log(printStatus);
+            
             let idStatus = item.filter(param => { return param[0] === "id" });
 
             // console.log(Math.random());
@@ -62,7 +65,7 @@ class CheckingProperties extends Component {
                                     {
                                           item.map((param, id) => {
                                                 if (param[0] !== "id" && param[0] !== "printStatus")
-                                                      return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{param[1]}</span></p>
+                                                      return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{(param[1]===10.1?"LUMINOUS / 10.1":((param[1]===9.5)?"GLASS / 9.5":[param[1]]))}</span></p>
                                           })
                                     }
                               </div>
