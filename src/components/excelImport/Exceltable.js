@@ -4,6 +4,7 @@ import _ from 'lodash';
 class Exceltable extends Component {
     render() {
         let titleDatalog=null;
+        // let datalog = null;
         let datalog = JSON.parse(this.props.dataExcelTable);
         // console.log(datalog);
         

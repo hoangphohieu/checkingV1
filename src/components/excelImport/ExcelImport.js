@@ -159,7 +159,6 @@ class InputExcel extends Component {
     }
 
     render() {
-        // console.log(this.state.dataExcel);
 
         let payload = this.props.itemExcelReload;
         if (payload.dataFetched === true) {
