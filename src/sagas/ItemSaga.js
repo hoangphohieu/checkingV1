@@ -39,7 +39,7 @@ function* postItemExcel(param) {     // lấy total page
         yield put({
             type: type.POST_ITEM_EXCEL_RFAILURE, // trigger itemsReducer
             payload: {
-                errorMessage: error.Message
+                errorMessage: error
             }
         })
     }

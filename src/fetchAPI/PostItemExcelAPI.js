@@ -18,6 +18,8 @@ export default function postItemExcel(param) {
                   resolve(res);
               })
               .catch(err => {
+                //   console.log(err);
+                  
                   reject(err)
               })
       })

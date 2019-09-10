@@ -56,21 +56,51 @@ class InputExcel extends Component {
         listPartner.shift();
         listPartner = listPartner.map(param => { return [param, param] });
         listPartner = _.fromPairs(listPartner);
+        listPartner={...listPartner,id:"listPartner"};
 
 
         let listDay = _.uniq(objectConvert.map(param => param.day));  // lọc số partner vaf lọc trùng;
         listDay.shift();
         listDay = listDay.map(param => { return [param, param] });
         listDay = _.fromPairs(listDay);
+        listDay={...listDay,id:"listDay"};
+
+        let listPartnerAndDay = objectConvert.map(param => { return [param.day, param.partner] });
+        listPartnerAndDay = _.uniqWith(listPartnerAndDay, _.isEqual);
+        // console.log(listPartnerAndDay);
+
+        // listPartnerAndDay2 la danh sach partner voi ngay
+        let arrListPartner = _.toPairs(listPartner);
+        arrListPartner=arrListPartner.filter(param=>{return param[1]!=="listPartner"})
+        // console.log(arrListPartner);
+        
+        let listPartnerAndDay2 = [];
+        for (let i = 0; i <= arrListPartner.length - 1; i++) {
+            // console.log(arrListPartner[i]);
+            listPartnerAndDay2.push();
+            let item = {
+                id: arrListPartner[i][1],
+
+            }
+            let item2 = listPartnerAndDay.filter(param => { return param[1] === arrListPartner[i][1] }).map(param2 => { return [param2[0],param2[0]] });
+            item2=_.fromPairs(item2);
+            item={...item,...item2};
+            listPartnerAndDay2.push(item)
+
+
+        }
+        // console.log(listPartnerAndDay2);
+
 
 
         // dua du lieu arr[] vao local storage
         let dataExcel = {
             listItem: objectConvert,
-            listPartner: listPartner,
-            listDay: listDay,
+            listPartnerAndDay:[...listPartnerAndDay2,listPartner,listDay]
 
         }
+        // console.log(dataExcel);
+        
         localStorage.setItem("ItemsExcel", JSON.stringify(dataExcel));
         this.setState({
             dataExcel: JSON.parse(localStorage.getItem("ItemsExcel"))
@@ -112,8 +142,6 @@ class InputExcel extends Component {
         }
     }
     postToServer = (param, number) => {
-        let listPartner = param.listPartner;
-        let listDay = param.listDay;
         let listItem = param.listItem;
         // console.log(param);
         if (param !== []) {
@@ -138,10 +166,8 @@ class InputExcel extends Component {
             // console.log("sd,nbdvkjdsnvdksjn");
 
             let param = JSON.parse(localStorage.getItem("ItemsExcel"));
-            let listPartner = param.listPartner;
-            let listDay = param.listDay;
             let listItem = param.listItem;
-            
+
             if (listItem.length > 1) {
                 listItem.pop();
                 localStorage.setItem("ItemsExcel", JSON.stringify({ ...param, listItem: listItem }));
@@ -150,10 +176,10 @@ class InputExcel extends Component {
             }
 
         }
-        console.log(this.state.dataExcel.listDay);
 
         let listItem = JSON.stringify(this.state.dataExcel.listItem);
-
+        console.log(this.state.dataExcel);
+        
         // console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
 
         return (
