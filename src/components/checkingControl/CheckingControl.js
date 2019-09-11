@@ -10,7 +10,7 @@ class CheckingControl extends Component {
             let itemChecking = this.props.dataChecking.listItem;
             console.log(itemChecking);
 
-            // itemChecking = itemChecking.map(param => { let day = (new Date((param.day - 25569) * 24 * 60 * 60 * 1000)).toLocaleDateString(); return { ...param, day: day } })
+            itemChecking = itemChecking.map(param => { let day = (new Date((param.day - 25569) * 24 * 60 * 60 * 1000)).toLocaleDateString(); return { ...param, day: day } });
             let newItems=itemChecking;
 
             if (itemChecking !== []) {
