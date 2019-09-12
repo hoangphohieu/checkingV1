@@ -56,14 +56,14 @@ class InputExcel extends Component {
         listPartner.shift();
         listPartner = listPartner.map(param => { return [param, param] });
         listPartner = _.fromPairs(listPartner);
-        listPartner={...listPartner,id:"listPartner"};
+        listPartner = { ...listPartner, id: "listPartner" };
 
 
         let listDay = _.uniq(objectConvert.map(param => param.day));  // lọc số partner vaf lọc trùng;
         listDay.shift();
         listDay = listDay.map(param => { return [param, param] });
         listDay = _.fromPairs(listDay);
-        listDay={...listDay,id:"listDay"};
+        listDay = { ...listDay, id: "listDay" };
 
         let listPartnerAndDay = objectConvert.map(param => { return [param.day, param.partner] });
         listPartnerAndDay = _.uniqWith(listPartnerAndDay, _.isEqual);
@@ -71,9 +71,9 @@ class InputExcel extends Component {
 
         // listPartnerAndDay2 la danh sach partner voi ngay
         let arrListPartner = _.toPairs(listPartner);
-        arrListPartner=arrListPartner.filter(param=>{return param[1]!=="listPartner"})
+        arrListPartner = arrListPartner.filter(param => { return param[1] !== "listPartner" })
         // console.log(arrListPartner);
-        
+
         let listPartnerAndDay2 = [];
         for (let i = 0; i <= arrListPartner.length - 1; i++) {
             // console.log(arrListPartner[i]);
@@ -82,9 +82,9 @@ class InputExcel extends Component {
                 id: arrListPartner[i][1],
 
             }
-            let item2 = listPartnerAndDay.filter(param => { return param[1] === arrListPartner[i][1] }).map(param2 => { return [param2[0],param2[0]] });
-            item2=_.fromPairs(item2);
-            item={...item,...item2};
+            let item2 = listPartnerAndDay.filter(param => { return param[1] === arrListPartner[i][1] }).map(param2 => { return [param2[0], param2[0]] });
+            item2 = _.fromPairs(item2);
+            item = { ...item, ...item2 };
             listPartnerAndDay2.push(item)
 
 
@@ -96,11 +96,11 @@ class InputExcel extends Component {
         // dua du lieu arr[] vao local storage
         let dataExcel = {
             listItem: objectConvert,
-            listPartnerAndDay:[...listPartnerAndDay2,listPartner,listDay]
+            listPartnerAndDay: [...listPartnerAndDay2, listPartner, listDay]
 
         }
         // console.log(dataExcel);
-        
+
         localStorage.setItem("ItemsExcel", JSON.stringify(dataExcel));
         this.setState({
             dataExcel: JSON.parse(localStorage.getItem("ItemsExcel"))
@@ -144,12 +144,10 @@ class InputExcel extends Component {
     postToServer = (param, number) => {
         let listItem = param.listItem;
         // console.log(param);
-        if (param !== []) {
-
+        if (listItem.length > 1) {
             listItem.shift();
-            setTimeout(() => {
-                this.props.postItem(listItem[listItem.length - 1]);
-            }, number);
+            this.props.postItem(listItem[listItem.length - 1]);
+
         }
         // console.log(listItem);
 
@@ -168,17 +166,40 @@ class InputExcel extends Component {
             let listItem = param.listItem;
 
             if (listItem.length > 1) {
+                console.log(listItem)
                 listItem.pop();
                 localStorage.setItem("ItemsExcel", JSON.stringify({ ...param, listItem: listItem }));
-                this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")), numberTimeOut: this.state.numberTimeOut + 100 })
-                this.postToServer(this.state.dataExcel, this.state.numberTimeOut);
+                // this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")), numberTimeOut: this.state.numberTimeOut + 100 })
+
+                this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
+            }
+        }
+        else if (payload.dataFetched === false) {
+            // console.log("sd,nbdvkjdsnvdksjn");
+            if (JSON.parse(localStorage.getItem("ItemsExcelFail")) === null) {  // tao ItemsExcelFail trong local storage neu chua co
+                localStorage.setItem("ItemsExcelFail", JSON.stringify([]));
             }
 
+            let param = JSON.parse(localStorage.getItem("ItemsExcel"));
+            let itemFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
+
+            itemFail = [...itemFail, [...param.listItem].pop()];
+            itemFail = _.uniqWith(itemFail, _.isEqual);
+            localStorage.setItem("ItemsExcelFail", JSON.stringify(itemFail));
+            console.log(JSON.parse(localStorage.getItem("ItemsExcelFail")));
+
+
+            // if (listItem.length > 1) {
+            //     console.log(listItem)
+            //     listItem.pop();
+            //     localStorage.setItem("ItemsExcel", JSON.stringify({ ...param, listItem: listItem }));
+            //     this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
+            // }
         }
 
         let listItem = JSON.stringify(this.state.dataExcel.listItem);
-        console.log(this.state.dataExcel);
-        
+        // console.log(this.state.dataExcel);
+
         // console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
 
         return (
