@@ -94,7 +94,7 @@ function* deleteItemChecking(param) {     // lấy total page
     
     try {
         let  res1 = yield deleteItemCheckingAPI(param.payload); //gọi API
-        console.log(param.payload);
+        console.log(res1);
         
         yield put({
             type: type.GET_CHECKING_REQUEST, // trigger valueToGetAPIReducer , tính lại total Page

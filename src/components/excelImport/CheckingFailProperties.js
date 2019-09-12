@@ -12,7 +12,7 @@ class CheckingProperties extends Component {
       }
 
       changePrintStatus = (param) => {
-            this.props.changePrintStatus(param)
+            // this.props.changePrintStatus(param)
       }
       saveChange = (param, id) => {
             this.setState({ change: false });
@@ -25,12 +25,12 @@ class CheckingProperties extends Component {
                   }
             }
             arrObj = { value: arrObj, id: id }
-            this.props.patchItemCheckingProperties(arrObj);
+            // this.props.patchItemCheckingProperties(arrObj);
 
       }
       deleteItemChecking = (param) => {
             this.handleDeleteClose();
-            this.props.deleteItemChecking({ id: param })
+            // this.props.deleteItemChecking({ id: param })
       }
 
 
@@ -56,7 +56,6 @@ class CheckingProperties extends Component {
                                     </button>
                                     {
                                           item.map((param, id) => {
-                                                if (param[0] !== "id" && param[0] !== "printStatus")
                                                       return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
                                           })
                                     }

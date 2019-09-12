@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import _ from 'lodash';
 import Exceltable from './Exceltable';
+import CheckingFailProperties from './CheckingFailProperties';
 class InputExcel extends Component {
     constructor(props) {
         super(props);
@@ -21,19 +22,27 @@ class InputExcel extends Component {
         if (JSON.parse(localStorage.getItem("ItemsExcel")) !== null) {
             this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")) })
         }
-
     }
 
-    ProcessExcel = (data) => {
-        const uuidv1 = require('uuid/v1'); // tao uuid
+    componentDidUpdate = () => {
+        let payload = this.props.itemExcelReload;
+
+        if ((payload.dataFetched === true || payload.error === true) && (JSON.parse(localStorage.getItem("ItemsExcel")).listItem.length === 1)) {
+            if (this.state.dataExcel.listItem !== null) {
+                this.setState({ dataExcel: { ...this.state.dataExcel, listItem: null } });
+            }
+        }
+    }
+
+    ProcessExcel = (param) => {
+        // const uuidv1 = require('uuid/v1'); // tao uuid
         //Read the Excel File data.
-        var workbook = XLSX.read(data, {
+        var workbook = XLSX.read(param, {
             type: 'binary'
         });
         /* convert from workbook to array of arrays */
         var first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
         var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 }); // data= arr[]
-        // console.log(data);
 
         let objectConvert;
         if (data !== []) {
@@ -58,7 +67,6 @@ class InputExcel extends Component {
         listPartner = _.fromPairs(listPartner);
         listPartner = { ...listPartner, id: "listPartner" };
 
-
         let listDay = _.uniq(objectConvert.map(param => param.day));  // lọc số partner vaf lọc trùng;
         listDay.shift();
         listDay = listDay.map(param => { return [param, param] });
@@ -67,12 +75,10 @@ class InputExcel extends Component {
 
         let listPartnerAndDay = objectConvert.map(param => { return [param.day, param.partner] });
         listPartnerAndDay = _.uniqWith(listPartnerAndDay, _.isEqual);
-        // console.log(listPartnerAndDay);
 
         // listPartnerAndDay2 la danh sach partner voi ngay
         let arrListPartner = _.toPairs(listPartner);
         arrListPartner = arrListPartner.filter(param => { return param[1] !== "listPartner" })
-        // console.log(arrListPartner);
 
         let listPartnerAndDay2 = [];
         for (let i = 0; i <= arrListPartner.length - 1; i++) {
@@ -80,16 +86,12 @@ class InputExcel extends Component {
             listPartnerAndDay2.push();
             let item = {
                 id: arrListPartner[i][1],
-
             }
             let item2 = listPartnerAndDay.filter(param => { return param[1] === arrListPartner[i][1] }).map(param2 => { return [param2[0], param2[0]] });
             item2 = _.fromPairs(item2);
             item = { ...item, ...item2 };
             listPartnerAndDay2.push(item)
-
-
         }
-        // console.log(listPartnerAndDay2);
 
 
 
@@ -99,7 +101,6 @@ class InputExcel extends Component {
             listPartnerAndDay: [...listPartnerAndDay2, listPartner, listDay]
 
         }
-        // console.log(dataExcel);
 
         localStorage.setItem("ItemsExcel", JSON.stringify(dataExcel));
         this.setState({
@@ -141,72 +142,64 @@ class InputExcel extends Component {
             alert("Please upload a valid Excel file.");
         }
     }
-    postToServer = (param, number) => {
+    postToServer = (param) => {
         let listItem = param.listItem;
-        // console.log(param);
         if (listItem.length > 1) {
             listItem.shift();
             this.props.postItem(listItem[listItem.length - 1]);
 
         }
-        // console.log(listItem);
 
 
 
 
     }
+    doingWhenDataFetchedTrue = () => {
+        let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
+        let listItem = ItemsExcel.listItem;
+        console.log(listItem)
+        if (listItem.length > 1) {
+            listItem.pop();
+            localStorage.setItem("ItemsExcel", JSON.stringify({ ...ItemsExcel, listItem: listItem }));
+            this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
+        }
+    }
+    doingWhenErrorTrue = () => {
+        let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
+        let itemFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
 
+        let listItem = ItemsExcel.listItem;
+        if (listItem.length > 1) {
+            itemFail = _.uniqWith([...itemFail, [...listItem].pop()], _.isEqual);  // loc va tao ra itemFail
+            localStorage.setItem("ItemsExcelFail", JSON.stringify(itemFail)); // luu itemFail vao storage
+
+            listItem.pop();
+            localStorage.setItem("ItemsExcel", JSON.stringify({ ...ItemsExcel, listItem: listItem }));
+            this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
+        }
+    }
     render() {
 
-        let payload = this.props.itemExcelReload;
-        if (payload.dataFetched === true) {
-            // console.log("sd,nbdvkjdsnvdksjn");
-
-            let param = JSON.parse(localStorage.getItem("ItemsExcel"));
-            let listItem = param.listItem;
-
-            if (listItem.length > 1) {
-                console.log(listItem)
-                listItem.pop();
-                localStorage.setItem("ItemsExcel", JSON.stringify({ ...param, listItem: listItem }));
-                // this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")), numberTimeOut: this.state.numberTimeOut + 100 })
-
-                this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
-            }
+        if (JSON.parse(localStorage.getItem("ItemsExcelFail")) === null) {  // tao ItemsExcelFail trong local storage neu chua co
+            localStorage.setItem("ItemsExcelFail", JSON.stringify([]));
         }
-        else if (payload.dataFetched === false) {
-            // console.log("sd,nbdvkjdsnvdksjn");
-            if (JSON.parse(localStorage.getItem("ItemsExcelFail")) === null) {  // tao ItemsExcelFail trong local storage neu chua co
-                localStorage.setItem("ItemsExcelFail", JSON.stringify([]));
-            }
 
-            let param = JSON.parse(localStorage.getItem("ItemsExcel"));
-            let itemFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
-
-            itemFail = [...itemFail, [...param.listItem].pop()];
-            itemFail = _.uniqWith(itemFail, _.isEqual);
-            localStorage.setItem("ItemsExcelFail", JSON.stringify(itemFail));
-            console.log(JSON.parse(localStorage.getItem("ItemsExcelFail")));
-
-
-            // if (listItem.length > 1) {
-            //     console.log(listItem)
-            //     listItem.pop();
-            //     localStorage.setItem("ItemsExcel", JSON.stringify({ ...param, listItem: listItem }));
-            //     this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
-            // }
-        }
+        if (this.props.itemExcelReload.dataFetched === true) { this.doingWhenDataFetchedTrue() }
+        else if (this.props.itemExcelReload.error === true) { this.doingWhenErrorTrue() }
 
         let listItem = JSON.stringify(this.state.dataExcel.listItem);
-        // console.log(this.state.dataExcel);
+        let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
 
-        // console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
+        if (ItemsExcelFail.length !== 0) {
+            ItemsExcelFail = ItemsExcelFail.map((param, id) => { return <CheckingFailProperties {...this.props} proppertiesitem={param} key={id} /> })
+        }
 
         return (
             <div className="App mt-4">
                 <input type="file" id="fileinput" className="" onChange={this.readSingleFile} />
                 <button type="button" className="btn btn-success" onClick={() => this.postToServer(this.state.dataExcel)}>Post to Server</button>
                 <Exceltable dataExcelTable={listItem} />
+                {ItemsExcelFail}
             </div>
         );
     }

@@ -5,8 +5,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 import CheckingControlContainer from './containers/CheckingControlContainer';
 import ExcelImportContainer from './containers/ExcelImportContainer';
 import PartnerControlContainer from "./containers/PartnerControlContainer";
-import ExcelExport from './components/checkingControl/ExcelExport';
-import JsBarcode from './components/JsBarcode';
+
 function App() {
   return (
     <div className="App">

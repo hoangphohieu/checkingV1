@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { json2excel, excel2json } from 'js2excel';
+import { json2excel } from 'js2excel';
 
 
 class UtilitiesChecking extends Component {
