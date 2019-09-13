@@ -149,9 +149,14 @@ class InputExcel extends Component {
             this.props.postItem(listItem[listItem.length - 1]);
 
         }
-
-
-
+    }
+    postItemsExcelFail = (param, id) => {
+        this.props.postItem(param);
+        this.deleteItemsExcelFail(id);
+        let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
+        console.log(ItemsExcel);
+        ItemsExcel.listItem.push(param);
+        localStorage.setItem("ItemsExcel", JSON.stringify(ItemsExcel));
 
     }
     doingWhenDataFetchedTrue = () => {
@@ -164,6 +169,7 @@ class InputExcel extends Component {
             this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
         }
     }
+
     doingWhenErrorTrue = () => {
         let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
         let itemFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
@@ -178,6 +184,23 @@ class InputExcel extends Component {
             this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
         }
     }
+    changeItemsExcelFail = (param, id) => {
+        let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
+        ItemsExcelFail[id] = param;
+        localStorage.setItem("ItemsExcelFail", JSON.stringify(ItemsExcelFail)); // luu itemFail vao storage
+        this.setState({ numberTimeOut: Math.random() })
+    }
+    deleteItemsExcelFail = (id) => {
+        let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
+        ItemsExcelFail[id] = null;
+        ItemsExcelFail = ItemsExcelFail.filter(param => { return param !== null });
+        console.log(ItemsExcelFail);
+
+        localStorage.setItem("ItemsExcelFail", JSON.stringify(ItemsExcelFail)); // luu itemFail vao storage
+        this.setState({ numberTimeOut: Math.random() })
+    }
+
+
     render() {
 
         if (JSON.parse(localStorage.getItem("ItemsExcelFail")) === null) {  // tao ItemsExcelFail trong local storage neu chua co
@@ -191,7 +214,7 @@ class InputExcel extends Component {
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
 
         if (ItemsExcelFail.length !== 0) {
-            ItemsExcelFail = ItemsExcelFail.map((param, id) => { return <CheckingFailProperties {...this.props} proppertiesitem={param} key={id} /> })
+            ItemsExcelFail = ItemsExcelFail.map((param, id) => { return <CheckingFailProperties {...this.props} proppertiesitem={param} key={id} sttItemsExcelFail={id} changeItemsExcelFail={this.changeItemsExcelFail} deleteItemsExcelFail={this.deleteItemsExcelFail} postItemsExcelFail={this.postItemsExcelFail} /> })
         }
 
         return (

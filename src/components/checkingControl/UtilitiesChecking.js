@@ -32,7 +32,7 @@ class UtilitiesChecking extends Component {
 
     render() {
         let itemsPrintFalse = this.props.newItems;
-        console.log( this.itemsPrintFalse);
+        // console.log( this.itemsPrintFalse);
         
         if (this.state.downClick === true && itemsPrintFalse.length !== 0) {
             let data = itemsPrintFalse;
@@ -47,7 +47,7 @@ class UtilitiesChecking extends Component {
                     formateDate: 'yyyy/mm/dd'
                 });
             } catch (e) {
-                console.error('export error');
+                // console.error('export error');
             }
             this.setState({ downClick: false })
         }

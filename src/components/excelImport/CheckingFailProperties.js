@@ -11,26 +11,30 @@ class CheckingProperties extends Component {
             }
       }
 
-      changePrintStatus = (param) => {
-            // this.props.changePrintStatus(param)
+      postItemsExcelFail = (param,id) => {
+            this.props.postItemsExcelFail(param,id);
+
+
       }
       saveChange = (param, id) => {
             this.setState({ change: false });
-            console.log(param);
-
             let arrObj = {};
             for (let i = 0; i <= param.length - 1; i++) {
                   if (this.refs[param[i][0]] !== undefined && this.refs[param[i][0]].value !== "") {
                         arrObj[param[i][0]] = this.refs[param[i][0]].value;
                   }
             }
-            arrObj = { value: arrObj, id: id }
-            // this.props.patchItemCheckingProperties(arrObj);
-
+            this.props.changeItemsExcelFail(id)
       }
-      deleteItemChecking = (param) => {
-            this.handleDeleteClose();
-            // this.props.deleteItemChecking({ id: param })
+
+      deleteItemChecking = (param, id) => {
+            this.setState({ delete: false });
+            let arrObj = {};
+            for (let i = 0; i <= param.length - 1; i++) {
+                  if (this.refs[param[i][0]] !== undefined && this.refs[param[i][0]].value !== "") {
+                        arrObj[param[i][0]] = this.refs[param[i][0]].value;
+                  }
+            }
       }
 
 
@@ -40,23 +44,21 @@ class CheckingProperties extends Component {
       handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
             let item = this.props.proppertiesitem;
-
+            const uuidv1 = require('uuid/v1'); // tao uuid
+            let itemObj = { ...this.props.proppertiesitem, id: uuidv1() };
             item = _.toPairs(item); // props.proppertiesitem là object => array
-            let printStatus = item.filter(param => { return param[0] === "printStatus" });
-            if (printStatus.length === 0) { printStatus = [["printStatus", false]] }
-
-            let idStatus = item.filter(param => { return param[0] === "id" });
 
             return (
+
                   <React.Fragment>
                         <div className="row border-item-checking">
                               <div className="col-12">
-                                    <button onClick={() => this.changePrintStatus({ printStatus: !printStatus[0][1], idStatus: idStatus[0][1] })} type="button" className={"btn btn-" + ((printStatus[0][1] === true) ? "primary" : "danger") + " checking-right-state"}>
-                                          {(printStatus[0][1] === true) ? "Done !" : "Print ..."}
+                                    <button onClick={() => this.postItemsExcelFail(itemObj,this.props.sttItemsExcelFail)} type="button" className="btn btn-danger checking-right-state">
+                                          Post to server !
                                     </button>
                                     {
                                           item.map((param, id) => {
-                                                      return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
+                                                return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
                                           })
                                     }
                               </div>
@@ -92,7 +94,7 @@ class CheckingProperties extends Component {
                                           <Button variant="secondary" onClick={this.handleClose}>
                                                 Close
                                     </Button>
-                                          <Button variant="primary" onClick={() => this.saveChange(item, idStatus[0][1])}>
+                                          <Button variant="primary" onClick={() => this.saveChange(item, this.props.sttItemsExcelFail)}>
                                                 Save Changes
                                      </Button>
                                     </Modal.Footer>
@@ -110,7 +112,7 @@ class CheckingProperties extends Component {
                                     </Modal.Header>
 
                                     <Modal.Footer>
-                                          <Button variant="primary" onClick={() => this.deleteItemChecking(idStatus[0][1])}>
+                                          <Button variant="primary" onClick={() => this.deleteItemChecking(item, this.props.sttItemsExcelFail)}>
                                                 OK
                                           </Button>
                                           <Button variant="secondary" onClick={this.handleDeleteClose}>
