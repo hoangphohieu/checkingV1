@@ -9,11 +9,6 @@ let DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         // get page items
-        case type.GET_CHECKING_REQUEST:
-            return {
-                ...state,
-                isFetching: true,
-            }
         case type.GET_CHECKING_SUCSESS:
 
             return {

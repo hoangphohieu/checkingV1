@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
-
 class CheckingProperties extends Component {
       constructor(props, context) {
             super(props, context);
             this.state = {
                   change: false,
-                  delete: false
+                  delete: false,
             }
       }
 
-      postItemsExcelFail = (param,id) => {
+      postItemsExcelFail = (param,id) => { 
             this.props.postItemsExcelFail(param,id);
 
 
@@ -43,9 +42,14 @@ class CheckingProperties extends Component {
       handleDeleteClose = () => { this.setState({ delete: false }) };
       handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
-            let item = this.props.proppertiesitem;
-            const uuidv1 = require('uuid/v1'); // tao uuid
-            let itemObj = { ...this.props.proppertiesitem, id: uuidv1() };
+            const uuidv1 = require('uuid/v1');
+            let id=uuidv1();
+            let item = {...this.props.proppertiesitem};
+            item.day=(new Date(item.day)).toLocaleDateString();
+            item.id=id;
+            let itemObj = { ...this.props.proppertiesitem, id: id };
+            // console.log(itemObj);
+            
             item = _.toPairs(item); // props.proppertiesitem là object => array
 
             return (

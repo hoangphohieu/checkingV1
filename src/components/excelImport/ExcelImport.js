@@ -8,14 +8,8 @@ class InputExcel extends Component {
         super(props);
         this.state = {
             items: null,
-            dataExcel: {
-                listItem: null,
-                objectDay: null,
-                objectPartner: null,
-
-            },
-            numberTimeOut: 0,
-
+            dataExcel: null,
+            changeItemsExcelFail: 0
         }
     }
     componentDidMount() {
@@ -25,17 +19,69 @@ class InputExcel extends Component {
     }
 
     componentDidUpdate = () => {
-        let payload = this.props.itemExcelReload;
+        this.CDU_reRenderWhenItemsExcelZero(); // rerender khi post het list items from excel
+        this.CDU_ItemsCountProperties();
+    }
+    CDU_ItemsCountProperties = () => {
+        let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
+        let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
+        let ItemsExcelSuccess = JSON.parse(localStorage.getItem("ItemsExcelSuccess"));
+        if ((ItemsExcel.length === 0 && ItemsExcelFail.length === 0) && ItemsExcelSuccess.length > 0) {
+            console.log(ItemsExcelSuccess);
 
-        if ((payload.dataFetched === true || payload.error === true) && (JSON.parse(localStorage.getItem("ItemsExcel")).listItem.length === 1)) {
-            if (this.state.dataExcel.listItem !== null) {
-                this.setState({ dataExcel: { ...this.state.dataExcel, listItem: null } });
+
+            // danh sach so partner
+            let listPartner = _.uniq(ItemsExcelSuccess.map(param => param.partner));  // lọc số partner vaf lọc trùng;
+            listPartner = listPartner.map(param => { return [param, param] });
+            listPartner = _.fromPairs(listPartner);
+            listPartner = { ...listPartner, id: "listPartner" };
+
+            // danh sach so ngay
+            let listDay = _.uniq(ItemsExcelSuccess.map(param => param.day));  // lọc số partner vaf lọc trùng;
+            listDay = listDay.map(param => { return [param, param] });
+            listDay = _.fromPairs(listDay);
+            listDay = { ...listDay, id: "listDay" };
+
+            // danh sach  partner voi so ngay tuong ung
+            let listPartnerAndDay = ItemsExcelSuccess.map(param => { return [param.day, param.partner] });
+            listPartnerAndDay = _.uniqWith(listPartnerAndDay, _.isEqual);
+            let arrListPartner = _.toPairs(listPartner).filter(param => { return param[1] !== "listPartner" });
+            let listPartnerAndDay2 = [];
+            for (let i = 0; i <= arrListPartner.length - 1; i++) {
+                let item = { id: "listday" + arrListPartner[i][1] }
+                let item2 = listPartnerAndDay.filter(param => { return param[1] === arrListPartner[i][1] }).map(param2 => { return [param2[0], param2[0]] });
+                item2 = _.fromPairs(item2);
+                item = { ...item, ...item2 };
+                listPartnerAndDay2.push(item);
             }
+            listPartnerAndDay = listPartnerAndDay2;
+
+
+            console.log(arrListPartner);
+            for (let i = 0; i <= arrListPartner.length - 1; i++) {
+                const  uuidv1 = require('uuid/v1');
+
+                let item = { id: uuidv1(),namePartner:arrListPartner[i][1]  }
+                
+                let item2 = ItemsExcelSuccess.filter(param => {return param.partner===arrListPartner[i][1]});
+                console.log(item2);
+                
+                // item2 = _.fromPairs(item2);
+                // item = { ...item, ...item2 };
+                // listPartnerAndDay2.push(item);
+            }
+
+
         }
     }
-
+    CDU_reRenderWhenItemsExcelZero() {
+        let payload = this.props.itemExcelReload;
+        if ((payload.dataFetched === true || payload.error === true) && (JSON.parse(localStorage.getItem("ItemsExcel")).length === 0)) {
+            if (this.state.dataExcel !== null) { this.setState({ dataExcel: null }); };
+        }
+    }
+    // read data from excel 
     ProcessExcel = (param) => {
-        // const uuidv1 = require('uuid/v1'); // tao uuid
         //Read the Excel File data.
         var workbook = XLSX.read(param, {
             type: 'binary'
@@ -43,6 +89,8 @@ class InputExcel extends Component {
         /* convert from workbook to array of arrays */
         var first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
         var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 }); // data= arr[]
+        data[0] = data[0].map(param => { param = param.trim().toLowerCase().split(" ").join(""); return param })
+        // console.log(data);
 
         let objectConvert;
         if (data !== []) {
@@ -56,58 +104,27 @@ class InputExcel extends Component {
                 }
             })
         }
+        objectConvert.shift();
+        objectConvert = objectConvert.map(param => {
+            param.day = ((param.day - 25569) * 24 * 60 * 60 * 1000);
+            if ((param.shippingcountry.trim().toLowerCase() !== "us") && (param.shippingcountry.trim().toLowerCase() !== "united states")) {
+                param.shippingcountry = "WW"
+            }
+            return param;
+        });
+
+
+        console.log(objectConvert);
 
         objectConvert = objectConvert.map(param => {
-            let id = param["Name"].toUpperCase() + param["Base cost"] + _.kebabCase(param["Lineitem name"]);
+            let id = param["name"].toUpperCase() + param["basecost"] + _.kebabCase(param["lineitemname"]);
             return { ...param, id: id }
         });
-        let listPartner = _.uniq(objectConvert.map(param => param.partner));  // lọc số partner vaf lọc trùng;
-        listPartner.shift();
-        listPartner = listPartner.map(param => { return [param, param] });
-        listPartner = _.fromPairs(listPartner);
-        listPartner = { ...listPartner, id: "listPartner" };
-
-        let listDay = _.uniq(objectConvert.map(param => param.day));  // lọc số partner vaf lọc trùng;
-        listDay.shift();
-        listDay = listDay.map(param => { return [param, param] });
-        listDay = _.fromPairs(listDay);
-        listDay = { ...listDay, id: "listDay" };
-
-        let listPartnerAndDay = objectConvert.map(param => { return [param.day, param.partner] });
-        listPartnerAndDay = _.uniqWith(listPartnerAndDay, _.isEqual);
-
-        // listPartnerAndDay2 la danh sach partner voi ngay
-        let arrListPartner = _.toPairs(listPartner);
-        arrListPartner = arrListPartner.filter(param => { return param[1] !== "listPartner" })
-
-        let listPartnerAndDay2 = [];
-        for (let i = 0; i <= arrListPartner.length - 1; i++) {
-            // console.log(arrListPartner[i]);
-            listPartnerAndDay2.push();
-            let item = {
-                id: arrListPartner[i][1],
-            }
-            let item2 = listPartnerAndDay.filter(param => { return param[1] === arrListPartner[i][1] }).map(param2 => { return [param2[0], param2[0]] });
-            item2 = _.fromPairs(item2);
-            item = { ...item, ...item2 };
-            listPartnerAndDay2.push(item)
-        }
-
-
-
         // dua du lieu arr[] vao local storage
-        let dataExcel = {
-            listItem: objectConvert,
-            listPartnerAndDay: [...listPartnerAndDay2, listPartner, listDay]
-
-        }
-
+        let dataExcel = objectConvert;
         localStorage.setItem("ItemsExcel", JSON.stringify(dataExcel));
-        this.setState({
-            dataExcel: JSON.parse(localStorage.getItem("ItemsExcel"))
-        })
+        this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")) });
 
-        /*end  convert from workbook to array of arrays */
     };
     readSingleFile = (e) => {
         let _this = this;
@@ -142,86 +159,92 @@ class InputExcel extends Component {
             alert("Please upload a valid Excel file.");
         }
     }
-    postToServer = (param) => {
-        let listItem = param.listItem;
-        if (listItem.length > 1) {
-            listItem.shift();
-            this.props.postItem(listItem[listItem.length - 1]);
+    // end read data from excel 
+
+    postToServer = (ItemsExcel) => {
+        if (ItemsExcel.length > 0) {
+            this.props.postItem(ItemsExcel[ItemsExcel.length - 1]);
 
         }
     }
-    postItemsExcelFail = (param, id) => {
-        this.props.postItem(param);
-        this.deleteItemsExcelFail(id);
-        let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
-        console.log(ItemsExcel);
-        ItemsExcel.listItem.push(param);
-        localStorage.setItem("ItemsExcel", JSON.stringify(ItemsExcel));
 
-    }
     doingWhenDataFetchedTrue = () => {
         let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
-        let listItem = ItemsExcel.listItem;
-        console.log(listItem)
-        if (listItem.length > 1) {
-            listItem.pop();
-            localStorage.setItem("ItemsExcel", JSON.stringify({ ...ItemsExcel, listItem: listItem }));
+        if (ItemsExcel.length > 0) {
+            localStorage.setItem("ItemsExcelSuccess", JSON.stringify([...JSON.parse(localStorage.getItem("ItemsExcelSuccess")), ItemsExcel[ItemsExcel.length - 1]]));
+            ItemsExcel.pop();
+            localStorage.setItem("ItemsExcel", JSON.stringify(ItemsExcel));
             this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
         }
     }
-
     doingWhenErrorTrue = () => {
         let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
         let itemFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
 
-        let listItem = ItemsExcel.listItem;
-        if (listItem.length > 1) {
-            itemFail = _.uniqWith([...itemFail, [...listItem].pop()], _.isEqual);  // loc va tao ra itemFail
-            localStorage.setItem("ItemsExcelFail", JSON.stringify(itemFail)); // luu itemFail vao storage
+        if (ItemsExcel.length > 0) {
+            itemFail = _.uniqWith([...itemFail, [...ItemsExcel].pop()], _.isEqual);  // loc va tao ra itemFail
+            localStorage.setItem("ItemsExcelFail", JSON.stringify(itemFail)); // lf itemFail vao storage
 
-            listItem.pop();
-            localStorage.setItem("ItemsExcel", JSON.stringify({ ...ItemsExcel, listItem: listItem }));
+            ItemsExcel.pop();
+            localStorage.setItem("ItemsExcel", JSON.stringify(ItemsExcel));
             this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
         }
+    }
+    postItemsExcelFail = (param, id) => {
+        console.log(param);
+        this.deleteItemsExcelFail(id);
+        let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
+        // console.log(ItemsExcel);
+        ItemsExcel.push(param);
+        localStorage.setItem("ItemsExcel", JSON.stringify(ItemsExcel));
+        this.props.postItem(param);
+
     }
     changeItemsExcelFail = (param, id) => {
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
         ItemsExcelFail[id] = param;
         localStorage.setItem("ItemsExcelFail", JSON.stringify(ItemsExcelFail)); // luu itemFail vao storage
-        this.setState({ numberTimeOut: Math.random() })
+        this.setState({ changeItemsExcelFail: Math.random() })
     }
     deleteItemsExcelFail = (id) => {
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
         ItemsExcelFail[id] = null;
         ItemsExcelFail = ItemsExcelFail.filter(param => { return param !== null });
-        console.log(ItemsExcelFail);
-
+        // console.log(ItemsExcelFail);
         localStorage.setItem("ItemsExcelFail", JSON.stringify(ItemsExcelFail)); // luu itemFail vao storage
-        this.setState({ numberTimeOut: Math.random() })
     }
 
 
     render() {
-
-        if (JSON.parse(localStorage.getItem("ItemsExcelFail")) === null) {  // tao ItemsExcelFail trong local storage neu chua co
+        if (JSON.parse(localStorage.getItem("ItemsExcelFail")) === null) {
             localStorage.setItem("ItemsExcelFail", JSON.stringify([]));
         }
+        if (JSON.parse(localStorage.getItem("ItemsExcelSuccess")) === null) {
+            localStorage.setItem("ItemsExcelSuccess", JSON.stringify([]));
+        }
+        if (JSON.parse(localStorage.getItem("ItemsCountProperties")) === null) {
+            localStorage.setItem("ItemsCountProperties", JSON.stringify([]));
+        }
+        if (JSON.parse(localStorage.getItem("ItemsCountPropertiesPostFail")) === null) {
+            localStorage.setItem("ItemsCountPropertiesPostFail", JSON.stringify([]));
+        }
+
 
         if (this.props.itemExcelReload.dataFetched === true) { this.doingWhenDataFetchedTrue() }
         else if (this.props.itemExcelReload.error === true) { this.doingWhenErrorTrue() }
-
-        let listItem = JSON.stringify(this.state.dataExcel.listItem);
+        let ItemsExcel = JSON.stringify(this.state.dataExcel);
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
 
         if (ItemsExcelFail.length !== 0) {
             ItemsExcelFail = ItemsExcelFail.map((param, id) => { return <CheckingFailProperties {...this.props} proppertiesitem={param} key={id} sttItemsExcelFail={id} changeItemsExcelFail={this.changeItemsExcelFail} deleteItemsExcelFail={this.deleteItemsExcelFail} postItemsExcelFail={this.postItemsExcelFail} /> })
         }
+        // console.log(ItemsExcel);
 
         return (
             <div className="App mt-4">
                 <input type="file" id="fileinput" className="" onChange={this.readSingleFile} />
                 <button type="button" className="btn btn-success" onClick={() => this.postToServer(this.state.dataExcel)}>Post to Server</button>
-                <Exceltable dataExcelTable={listItem} />
+                <Exceltable dataExcelTable={ItemsExcel} />
                 {ItemsExcelFail}
             </div>
         );
