@@ -9,7 +9,7 @@ let DEFAULT_STATE = {
 }
 export default (state = DEFAULT_STATE, action) => {
       console.log(action);
-      
+
       switch (action.type) {
 
             case type.GET_LIST_BY_ID_SUCSESS:
@@ -18,13 +18,23 @@ export default (state = DEFAULT_STATE, action) => {
                         isFetching: false,
                         dataFetched: true,
                         error: false,
-                        type: action.payload[0].id,
+                        type: null,
                         errorMessesage: null,
                         listItem: action.payload
                   }
 
+            case type.GET_LIST_BY_CUSTOM_SUCSESS:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: null,
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
 
-            case type.GET_LIST_BY_ID_RFAILURE:
+            case type.GET_LIST_RFAILURE:
                   return {
                         ...state,
                         isFetching: false,
@@ -33,6 +43,7 @@ export default (state = DEFAULT_STATE, action) => {
                         errorMessesage: action.payload.errorMessesage
                   }
 
+                  
             default:
                   return state;
       }

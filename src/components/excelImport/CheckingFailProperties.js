@@ -10,8 +10,14 @@ class CheckingProperties extends Component {
             }
       }
 
-      postItemsExcelFail = (param,id) => { 
-            this.props.postItemsExcelFail(param,id);
+      postItemsExcelFail = (param, id) => {
+            console.log(param, id);
+            if (param.id === "listPartner") {
+                  this.props.patchItemsExcelCountFail(param, id);
+            }
+            else {
+                  this.props.postItemsExcelFail(param, id);
+            }
 
 
       }
@@ -23,7 +29,7 @@ class CheckingProperties extends Component {
                         arrObj[param[i][0]] = this.refs[param[i][0]].value;
                   }
             }
-            this.props.changeItemsExcelFail(id)
+            this.props.changeItemsExcelFail(id);
       }
 
       deleteItemChecking = (param, id) => {
@@ -34,6 +40,8 @@ class CheckingProperties extends Component {
                         arrObj[param[i][0]] = this.refs[param[i][0]].value;
                   }
             }
+            this.props.deleteItemsExcelFail(id);
+            
       }
 
 
@@ -43,13 +51,19 @@ class CheckingProperties extends Component {
       handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
             const uuidv1 = require('uuid/v1');
-            let id=uuidv1();
-            let item = {...this.props.proppertiesitem};
-            item.day=(new Date(item.day)).toLocaleDateString();
-            item.id=id;
-            let itemObj = { ...this.props.proppertiesitem, id: id };
-            // console.log(itemObj);
-            
+            let id = uuidv1();
+
+            let item = { ...this.props.proppertiesitem };
+            if (item.day !== undefined) {
+                  item.day = (new Date(item.day)).toLocaleDateString();
+                  item.id = id;
+            }
+
+            let itemObj = { ...this.props.proppertiesitem };
+            if (itemObj.day !== undefined) {
+                  itemObj.id = id;
+            }
+
             item = _.toPairs(item); // props.proppertiesitem là object => array
 
             return (
@@ -57,7 +71,7 @@ class CheckingProperties extends Component {
                   <React.Fragment>
                         <div className="row border-item-checking">
                               <div className="col-12">
-                                    <button onClick={() => this.postItemsExcelFail(itemObj,this.props.sttItemsExcelFail)} type="button" className="btn btn-danger checking-right-state">
+                                    <button onClick={() => this.postItemsExcelFail(itemObj, this.props.sttItemsExcelFail)} type="button" className="btn btn-danger checking-right-state">
                                           Post to server !
                                     </button>
                                     {

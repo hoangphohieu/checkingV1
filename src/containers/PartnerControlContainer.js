@@ -11,6 +11,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getListById:(param)=>dispatch(actions.getListById(param)),
+        getListByCustom:(param)=>dispatch(actions.getListByCustom(param)),
+        
     };
 }
 

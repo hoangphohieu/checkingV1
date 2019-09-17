@@ -9,7 +9,9 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        postItem:(param)=>dispatch(actions.postItemAPI(param))
+        postItem:(param)=>dispatch(actions.postItemAPI(param)),
+        patchItemsExcelFail:(param)=>dispatch(actions.patchItemsExcelFailAPI(param)),
+        stateImportExcelToDefault:(param)=>dispatch(actions.stateImportExcelToDefault(param)),
     };
 }
 

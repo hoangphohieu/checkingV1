@@ -7,6 +7,11 @@ export function getCheckingAPI(payload) {                  // gọi lên itemSag
 export function postItemAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({type: type.POST_ITEM_EXCEL_REQUEST,payload})    // payload:valueToGetAPI
 }
+
+export function patchItemsExcelFailAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({type: type.PATCH_ITEM_EXCEL_FAIL_REQUEST,payload})    // payload:valueToGetAPI
+}
+
 export function changePrintStatusAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({type: type.CHANGE_PRINT_STATUS_REQUEST,payload})    // payload:valueToGetAPI
 }
@@ -27,4 +32,9 @@ export function getListById(payload) {                  // gọi lên itemSaga v
     return ({type: type.GET_LIST_BY_ID_REQUEST,payload})    // payload:valueToGetAPI
 }
 
- 
+export function stateImportExcelToDefault(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({type: type.STATE_POST_TO_DEFAULT,payload})    // payload:valueToGetAPI
+}
+export function getListByCustom(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({type: type.GET_LIST_BY_CUSTOM_REQUEST,payload})    // payload:valueToGetAPI
+}

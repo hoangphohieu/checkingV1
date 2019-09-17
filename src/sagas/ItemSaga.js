@@ -5,12 +5,13 @@ import patchPrintStatusItemAPI from './../fetchAPI/PatchPrintStatusItemAPI';
 import patchItemCheckingPropertiesAPI from './../fetchAPI/PatchItemCheckingPropertiesAPI';
 import deleteItemCheckingAPI from './../fetchAPI/DeleteItemCheckingAPI';
 import itemsPrintFalseAPI from './../fetchAPI/ItemsPrintFalseAPI';
+import patchItemsExcelFailAPI from './../fetchAPI/PatchItemsExcelFailAPI';
 import * as type from './../constants';
 
 function* getChecking(param) {     // lấy total page
     console.log(param);
     try {
-        let  res1 = yield getTotalPageAPI(param.payload); //gọi API
+        let res1 = yield getTotalPageAPI(param.payload); //gọi API
         yield put({
             type: type.GET_CHECKING_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
             payload: res1
@@ -30,7 +31,25 @@ function* getChecking(param) {     // lấy total page
 function* postItemExcel(param) {     // lấy total page
     // console.log(param);
     try {
-        let  res1 = yield postItemExcelAPI(param.payload); //gọi API
+        let res1 = yield postItemExcelAPI(param.payload); //gọi API
+        yield put({
+            type: type.POST_ITEM_EXCEL_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+            payload: res1
+        })
+    } catch (error) {
+        yield put({
+            type: type.POST_ITEM_EXCEL_RFAILURE, // trigger itemsReducer
+            payload: {
+                errorMessage: error
+            }
+        })
+    }
+
+}
+function* patchItemsExcelFail(param) {     // lấy total page
+    // console.log(param);
+    try {  
+        let res1 = yield patchItemsExcelFailAPI(param.payload); //gọi API
         yield put({
             type: type.POST_ITEM_EXCEL_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
             payload: res1
@@ -46,11 +65,12 @@ function* postItemExcel(param) {     // lấy total page
 
 }
 
+
 function* patchPrintStatusItem(param) {     // lấy total page
     console.log(param);
-    
+
     try {
-        let  res1 = yield patchPrintStatusItemAPI(param.payload); //gọi API
+        let res1 = yield patchPrintStatusItemAPI(param.payload); //gọi API
         yield put({
             type: type.GET_CHECKING_REQUEST, // trigger valueToGetAPIReducer , tính lại total Page
             payload: res1.id
@@ -67,13 +87,13 @@ function* patchPrintStatusItem(param) {     // lấy total page
 }
 
 function* patchItemCheckingProperties(param) {     // lấy total page
-    
-    try {
-    // console.log(param);
 
-        let  res1 = yield patchItemCheckingPropertiesAPI(param.payload); //gọi API
+    try {
+        // console.log(param);
+
+        let res1 = yield patchItemCheckingPropertiesAPI(param.payload); //gọi API
         console.log(res1);
-        
+
         yield put({
             type: type.GET_CHECKING_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
             payload: [res1]
@@ -91,11 +111,11 @@ function* patchItemCheckingProperties(param) {     // lấy total page
 
 
 function* deleteItemChecking(param) {     // lấy total page
-    
+
     try {
-        let  res1 = yield deleteItemCheckingAPI(param.payload); //gọi API
+        let res1 = yield deleteItemCheckingAPI(param.payload); //gọi API
         console.log(res1);
-        
+
         yield put({
             type: type.GET_CHECKING_REQUEST, // trigger valueToGetAPIReducer , tính lại total Page
             payload: param.payload.id
@@ -116,9 +136,9 @@ function* deleteItemChecking(param) {     // lấy total page
 function* itemsPrintFalse() {     // lấy total page
 
     try {
-        let  res1 = yield itemsPrintFalseAPI(); //gọi API
+        let res1 = yield itemsPrintFalseAPI(); //gọi API
         console.log(res1);
-    
+
         yield put({
             type: type.GET_CHECKING_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
             payload: res1
@@ -136,6 +156,7 @@ function* itemsPrintFalse() {     // lấy total page
 export const IteamSaga = [
     takeEvery(type.GET_CHECKING_REQUEST, getChecking),
     takeEvery(type.POST_ITEM_EXCEL_REQUEST, postItemExcel),
+    takeEvery(type.PATCH_ITEM_EXCEL_FAIL_REQUEST, patchItemsExcelFail),
     takeEvery(type.CHANGE_PRINT_STATUS_REQUEST, patchPrintStatusItem),
     takeEvery(type.PATCH_ITEM_CHECKING_PROPERTIES_REQUEST, patchItemCheckingProperties),
     takeEvery(type.DELETE_ITEM_CHECKING_REQUEST, deleteItemChecking),

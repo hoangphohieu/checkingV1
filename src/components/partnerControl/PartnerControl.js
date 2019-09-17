@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import SelectDate from './SelectDate';
 import _ from 'lodash';
+import ChartPartner from './ChartPartner';
+
 class PartnerControl extends Component {
     constructor(props, context) {
         super(props, context);
@@ -8,39 +9,74 @@ class PartnerControl extends Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        let timeNow = new Date();
+        let dayNow = timeNow.getDate();
+        let monthNow = timeNow.getMonth() + 1;
+        let yearNow = timeNow.getFullYear();
         this.props.getListById("listPartner");
-        this.props.getListById("listDay");
+
+        // sửa lại cái API này cho xịn hơn chút
+        this.props.getListByCustom("?namePartner=allPartner&monthNumber=" + monthNow + ((monthNow > 1) ? ("&monthNumber=" + (monthNow - 1)) : "") + "&yearNumber=" + yearNow);
+
+    }
+
+    componentDidMount() {
     }
 
     componentDidUpdate() {
-        let obj = {}; obj[this.props.items.type] = this.props.items.listItem[0]; // tạo obj ={} để setstate
-        if (this.state[this.props.items.type] === undefined) { this.setState({ ...obj }) };  // nếu chưa có trường state đó thì tạo state đó
-        if (this.state.listPartner !== undefined) {
-            // console.log(this.state.listPartner);
-            let partner = _.toPairs(this.state.listPartner).filter(param => { return param[0] !== "id" }).map(param => param[1]);
-            for (let i = 0; i <= partner.length - 1; i++) { // để ý cái này, request rất nhiều :((
-                // console.log(partner[i]);
-
-                if (this.state[partner[i]] === undefined) {
-                    console.log(this.state);
-                    this.props.getListById(partner[i]);
-                }
-            }
-            // console.log(this.state);
-
+        if (this.props.items.listItem[0].namePartner === undefined) {
+            let obj = {}; obj[this.props.items.listItem[0].id] = this.props.items.listItem; // tạo obj ={} để setstate
+            if (this.state[this.props.items.listItem[0].id] === undefined) { this.setState({ ...obj }) };  // nếu chưa có trường state đó thì tạo state đó
         }
+        else {
+            let obj = {}; obj[this.props.items.listItem[0].namePartner] = this.props.items.listItem; // tạo obj ={} để setstate
+            if (this.state[this.props.items.listItem[0].namePartner] === undefined) { this.setState({ ...obj }) };  // nếu chưa có trường state đó thì tạo state đó
+        }
+        // console.log(this.props.items.listItem[0].namePartner);
+
 
     }
     render() {
-        let listPartner= this.state.listPartner;
-        listPartner=_.toPairs(listPartner).filter(param=>{return param[0]!=="id"}).map(param=>param[1]);
-        listPartner=listPartner.map((param,id)=>{return <SelectDate {...this.props} partnerAndDay={_.toPairs(this.state[param])} key={id}/>})
+        let timeNow = new Date();
+        let dayNow = timeNow.getDate();
+        let monthNow = timeNow.getMonth() + 1;
+        let yearNow = timeNow.getFullYear();
 
+        let listPartner = this.state.listPartner;
+        listPartner = _.toPairs(listPartner).filter(param => { return param[0] !== "id" }).map(param => param[1]);
+        let dataChart = _.toPairs(this.state).filter(param => { return param[0] !== "listPartner" }).map(param2 => param2[1])[0];
+        if (dataChart !== undefined) {
+            dataChart = dataChart.map(param => {console.log(param);
+             return { day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1 )} })
+        }
+        console.log(dataChart);
+
+        let data = [
+            {
+                name: 'Page A', uv: 590
+            },
+            {
+                name: 'Page B', uv: 868
+            },
+            {
+                name: 'Page C', uv: 1397
+            },
+            {
+                name: 'Page D', uv: 1480
+            },
+            {
+                name: 'Page E', uv: 1520
+            },
+            {
+                name: 'Page F', uv: 1400
+            },
+        ];
         return (
-            <div>
-                {listPartner}
+            <div className="App">
+                <ChartPartner dataChart={dataChart} />
             </div>
+
         );
     }
 }

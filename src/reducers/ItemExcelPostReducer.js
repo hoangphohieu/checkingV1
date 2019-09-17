@@ -9,6 +9,16 @@ let DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
     switch (action.type) {
 
+        case type.STATE_POST_TO_DEFAULT:
+            return {
+                ...state,
+                listItem: [],
+                dataFetched: false,
+                isFetching: false,
+                error: false,
+                errorMessesage: null
+            }
+
         case type.POST_ITEM_EXCEL_SUCSESS:
 
             return {
@@ -17,7 +27,7 @@ export default (state = DEFAULT_STATE, action) => {
                 dataFetched: true,
                 error: false,
                 errorMessesage: null,
-                listItem:action.payload
+                listItem: action.payload
             }
 
         case type.POST_ITEM_EXCEL_RFAILURE:
@@ -28,7 +38,7 @@ export default (state = DEFAULT_STATE, action) => {
                 dataFetched: false,
                 errorMessesage: action.payload.errorMessesage
             }
-            
+
         default:
             return state;
     }
