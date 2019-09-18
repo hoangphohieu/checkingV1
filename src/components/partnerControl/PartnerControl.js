@@ -37,18 +37,46 @@ class PartnerControl extends Component {
 
 
     }
+    sumAndDelete = (dataChart) => {
+        for (let i = 0; i <= dataChart.length - 2; i++) {
+            if (dataChart[i].dayNumber === dataChart[i + 1].dayNumber) {
+                dataChart[i].Sum_basecost += dataChart[i + 1].Sum_basecost;
+                dataChart[i].Sum_lineitemquantity += dataChart[i + 1].Sum_lineitemquantity;
+                dataChart[i].Sum_luminous += dataChart[i + 1].Sum_luminous;
+                dataChart[i].Sum_us += dataChart[i + 1].Sum_us;
+                dataChart[i + 1] = null;
+                dataChart = dataChart.filter(param => { return param !== null })
+                dataChart = this.sumAndDelete(dataChart);
+            }
+        }
+        return dataChart;
+    }
     render() {
         let timeNow = new Date();
-        let dayNow = timeNow.getDate();
-        let monthNow = timeNow.getMonth() + 1;
-        let yearNow = timeNow.getFullYear();
+        // let dayNow = timeNow.getDate();
+        // let monthNow = timeNow.getMonth() + 1;
+        // let yearNow = timeNow.getFullYear();
 
         let listPartner = this.state.listPartner;
         listPartner = _.toPairs(listPartner).filter(param => { return param[0] !== "id" }).map(param => param[1]);
         let dataChart = _.toPairs(this.state).filter(param => { return param[0] !== "listPartner" }).map(param2 => param2[1])[0];
         if (dataChart !== undefined) {
-            dataChart = dataChart.map(param => {console.log(param);
-             return { day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1 )} })
+            dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
+            dataChart = this.sumAndDelete(dataChart);
+            console.log(dataChart);
+            dataChart = dataChart.map(param => {
+                console.log(param);
+
+                return {
+                    day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),
+                    Sum_lineitemquantity: param.Sum_lineitemquantity,
+                    Sum_basecost: param.Sum_basecost
+                }
+            })
+
+
+
+
         }
         console.log(dataChart);
 
@@ -72,9 +100,14 @@ class PartnerControl extends Component {
                 name: 'Page F', uv: 1400
             },
         ];
+
+
+
+
         return (
             <div className="App">
-                <ChartPartner dataChart={dataChart} />
+                <ChartPartner dataChart={dataChart}  styleChart="Sum_lineitemquantity"/>
+                <ChartPartner dataChart={dataChart} styleChart="Sum_basecost" />
             </div>
 
         );
