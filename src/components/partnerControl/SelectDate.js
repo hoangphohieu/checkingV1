@@ -1,57 +1,82 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
 export default class Example extends React.Component {
+    static defaultProps = {
+        numberOfMonths: 2,
+    };
+
     constructor(props) {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
-        this.state = {
-              selectedDays: [],
+        this.handleResetClick = this.handleResetClick.bind(this);
+        this.state = this.getInitialState();
+    }
+
+    getInitialState() {
+        return {
+            from: undefined,
+            to: undefined,
         };
     }
 
-    handleDayClick(day, { selected }) {
-
-        const { selectedDays } = this.state;
-        if (selected) {
-            const selectedIndex = selectedDays.findIndex(selectedDay =>
-                DateUtils.isSameDay(selectedDay, day)
-            );
-            selectedDays.splice(selectedIndex, 1);
-        } else {
-            selectedDays.push(day);
-        }
-        // console.log(selectedDays);
-
-        this.setState({ selectedDays });
-    }
-
-    componentDidUpdate = () => {
-        let listDay = this.props.partnerAndDay.filter(param => { return param[0] !== "id" }).map(param => {return (new Date((param[1] - 25569) * 24 * 60 * 60 * 1000))} );
-        // console.log(listDay);
-        if(this.state.selectedDays.length===0 && listDay.length!==0){
-            // console.log(listDay);
-            this.setState({selectedDays:[...listDay]})
-            
-        }
+    handleDayClick(day) {
+        const range = DateUtils.addDayToRange(day, this.state);
+        this.setState(range);
+        console.log(range);
         
-         
     }
-    render() {
-        let partnerAndDay = this.props.partnerAndDay;
-        // let listDay = partnerAndDay.filter(param => { return param[0] !== "id" }).map(param => param[1]);
-        // console.log(this.state.selectedDays);
 
+    handleResetClick() {
+        this.setState(this.getInitialState());
+    }
+
+    render() {
+        const { from, to } = this.state;
+        const modifiers = { start: from, end: to };
         return (
-            <div>
+            <div className="RangeExample">
                 <p>
-                    {partnerAndDay.filter(param => { return param[0] === "id" }).map(param => param[1])}
+                    {!from && !to && 'Please select the first day.'}
+                    {from && !to && 'Please select the last day.'}
+                    {from &&
+                        to &&
+                        `Selected from ${from.toLocaleDateString()} to
+                ${to.toLocaleDateString()}`}{' '}
+                    {from && to && (
+                        <button className="link" onClick={this.handleResetClick}>
+                            Reset
+            </button>
+                    )}
                 </p>
                 <DayPicker
-                    selectedDays={this.state.selectedDays}
+                    className="Selectable"
+                    numberOfMonths={this.props.numberOfMonths}
+                    selectedDays={[from, { from, to }]}
+                    modifiers={modifiers}
                     onDayClick={this.handleDayClick}
                 />
+                <Helmet>
+                    <style>{`
+  .Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+    background-color: #f0f8ff !important;
+    color: #4a90e2;
+  }
+  .Selectable .DayPicker-Day {
+    border-radius: 0 !important;
+  }
+  .Selectable .DayPicker-Day--start {
+    border-top-left-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+  }
+  .Selectable .DayPicker-Day--end {
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+  }
+`}</style>
+                </Helmet>
             </div>
         );
     }

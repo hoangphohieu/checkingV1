@@ -2,6 +2,23 @@
     margin: 0;padding: 0
 }
 
+.recharts-wrapper {
+    margin: auto;
+}
+
+.grid-item-right {
+    grid-area: right;
+}
+
+.grid-item-left {
+    grid-area: left;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 'left right right';
+}
+
 .container.relative {
     position: relative;
 }
@@ -76,4 +93,7 @@ p.checking-item-name {
     cursor: pointer;
     font-size: 1.3rem;
     color: #000;
+}
+.DayPicker-Day{
+    width: 24px !important;
 }

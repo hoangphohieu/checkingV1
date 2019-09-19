@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import ChartPartner from './ChartPartner';
-
+import SelectDate from './SelectDate';
 class PartnerControl extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+
         }
     }
 
@@ -57,58 +58,45 @@ class PartnerControl extends Component {
         // let monthNow = timeNow.getMonth() + 1;
         // let yearNow = timeNow.getFullYear();
 
-        let listPartner = this.state.listPartner;
-        listPartner = _.toPairs(listPartner).filter(param => { return param[0] !== "id" }).map(param => param[1]);
         let dataChart = _.toPairs(this.state).filter(param => { return param[0] !== "listPartner" }).map(param2 => param2[1])[0];
         if (dataChart !== undefined) {
             dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
             dataChart = this.sumAndDelete(dataChart);
-            console.log(dataChart);
             dataChart = dataChart.map(param => {
-                console.log(param);
-
                 return {
                     day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),
                     Sum_lineitemquantity: param.Sum_lineitemquantity,
-                    Sum_basecost: param.Sum_basecost
+                    Sum_basecost: Number(param.Sum_basecost.toFixed(1))
                 }
             })
-
-
-
-
         }
-        console.log(dataChart);
 
-        let data = [
-            {
-                name: 'Page A', uv: 590
-            },
-            {
-                name: 'Page B', uv: 868
-            },
-            {
-                name: 'Page C', uv: 1397
-            },
-            {
-                name: 'Page D', uv: 1480
-            },
-            {
-                name: 'Page E', uv: 1520
-            },
-            {
-                name: 'Page F', uv: 1400
-            },
-        ];
+        let listPartner = this.state.listPartner;
+        if (listPartner !== undefined) {
+            listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
+        }
 
+        console.log(listPartner);
 
 
 
         return (
-            <div className="App">
-                <ChartPartner dataChart={dataChart}  styleChart="Sum_lineitemquantity"/>
-                <ChartPartner dataChart={dataChart} styleChart="Sum_basecost" />
+            <div className="container-fluid">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-4">
+                            <p>select col-4</p>
+                            < SelectDate />
+                        </div>
+                        <div className="col-8 d-flex-column align-item-center">
+                            <p>Biểu đồ col-8</p>
+                            <ChartPartner dataChart={dataChart} styleChart="Sum_lineitemquantity" />
+                            <ChartPartner dataChart={dataChart} styleChart="Sum_basecost" />
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
         );
     }

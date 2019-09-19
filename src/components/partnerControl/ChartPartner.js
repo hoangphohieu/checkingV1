@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import {
   ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  Legend,LabelList
+  Legend, LabelList
 } from 'recharts';
 
 const data = [
@@ -29,8 +29,11 @@ export default class Example extends PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/94sebfL8/';
 
   render() {
-    let dataChart=this.props.dataChart;
-    let style=this.props.styleChart;
+    let dataChart = this.props.dataChart;
+    let style = this.props.styleChart;
+    // let style=(this.props.styleChart==="Sum_lineitemquantity"?[{ value: 'Số lượng'}]:[{ value: 'Tổng Base Cost'}]);
+
+    let payload = (this.props.styleChart === "Sum_lineitemquantity" ? [{ value: 'Số lượng', type: 'line' }] : [{ value: 'Tổng Base Cost', type: 'line' }])
     return (
       <ComposedChart
         width={500}
@@ -44,9 +47,9 @@ export default class Example extends PureComponent {
         <XAxis dataKey="day" />
         <YAxis />
         <Tooltip />
-        <Legend />
+        <Legend payload={payload} />
         <Bar dataKey={style} barSize={20} fill="#413ea0" >
-        <LabelList dataKey={style} position="top" />
+          <LabelList dataKey={style} position="top" />
         </Bar>
       </ComposedChart>
     );
