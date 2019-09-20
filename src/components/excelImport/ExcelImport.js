@@ -65,7 +65,7 @@ class InputExcel extends Component {
             listDay = listDay.map(param => { return [param, param] });
             listDay = _.fromPairs(listDay);
             listDay = { ...listDay, id: "listDay" };
-            // listItemCount.push(listDay);
+            listItemCount.push(listDay);
 
             // danh sach  partner voi so ngay tuong ung
             let listPartnerAndDay = ItemsExcelSuccess.map(param => { return [param.day, param.partner] });
@@ -78,7 +78,7 @@ class InputExcel extends Component {
                 item2 = _.fromPairs(item2);
                 item = { ...item, ...item2 };
                 listPartnerAndDay2.push(item);
-                // listItemCount.push(item);
+                listItemCount.push(item);
             }
 
             // danh sach doit ac voi ngay tuong ung, tih tong base cost voi so luong

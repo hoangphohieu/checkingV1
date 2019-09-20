@@ -18,21 +18,23 @@ class PartnerControl extends Component {
         this.props.getListById("listPartner");
 
         // sửa lại cái API này cho xịn hơn chút
-        this.props.getListByCustom("?namePartner=allPartner&monthNumber=" + monthNow + ((monthNow > 1) ? ("&monthNumber=" + (monthNow - 1)) : "") + "&yearNumber=" + yearNow);
+        this.props.getListByCustom("?namePartner=allPartner&monthNumber=" + monthNow + "&monthNumber=" + ((monthNow === 1) ? "12" : (monthNow - 1)));
 
     }
 
-    componentDidMount() {
-    }
 
     componentDidUpdate() {
-        if (this.props.items.listItem[0].namePartner === undefined) {
+        if (this.props.items.type === "getListById") {
             let obj = {}; obj[this.props.items.listItem[0].id] = this.props.items.listItem; // tạo obj ={} để setstate
             if (this.state[this.props.items.listItem[0].id] === undefined) { this.setState({ ...obj }) };  // nếu chưa có trường state đó thì tạo state đó
+            console.log(obj);
+
         }
-        else {
-            let obj = {}; obj[this.props.items.listItem[0].namePartner] = this.props.items.listItem; // tạo obj ={} để setstate
-            if (this.state[this.props.items.listItem[0].namePartner] === undefined) { this.setState({ ...obj }) };  // nếu chưa có trường state đó thì tạo state đó
+        else if (this.props.items.type === "getListByCustom") {
+            console.log(this.props.items);
+
+            let obj = {}; obj[this.props.items.listItem[0].namePartner] = this.props.items.listItem;
+            if (this.state[this.props.items.listItem[0].namePartner] === undefined) { this.setState({ ...obj }) };
         }
         // console.log(this.props.items.listItem[0].namePartner);
 
@@ -53,10 +55,7 @@ class PartnerControl extends Component {
         return dataChart;
     }
     render() {
-        let timeNow = new Date();
-        // let dayNow = timeNow.getDate();
-        // let monthNow = timeNow.getMonth() + 1;
-        // let yearNow = timeNow.getFullYear();
+
 
         let dataChart = _.toPairs(this.state).filter(param => { return param[0] !== "listPartner" }).map(param2 => param2[1])[0];
         if (dataChart !== undefined) {
@@ -72,12 +71,12 @@ class PartnerControl extends Component {
         }
 
         let listPartner = this.state.listPartner;
-     
+
         if (listPartner !== undefined) {
             listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
         }
 
-        console.log(listPartner);
+        console.log(this.state);
 
 
 
@@ -87,7 +86,7 @@ class PartnerControl extends Component {
                     <div className="row">
                         <div className="col-4">
                             <p>select col-4</p>
-                            <SelectPartnerAndDay  listPartner={listPartner} getListByCustomDayAndDate={this.getListByCustom} /> 
+                            <SelectPartnerAndDay listPartner={listPartner}  {...this.props} />
                         </div>
                         <div className="col-8 d-flex-column align-item-center">
                             <p>Biểu đồ col-8</p>

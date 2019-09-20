@@ -18,7 +18,7 @@ export default (state = DEFAULT_STATE, action) => {
                         isFetching: false,
                         dataFetched: true,
                         error: false,
-                        type: null,
+                        type: "getListById",
                         errorMessesage: null,
                         listItem: action.payload
                   }
@@ -29,7 +29,7 @@ export default (state = DEFAULT_STATE, action) => {
                         isFetching: false,
                         dataFetched: true,
                         error: false,
-                        type: null,
+                        type: "getListByCustom",
                         errorMessesage: null,
                         listItem: action.payload
                   }
