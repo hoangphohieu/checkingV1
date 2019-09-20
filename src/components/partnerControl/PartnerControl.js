@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import ChartPartner from './ChartPartner';
-import SelectDate from './SelectDate';
+import SelectPartnerAndDay from './SelectPartnerAndDay';
 class PartnerControl extends Component {
     constructor(props, context) {
         super(props, context);
@@ -72,6 +72,7 @@ class PartnerControl extends Component {
         }
 
         let listPartner = this.state.listPartner;
+     
         if (listPartner !== undefined) {
             listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
         }
@@ -86,7 +87,7 @@ class PartnerControl extends Component {
                     <div className="row">
                         <div className="col-4">
                             <p>select col-4</p>
-                            < SelectDate />
+                            <SelectPartnerAndDay  listPartner={listPartner} getListByCustomDayAndDate={this.getListByCustom} /> 
                         </div>
                         <div className="col-8 d-flex-column align-item-center">
                             <p>Biểu đồ col-8</p>

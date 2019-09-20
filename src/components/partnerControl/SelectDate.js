@@ -25,8 +25,7 @@ export default class Example extends React.Component {
     handleDayClick(day) {
         const range = DateUtils.addDayToRange(day, this.state);
         this.setState(range);
-        console.log(range);
-        
+        this.props.sentDayToProps(range);
     }
 
     handleResetClick() {
