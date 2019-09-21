@@ -6,7 +6,8 @@ class PartnerControl extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-
+            dataChart: null,
+            listPartner: null
         }
     }
 
@@ -24,21 +25,23 @@ class PartnerControl extends Component {
 
 
     componentDidUpdate() {
-        if (this.props.items.type === "getListById") {
-            let obj = {}; obj[this.props.items.listItem[0].id] = this.props.items.listItem; // tạo obj ={} để setstate
-            if (this.state[this.props.items.listItem[0].id] === undefined) { this.setState({ ...obj }) };  // nếu chưa có trường state đó thì tạo state đó
-            console.log(obj);
-
+        if (this.props.items.type === "getListById" && this.state.listPartner === null) {
+            // let obj = {}; obj[this.props.items.listItem[0].id] = this.props.items.listItem; // tạo obj ={} để setstate
+            // if (this.state[this.props.items.listItem[0].id] === undefined) { this.setState({ ...obj }) };  // nếu chưa có trường state đó thì tạo state đó
+            this.setState({ listPartner: this.props.items.listItem })
+            console.log(this.props.items.listItem);
         }
-        else if (this.props.items.type === "getListByCustom") {
-            console.log(this.props.items);
 
-            let obj = {}; obj[this.props.items.listItem[0].namePartner] = this.props.items.listItem;
-            if (this.state[this.props.items.listItem[0].namePartner] === undefined) { this.setState({ ...obj }) };
+        if (this.props.items.type === "getListDayById") {
+            let listDay=this.props.items.listItem;
+            listDay=_.toPairs(listDay[0]).filter(param=>{return param[0]!=="id"}).map(param=>param[0])
+            // console.log(listDay);
+            
         }
-        // console.log(this.props.items.listItem[0].namePartner);
 
-
+        if (this.props.items.type === "getListByCustom") {
+            if (this.state.dataChart !== this.props.items.listItem) { this.setState({ dataChart: this.props.items.listItem }) };
+        }
     }
     sumAndDelete = (dataChart) => {
         for (let i = 0; i <= dataChart.length - 2; i++) {
@@ -55,9 +58,9 @@ class PartnerControl extends Component {
         return dataChart;
     }
     render() {
+        let dataChart;
+        if (this.state.dataChart !== null) dataChart = this.state.dataChart;
 
-
-        let dataChart = _.toPairs(this.state).filter(param => { return param[0] !== "listPartner" }).map(param2 => param2[1])[0];
         if (dataChart !== undefined) {
             dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
             dataChart = this.sumAndDelete(dataChart);
@@ -71,12 +74,9 @@ class PartnerControl extends Component {
         }
 
         let listPartner = this.state.listPartner;
-
-        if (listPartner !== undefined) {
+        if (listPartner !== null) {
             listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
         }
-
-        console.log(this.state);
 
 
 

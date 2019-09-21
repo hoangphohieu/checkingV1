@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import _ from 'lodash';
 
 export default class Example extends React.Component {
     static defaultProps = {
@@ -34,7 +35,18 @@ export default class Example extends React.Component {
 
     render() {
         const { from, to } = this.state;
-        const modifiers = { start: from, end: to };
+        let modifiers = { start: from, end: to, highlighted: [] };
+        if (this.props.items !== undefined) {
+
+            if (this.props.items.type === "getListDayById") {
+                let listDay = this.props.items.listItem;
+                listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]).map(param => { return (new Date(param)) });
+                modifiers.highlighted=listDay;
+                // console.log(listDay);
+            }
+        }
+
+
         return (
             <div className="RangeExample">
                 <p>
@@ -71,6 +83,12 @@ export default class Example extends React.Component {
     border-bottom-left-radius: 50% !important;
   }
   .Selectable .DayPicker-Day--end {
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+  }
+  .DayPicker-Day--highlighted {
+    background-color: orange;
+    color: white;
     border-top-right-radius: 50% !important;
     border-bottom-right-radius: 50% !important;
   }

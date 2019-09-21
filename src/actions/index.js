@@ -32,9 +32,15 @@ export function getListById(payload) {                  // gọi lên itemSaga v
     return ({type: type.GET_LIST_BY_ID_REQUEST,payload})    // payload:valueToGetAPI
 }
 
+export function getListDayById(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({type: type.GET_LIST_DAY_BY_ID_REQUEST,payload})    // payload:valueToGetAPI
+}
+
 export function stateImportExcelToDefault(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({type: type.STATE_POST_TO_DEFAULT,payload})    // payload:valueToGetAPI
 }
 export function getListByCustom(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({type: type.GET_LIST_BY_CUSTOM_REQUEST,payload})    // payload:valueToGetAPI
 }
+
+

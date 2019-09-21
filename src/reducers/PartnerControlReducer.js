@@ -22,6 +22,16 @@ export default (state = DEFAULT_STATE, action) => {
                         errorMessesage: null,
                         listItem: action.payload
                   }
+            case type.GET_LIST_DAY_BY_ID_SUCSESS:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "getListDayById",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
 
             case type.GET_LIST_BY_CUSTOM_SUCSESS:
                   return {
@@ -43,7 +53,7 @@ export default (state = DEFAULT_STATE, action) => {
                         errorMessesage: action.payload.errorMessesage
                   }
 
-                  
+
             default:
                   return state;
       }

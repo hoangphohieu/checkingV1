@@ -8,9 +8,14 @@ class SelectPartnerAndDay extends Component {
             date: null
         }
     }
+    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+    componentWillMount() {
+        this.props.getListDayById("listDaylistPartner");
+    }
 
     setPartnerSelect = (param) => {
-        this.setState({ partnerSelect: param })
+        this.setState({ partnerSelect: param });
+        this.props.getListDayById("listday"+param);
     }
     setDaySelect = (param) => {
         this.setState({ date: param })
@@ -102,14 +107,14 @@ class SelectPartnerAndDay extends Component {
 
         let listPartner = this.props.listPartner;
         let renderListPartner;
-        if (listPartner !== undefined) {
+        if (listPartner !== null) {
             renderListPartner = listPartner.map((param, id) => { return <p className={"renderListPartner" + ((this.state.partnerSelect === param) ? " renderListPartner_select" : "")} key={id} onClick={() => this.setPartnerSelect(param)}>{param}</p> })
         }
         return (
             <React.Fragment>
                 {renderListPartner}
                 <button type="button" className="btn btn-primary button_loc" onClick={this.getdataFromServer}>Lọc</button>
-                <SelectDate sentDayToProps={this.setDaySelect} />
+                <SelectDate sentDayToProps={this.setDaySelect} {...this.props} />
             </React.Fragment>
         );
     }

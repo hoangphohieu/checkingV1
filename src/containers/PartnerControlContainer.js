@@ -12,6 +12,8 @@ function mapDispatchToProps(dispatch) {
     return {
         getListById:(param)=>dispatch(actions.getListById(param)),
         getListByCustom:(param)=>dispatch(actions.getListByCustom(param)),
+        getListDayById:(param)=>dispatch(actions.getListDayById(param)),
+        
         
     };
 }

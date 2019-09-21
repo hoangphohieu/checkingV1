@@ -64,7 +64,7 @@ class InputExcel extends Component {
             let listDay = _.uniq(ItemsExcelSuccess.map(param => param.day));  // lọc số partner vaf lọc trùng;
             listDay = listDay.map(param => { return [param, param] });
             listDay = _.fromPairs(listDay);
-            listDay = { ...listDay, id: "listDay" };
+            listDay = { ...listDay, id: "listDaylistPartner" }; 
             listItemCount.push(listDay);
 
             // danh sach  partner voi so ngay tuong ung
