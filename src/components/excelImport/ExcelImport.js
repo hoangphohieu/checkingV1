@@ -34,7 +34,7 @@ class InputExcel extends Component {
             )
 
         ) {
-            console.log(this.props.itemExcelReload.dataFetched,this.props.itemExcelReload.error);
+            console.log(this.props.itemExcelReload.dataFetched, this.props.itemExcelReload.error);
             this.props.stateImportExcelToDefault();
 
         }
@@ -64,7 +64,7 @@ class InputExcel extends Component {
             let listDay = _.uniq(ItemsExcelSuccess.map(param => param.day));  // lọc số partner vaf lọc trùng;
             listDay = listDay.map(param => { return [param, param] });
             listDay = _.fromPairs(listDay);
-            listDay = { ...listDay, id: "listDaylistPartner" }; 
+            listDay = { ...listDay, id: "listdaylistPartner" };
             listItemCount.push(listDay);
 
             // danh sach  partner voi so ngay tuong ung
@@ -181,7 +181,11 @@ class InputExcel extends Component {
         }
         objectConvert.shift();
         objectConvert = objectConvert.map(param => {
-            param.day = ((param.day - 25569) * 24 * 60 * 60 * 1000);
+            let dateConvert = ((param.day - 25569) * 24 * 60 * 60 * 1000);
+            dateConvert = Date.parse(new Date(new Date(dateConvert).toDateString()));   // parse date sang number cho chinh xac  
+            param.day = dateConvert;
+
+
             if ((param.shippingcountry.trim().toLowerCase() !== "us") && (param.shippingcountry.trim().toLowerCase() !== "united states")) {
                 param.shippingcountry = "WW"
             }
@@ -278,7 +282,7 @@ class InputExcel extends Component {
 
     }
     patchItemsExcelCountFail = (param, id) => {
-        // console.log(param);
+        console.log(param);
         this.deleteItemsExcelFail(id);
         let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
         // console.log(ItemsExcel);
@@ -318,10 +322,6 @@ class InputExcel extends Component {
         if (JSON.parse(localStorage.getItem("listItemCount")) === null) {
             localStorage.setItem("listItemCount", JSON.stringify([]));
         }
-
-
-        console.log(this.props.itemExcelReload);
-        // console.log(JSON.parse(localStorage.getItem("ItemsExcelSuccess")));
 
         if (this.props.itemExcelReload.dataFetched === true) { this.doingWhenDataFetchedTrue() }
         else if (this.props.itemExcelReload.error === true) { this.doingWhenErrorTrue() }

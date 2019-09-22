@@ -20,31 +20,43 @@ export default class Example extends React.Component {
         return {
             from: undefined,
             to: undefined,
+            listDay: [],
         };
     }
 
+
+    componentDidUpdate() {
+        this.CDU_setStateListDay();
+    }
+    CDU_setStateListDay = () => {
+        if (this.props.items !== undefined) {
+            if (this.props.items.type === "getListDayById") {
+                let listDay = this.props.items.listItem;
+                // console.log(listDay);
+                
+                listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]).map(param => { return (new Date(param)) });
+
+                listDay.length = 300;
+                listDay = listDay.filter(param => { return param !== undefined });
+                if (this.state.listDay.join("") !== listDay.join("")) {
+                    this.setState({ listDay: listDay })
+                }
+            }
+        }
+    }
     handleDayClick(day) {
         const range = DateUtils.addDayToRange(day, this.state);
         this.setState(range);
         this.props.sentDayToProps(range);
     }
-
     handleResetClick() {
         this.setState(this.getInitialState());
     }
-
     render() {
         const { from, to } = this.state;
         let modifiers = { start: from, end: to, highlighted: [] };
-        if (this.props.items !== undefined) {
+        modifiers.highlighted = this.state.listDay;
 
-            if (this.props.items.type === "getListDayById") {
-                let listDay = this.props.items.listItem;
-                listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]).map(param => { return (new Date(param)) });
-                modifiers.highlighted=listDay;
-                // console.log(listDay);
-            }
-        }
 
 
         return (

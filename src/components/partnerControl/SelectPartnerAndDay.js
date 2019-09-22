@@ -1,55 +1,81 @@
 import React, { Component } from 'react';
 import SelectDate from './SelectDate';
+import _ from 'lodash';
+
 class SelectPartnerAndDay extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             partnerSelect: null,
-            date: null
+            listPartner: null,
+            listDay: []
         }
     }
-    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+
     componentWillMount() {
-        this.props.getListDayById("listDaylistPartner");
+        let timeNow = new Date();
+        let dayNow = timeNow.getDate();
+        let monthNow = timeNow.getMonth() + 1;
+        let yearNow = timeNow.getFullYear();
+        this.props.getListById("listPartner");
+
     }
+    componentDidMount() {
+        this.props.getListDayById("listdaylistPartner");
+
+    }
+    componentDidUpdate() {
+        this.CDU_setStateListPartner();
+        this.CDU_setStateListDay();
+
+    }
+    CDU_setStateListPartner = () => {
+        if (this.props.items.type === "getListById" && this.state.listPartner === null) {
+            this.setState({ listPartner: this.props.items.listItem })
+        }
+    }
+
+    CDU_setStateListDay = () => {
+        if (this.props.items.type === "getListDayById") {
+            let listDay = this.props.items.listItem;
+            listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
+            listDay.sort((a, b) => { return b - a });
+            listDay.length = 7;
+            listDay = listDay.filter(param => { return param !== undefined });
+            if (this.state.listDay.join("") !== listDay.join("")) {
+                this.setState({ listDay: listDay });
+                let endPoint = "?namePartner=allPartner";
+                for (let i = 0; i <= listDay.length - 1; i++) {
+                    endPoint = endPoint + "&dayNumber=" + listDay[i];
+                }
+                this.props.getListByCustom(endPoint);
+            }
+        }
+    }
+
 
     setPartnerSelect = (param) => {
         this.setState({ partnerSelect: param });
-        this.props.getListDayById("listday"+param);
+        this.props.getListDayById("listday" + param); // API toi dnh sach partner voi list day
     }
-    setDaySelect = (param) => {
-        this.setState({ date: param })
 
-    }
     getdataFromServer = () => {
-
-
         let partnerSelect = this.state.partnerSelect;
-        let date = this.state.date;
         let dateFrom = null;
         let dateTo = null;
-        if (this.state.date !== null) {
-            dateFrom = (this.state.date.from !== undefined) ? Date.parse(this.state.date.from) : null;
-            dateTo = (this.state.date.to !== undefined) ? Date.parse(this.state.date.to) : null;
+        if (this.props.date !== null) {
+            dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
+            dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
         }
         let endPoint = null;
-        // console.log(dateFrom, dateTo);
 
         if (partnerSelect !== null) {
             endPoint = this.getEndPoint(partnerSelect, dateFrom, dateTo);
         }
         else if (partnerSelect === null) {
             endPoint = this.getEndPoint("allPartner", dateFrom, dateTo);
-
         }
-
-
-        console.log(endPoint);
         this.props.getListByCustom(endPoint);
-
-        // this.props.getListByCustomDayAndDate() // param custom end point
-
-
     }
     getEndPoint = (partnerSelect, dateFrom, dateTo) => {
         let timeNow = new Date();
@@ -96,16 +122,12 @@ class SelectPartnerAndDay extends Component {
         return endPoint;
     }
 
-
-
-
-
     render() {
-        // console.log(this.state.partnerSelect);
+        let listPartner = this.state.listPartner;
+        if (listPartner !== null) {
+            listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
+        }
 
-
-
-        let listPartner = this.props.listPartner;
         let renderListPartner;
         if (listPartner !== null) {
             renderListPartner = listPartner.map((param, id) => { return <p className={"renderListPartner" + ((this.state.partnerSelect === param) ? " renderListPartner_select" : "")} key={id} onClick={() => this.setPartnerSelect(param)}>{param}</p> })
@@ -114,7 +136,7 @@ class SelectPartnerAndDay extends Component {
             <React.Fragment>
                 {renderListPartner}
                 <button type="button" className="btn btn-primary button_loc" onClick={this.getdataFromServer}>Lọc</button>
-                <SelectDate sentDayToProps={this.setDaySelect} {...this.props} />
+                <SelectDate {...this.props} />
             </React.Fragment>
         );
     }

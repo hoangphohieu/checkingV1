@@ -36,7 +36,7 @@ export default class Example extends PureComponent {
     let payload = (this.props.styleChart === "Sum_lineitemquantity" ? [{ value: 'Số lượng', type: 'line' }] : [{ value: 'Tổng Base Cost', type: 'line' }])
     return (
       <ComposedChart
-        width={1000}
+        width={(dataChart.length > 5) ? dataChart.length * 100 : 500}
         height={400}
         data={dataChart}
         margin={{

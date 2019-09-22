@@ -12,7 +12,7 @@ class CheckingProperties extends Component {
 
       postItemsExcelFail = (param, id) => {
             console.log(param, id);
-            if (param.id === "listPartner") {
+            if (param.id.slice(0,7) === "listday"||  param.id === "listPartner") {
                   this.props.patchItemsExcelCountFail(param, id);
             }
             else {
