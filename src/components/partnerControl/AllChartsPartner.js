@@ -69,6 +69,8 @@ class AllChartsPartner extends Component {
                 return dataChart;
             }
             else if (rangeDay.length <= 14) {
+                console.log("< 14");
+                
                 dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
                 dataChart = this.sumAndDelete(dataChart);
                 dataChart = dataChart.filter(param => {
@@ -84,7 +86,7 @@ class AllChartsPartner extends Component {
                 })
                 return dataChart;
             }
-            else if (rangeDay.length <= 91) {
+            else if (rangeDay.length <= 119) {
                 rangeDay = _.chunk(rangeDay, 7);
                 // console.log(rangeDay); 
                 dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
@@ -96,8 +98,20 @@ class AllChartsPartner extends Component {
                         return param.dayNumber === stateParam;
                     })
                     dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual);
+                    console.log(rangeDayParam);
+                    let startDayParam = rangeDayParam[0];
+                    let endDayParam = rangeDayParam[rangeDayParam.length - 1];
+                    let datePrint;
+                    if ((new Date(startDayParam)).getMonth() === (new Date(endDayParam)).getMonth()) {
+                        datePrint = (new Date(startDayParam)).getDate() +"-"+ (new Date(endDayParam)).getDate() + "/" + ((new Date(startDayParam)).getMonth() + 1)
 
-                    let sumData = { day: id + 7 * 24 * 60 * 60 * 1000, Sum_lineitemquantity: 0, Sum_basecost: 0 };
+                    }
+                    else{
+                        datePrint = (new Date(startDayParam)).getDate()+ "/" + ((new Date(startDayParam)).getMonth() + 1)+"-"+(new Date(endDayParam)).getDate()+ "/" + ((new Date(endDayParam)).getMonth() + 1)
+
+                    }
+
+                    let sumData = { day:datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
                     for (let i = 0; i <= dataChartSelect.length - 1; i++) {
                         sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
                         sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
