@@ -18,10 +18,11 @@ class SelectPartnerAndDay extends Component {
         let monthNow = timeNow.getMonth() + 1;
         let yearNow = timeNow.getFullYear();
         this.props.getListById("listPartner");
+        this.props.getListDayById("listdaylistPartner");
+
 
     }
     componentDidMount() {
-        this.props.getListDayById("listdaylistPartner");
 
     }
     componentDidUpdate() {
@@ -59,68 +60,6 @@ class SelectPartnerAndDay extends Component {
         this.props.getListDayById("listday" + param); // API toi dnh sach partner voi list day
     }
 
-    getdataFromServer = () => {
-        let partnerSelect = this.state.partnerSelect;
-        let dateFrom = null;
-        let dateTo = null;
-        if (this.props.date !== null) {
-            dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
-            dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
-        }
-        let endPoint = null;
-
-        if (partnerSelect !== null) {
-            endPoint = this.getEndPoint(partnerSelect, dateFrom, dateTo);
-        }
-        else if (partnerSelect === null) {
-            endPoint = this.getEndPoint("allPartner", dateFrom, dateTo);
-        }
-        this.props.getListByCustom(endPoint);
-    }
-    getEndPoint = (partnerSelect, dateFrom, dateTo) => {
-        let timeNow = new Date();
-        // let dayNow = timeNow.getDate();
-        let monthNow = timeNow.getMonth() + 1;
-        let yearNow = timeNow.getFullYear();
-        let endPoint = null;
-        if (dateFrom === null && dateTo === null) {
-            endPoint = "?namePartner=" + partnerSelect
-                + "&monthNumber=" + monthNow
-                + "&monthNumber=" + ((monthNow === 1) ? "12" : (monthNow - 1));
-        }
-        else if (dateFrom !== null && dateTo !== null) {
-            let monthDateFrom = new Date(dateFrom).getMonth() + 1;
-            let monthdateTo = new Date(dateTo).getMonth() + 1;
-            console.log(monthDateFrom, monthdateTo);
-            if (monthDateFrom === monthdateTo) {
-                endPoint = "?namePartner=" + partnerSelect
-                    + "&monthNumber=" + monthdateTo
-                    + "&monthNumber=" + ((monthdateTo === 1) ? "12" : (monthdateTo - 1));
-            }
-            else if (monthDateFrom < monthdateTo) {
-                endPoint = "?namePartner=" + partnerSelect;
-                for (let i = monthDateFrom; i <= monthdateTo; i++) {
-                    endPoint = endPoint + "&monthNumber=" + i
-                }
-            }
-            else if (monthDateFrom > monthdateTo) {
-                endPoint = "?namePartner=" + partnerSelect;
-                for (let i = monthDateFrom; i <= 12; i++) {
-                    endPoint = endPoint + "&monthNumber=" + i
-                }
-                for (let i = 1; i <= monthdateTo; i++) {
-                    endPoint = endPoint + "&monthNumber=" + i
-                }
-            }
-        }
-        else if (dateFrom !== null || dateTo !== null) {
-            let monthNowSelect = new Date(((dateFrom !== null) ? dateFrom : dateTo)).getMonth() + 1;
-            endPoint = "?namePartner=" + partnerSelect
-                + "&monthNumber=" + monthNowSelect
-                + "&monthNumber=" + ((monthNowSelect === 1) ? "12" : (monthNowSelect - 1));
-        }
-        return endPoint;
-    }
 
     render() {
         let listPartner = this.state.listPartner;
@@ -135,8 +74,8 @@ class SelectPartnerAndDay extends Component {
         return (
             <React.Fragment>
                 {renderListPartner}
-                <button type="button" className="btn btn-primary button_loc" onClick={this.getdataFromServer}>Lọc</button>
-                <SelectDate {...this.props} />
+                {/* <button type="button" className="btn btn-primary button_loc" onClick={this.getdataFromServer}>Lọc</button> */}
+                <SelectDate partnerSelect={this.state.partnerSelect} {...this.props} />
             </React.Fragment>
         );
     }

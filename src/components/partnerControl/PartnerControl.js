@@ -18,11 +18,13 @@ class PartnerControl extends Component {
 
     }
     shouldComponentUpdate(nextProps, nextState) {
-        // if (this.state.date !== nextState.date) { return false };
-        return true;
 
+        // console.log(this.state.date,nextState);
+        if (this.state.date !== nextState.date) { return false }
+        return true
     }
     render() {
+        console.log("PartnerControl", this.state.date);
 
         return (
             <div className="container-fluid">
