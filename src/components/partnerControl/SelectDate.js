@@ -149,8 +149,14 @@ export default class Example extends React.Component {
                     <style>{`
   .Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
     background-color: #f0f8ff !important;
-    color: #4a90e2;
+    color: #000;
   }
+  .DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover{
+    background-color: #4a90e2 !important;
+    color: #fff;
+    
+  }
+
   .Selectable .DayPicker-Day {
     border-radius: 0 !important;
   }
@@ -163,7 +169,7 @@ export default class Example extends React.Component {
     border-bottom-right-radius: 50% !important;
   }
   .DayPicker-Day--highlighted {
-    background-color: orange;
+    background-color: #ecb000;
     color: white;
     border-top-right-radius: 50% !important;
     border-bottom-right-radius: 50% !important;

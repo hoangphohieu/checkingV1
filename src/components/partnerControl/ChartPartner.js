@@ -80,19 +80,21 @@ export default class Example extends PureComponent {
 
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
         dataChart = this.sumAndDelete(dataChart);
-        dataChart = dataChart.filter(param => {
-          let stateParam = rangeDay.filter(day => { return day === param.dayNumber })[0];
-          return param.dayNumber === stateParam;
-        })
-        dataChart = dataChart.map(param => {
-          let dayparm = { day: 0, Sum_lineitemquantity: 0, Sum_basecost: 0 }
+        let dayDataChart = rangeDay.map(rangeDayParam => {
+          let dataChartSelect = dataChart.filter(param => {
+            return param.dayNumber === rangeDayParam;
+          })
+          dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual);
+          let datePrint = (((new Date(rangeDayParam)).getDate()) + "/" + ((new Date(rangeDayParam)).getMonth() + 1));
 
-          dayparm.day = (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1);
-          dayparm.Sum_lineitemquantity = param.Sum_lineitemquantity;
-          dayparm.Sum_basecost = Number(param.Sum_basecost.toFixed(1));
-          return dayparm;
+          let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
+          for (let i = 0; i <= dataChartSelect.length - 1; i++) {
+            sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
+            sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
+          }
+          return sumData;
         })
-        return dataChart;
+        return dayDataChart;
       }
       else if (rangeDay.length <= 119) {
         rangeDay = _.chunk(rangeDay, 7);
@@ -125,23 +127,51 @@ export default class Example extends PureComponent {
           }
           return sumData;
 
-
-          // dataChart = dataChart.map(param => {
-          //     return {
-          //         day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),
-          //         Sum_lineitemquantity: param.Sum_lineitemquantity,
-          //         Sum_basecost: Number(param.Sum_basecost.toFixed(1))
-          //     }
-          // })
         })
 
         return weekDataChart;
+      }
+
+      else if (rangeDay.length <= 730) {
+        rangeDay = rangeDay.map(param => { return { date: param, month: new Date(param).getMonth() } })
+        rangeDay = _.groupBy(rangeDay, "month");
+        rangeDay = _.toPairs(rangeDay).map(param => param[1]);
+        rangeDay.sort((a, b) => { return (a[0].date - b[0].date) });
+        rangeDay = rangeDay.map(param => { param = param.map(param2 => param2.date); return param })
+        console.log(rangeDay);
+        dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
+        dataChart = this.sumAndDelete(dataChart);
+        // het tinh rangeDay
+
+        let monthDataChart = rangeDay.map(rangeDayParam => {
+          let dataChartSelect = dataChart.filter(param => {
+            let stateParam = rangeDayParam.filter(day => { return day === param.dayNumber })[0];
+            return param.dayNumber === stateParam;
+          })
+          dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual);
+          let startDayParam = rangeDayParam[0];
+          let endDayParam = rangeDayParam[rangeDayParam.length - 1];
+          let datePrint = (((new Date(startDayParam)).getMonth() + 1) + "/" + ((new Date(startDayParam)).getFullYear()));
+
+          let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
+          for (let i = 0; i <= dataChartSelect.length - 1; i++) {
+            sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
+            sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
+          }
+          return sumData;
+
+
+        })
+
+        return monthDataChart;
+
       }
       return dataChart;
     }
 
   }
   render() {
+
 
     let dataChart = [];
 
@@ -169,7 +199,7 @@ export default class Example extends PureComponent {
         <YAxis />
         <Tooltip />
         <Legend payload={payload} />
-        <Bar dataKey={style} barSize={20} fill="#413ea0" >
+        <Bar dataKey={style} barSize={20} fill="#c0ded9" >
           <LabelList dataKey={style} position="top" />
         </Bar>
       </ComposedChart>
