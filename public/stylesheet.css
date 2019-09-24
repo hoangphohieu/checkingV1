@@ -1,5 +1,21 @@
 *{
-    margin: 0;padding: 0
+    margin: 0;
+    padding: 0;
+}
+
+.link.button_reset_day {
+    padding: 0.3rem;
+    border-radius: 100px;
+    background: #f7f7f7;
+    transition: all 0.1s;
+}
+
+.link.button_reset_day:hover {
+    background: #ffb337;
+}
+
+p.p_reset_day {
+    margin: 1rem 0 -0.5rem 0;
 }
 
 .App.back_ground_all {
@@ -8,7 +24,8 @@
 }
 
 .background_nav_top {
-    background: #2a2a2a;
+    /* background: #4a4a4a; */
+    background-image: linear-gradient(175deg, #7b7b7b, #505050);
     color: #fff;
     box-shadow: 5px 3px 1px 0px #d0d0d0;
 }
@@ -129,10 +146,10 @@ p.checking-item-name {
 }
 
 .renderListPartner:hover{
-    background-image: linear-gradient(90deg, #f3f3f3, #ff9e00      );
+    background-image: linear-gradient(90deg, #f3f3f3, #ffb337       );
 }
 .renderListPartner_select{
-    background-image: linear-gradient(90deg, #ffe3cd, #ff7e5f ) !important;
+    background-image: linear-gradient(90deg, #f3f3f3, #ffb337  ) !important;
 
 }
 

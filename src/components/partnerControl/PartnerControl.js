@@ -10,21 +10,14 @@ class PartnerControl extends Component {
                 from: undefined,
                 to: undefined
             },
-
         }
     }
-    setDaySelect = (param) => {
+    setDaySelect = (param) => { // setState lai, được gọi từ component con (SelectDate)
         this.setState({ date: param })
 
     }
-    shouldComponentUpdate(nextProps, nextState) {
-
-        // console.log(this.state.date,nextState);
-        if (this.state.date !== nextState.date) { return false }
-        return true
-    }
     render() {
-        console.log("PartnerControl", this.state.date);
+console.log(this.state.date);
 
         return (
             <div className="container-fluid">
@@ -32,7 +25,7 @@ class PartnerControl extends Component {
                     <div className="row">
                         <div className="col-4">
                             <p>select col-4</p>
-                            <SelectPartnerAndDay sentDayToProps={this.setDaySelect} date={this.state.date} {...this.props} />
+                            <SelectPartnerAndDay sentDayToProps={this.setDaySelect} date={this.state.date} setDateToUndefined{...this.props} />
                         </div>
                         <div className="col-8 d-flex-column align-item-center">
                             <p>Biểu đồ col-8</p>

@@ -26,16 +26,13 @@ export default class Example extends React.Component {
 
 
     componentDidUpdate() {
-        this.CDU_setStateListDay();
+        this.CDU_setStateListDay(); // lấy listDay của partner được GET(getListDayById) ở  component (SelectPartnerAndDay)
     }
     CDU_setStateListDay = () => {
         if (this.props.items !== undefined) {
             if (this.props.items.type === "getListDayById") {
-                let listDay = this.props.items.listItem;
-                // console.log(listDay);
-
+                let listDay = JSON.parse(JSON.stringify(this.props.items.listItem));
                 listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]).map(param => { return (new Date(param)) });
-
                 listDay.length = 300;
                 listDay = listDay.filter(param => { return param !== undefined });
                 if (this.state.listDay.join("") !== listDay.join("")) {
@@ -44,36 +41,37 @@ export default class Example extends React.Component {
             }
         }
     }
-    handleDayClick(day) {
+    handleDayClick(day) { // click khi select Date
         const range = DateUtils.addDayToRange(day, this.state);
         this.setState(range);
-        this.props.sentDayToProps(range);
-        this.getdataFromServer();
+        this.props.sentDayToProps(range);   //  gọi tới  component (PartnerControl)  để setState và truyền date cho toàn bộ component
+        this.getdataFromServer(); // gọi tới hàm nội bộ  (getdataFromServer) để GET   khi click select Date
     }
     handleResetClick() {
-        this.setState(this.getInitialState());
+        this.props.sentDayToProps(this.getInitialState()); // gọi tới  component (PartnerControl)  để setState và truyền date cho toàn bộ component
+        this.setState({ from: undefined, to: undefined }); // setState lại
+
     }
     getdataFromServer = () => {
-        let partnerSelect = this.props.partnerSelect;
+        let partnerSelect = this.props.partnerSelect; // props lấy từ  component (SelectPartnerAndDay)
         let dateFrom = null;
         let dateTo = null;
-        if (this.props.date !== null) {
+        if (this.props.date !== null) { // tính dateFrom và dateTo là số 121212121212121, lấy từ component (PartnerControl)
             dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
             dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
         }
         let endPoint = null;
 
-        if (partnerSelect !== null) {
+        if (partnerSelect !== null) {  // tính endPoint ứng với partnerSelect và date select
             endPoint = this.getEndPoint(partnerSelect, dateFrom, dateTo);
         }
         else if (partnerSelect === null) {
             endPoint = this.getEndPoint("allPartner", dateFrom, dateTo);
         }
-        this.props.getListByCustom(endPoint);
+        this.props.getListByCustom(endPoint); // GET API
     }
     getEndPoint = (partnerSelect, dateFrom, dateTo) => {
         let timeNow = new Date();
-        // let dayNow = timeNow.getDate();
         let monthNow = timeNow.getMonth() + 1;
         let yearNow = timeNow.getFullYear();
         let endPoint = null;
@@ -85,7 +83,6 @@ export default class Example extends React.Component {
         else if (dateFrom !== null && dateTo !== null) {
             let monthDateFrom = new Date(dateFrom).getMonth() + 1;
             let monthdateTo = new Date(dateTo).getMonth() + 1;
-            console.log(monthDateFrom, monthdateTo);
             if (monthDateFrom === monthdateTo) {
                 endPoint = "?namePartner=" + partnerSelect
                     + "&monthNumber=" + monthdateTo
@@ -117,23 +114,21 @@ export default class Example extends React.Component {
     }
 
     render() {
-        const { from, to } = this.state;
-        let modifiers = { start: from, end: to, highlighted: [] };
+
+        let { from, to } = this.props.date;
+        let modifiers = { start: from, end: to, highlighted: [] };  // obj chứa date select và ngày nổi trội hơn 
         modifiers.highlighted = this.state.listDay;
-
-
-
         return (
             <div className="RangeExample">
-                <p>
-                    {!from && !to && 'Please select the first day.'}
-                    {from && !to && 'Please select the last day.'}
+                <p className="p_reset_day"> 
+                    {!from && !to && 'Click to select range date'}
+                    {from && !to && 'Click to select range date'}
                     {from &&
                         to &&
-                        `Selected from ${from.toLocaleDateString()} to
+                        `From${from.toLocaleDateString()} To
                 ${to.toLocaleDateString()}`}{' '}
                     {from && to && (
-                        <button className="link" onClick={this.handleResetClick}>
+                        <button className="link button_reset_day" onClick={this.handleResetClick}>
                             Reset
             </button>
                     )}
@@ -148,11 +143,11 @@ export default class Example extends React.Component {
                 <Helmet>
                     <style>{`
   .Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-    background-color: #f0f8ff !important;
+    background-color: #d2e4f5  !important;
     color: #000;
   }
   .DayPicker:not(.DayPicker--interactionDisabled) .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover{
-    background-color: #4a90e2 !important;
+    background-color: #c0ded9 !important;
     color: #fff;
     
   }
@@ -169,7 +164,7 @@ export default class Example extends React.Component {
     border-bottom-right-radius: 50% !important;
   }
   .DayPicker-Day--highlighted {
-    background-color: #ecb000;
+    background-color: #ffb337;
     color: white;
     border-top-right-radius: 50% !important;
     border-bottom-right-radius: 50% !important;

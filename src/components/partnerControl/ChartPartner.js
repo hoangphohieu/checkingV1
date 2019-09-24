@@ -6,31 +6,10 @@ import {
   Legend, LabelList
 } from 'recharts';
 
-const data = [
-  {
-    name: 'Page A', uv: 590, pv: 800, amt: 1400,
-  },
-  {
-    name: 'Page B', uv: 868, pv: 967, amt: 1506,
-  },
-  {
-    name: 'Page C', uv: 1397, pv: 1098, amt: 989,
-  },
-  {
-    name: 'Page D', uv: 1480, pv: 1200, amt: 1228,
-  },
-  {
-    name: 'Page E', uv: 1520, pv: 1108, amt: 1100,
-  },
-  {
-    name: 'Page F', uv: 1400, pv: 680, amt: 1700,
-  },
-];
-
 export default class Example extends PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/94sebfL8/';
 
-  sumAndDelete = (dataChart) => {
+  sumAndDelete = (dataChart) => { // hàm tính những ngày bị trùng nhau, cộng lại là để lại 1 ngày duy nhất
     for (let i = 0; i <= dataChart.length - 2; i++) {
       if (dataChart[i].dayNumber === dataChart[i + 1].dayNumber) {
         dataChart[i + 1].Sum_basecost += dataChart[i].Sum_basecost;
@@ -62,12 +41,11 @@ export default class Example extends PureComponent {
 
   }
   Math_dataChart = (dataChart, rangeDay) => {
-
-    if (dataChart !== undefined) {
+    if (dataChart !== undefined) { // TH1: select date = -
       if (rangeDay.length == 0) {
-        dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
-        dataChart = this.sumAndDelete(dataChart);
-        dataChart = dataChart.map(param => {
+        dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
+        dataChart = this.sumAndDelete(dataChart); // lọc
+        dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
           return {
             day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),
             Sum_lineitemquantity: param.Sum_lineitemquantity,
@@ -76,33 +54,34 @@ export default class Example extends PureComponent {
         })
         return dataChart;
       }
-      else if (rangeDay.length <= 14) {
 
-        dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
-        dataChart = this.sumAndDelete(dataChart);
-        let dayDataChart = rangeDay.map(rangeDayParam => {
-          let dataChartSelect = dataChart.filter(param => {
+      else if (rangeDay.length <= 14) { // TH2: select date là khoảng thời gian 14 ngày
+        dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xếp
+        dataChart = this.sumAndDelete(dataChart); // lọc
+        let dayDataChart = rangeDay.map(rangeDayParam => { // với từng item của khoảng thời gian selectDate
+          let dataChartSelect = dataChart.filter(param => { // trả về với item (dataChart)  nào trùng với ngày của item selectDate 
             return param.dayNumber === rangeDayParam;
           })
-          dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual);
+          dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual); // đồng thời (dataChart) xóa những cái vừa lọc ở trên đi 
           let datePrint = (((new Date(rangeDayParam)).getDate()) + "/" + ((new Date(rangeDayParam)).getMonth() + 1));
-
           let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {
             sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
-            sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
+            sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1)); // làm tròn tới số thập phân thứ 1
           }
+
           return sumData;
         })
         return dayDataChart;
       }
-      else if (rangeDay.length <= 119) {
-        rangeDay = _.chunk(rangeDay, 7);
-        // console.log(rangeDay); 
+      else if (rangeDay.length <= 119) { // TH3: seledate là khoảng thời gian 4 tháng, chia thành các tuần
+        rangeDay = _.chunk(rangeDay, 7); // chia thành  từng 7 ngày
+        console.log(rangeDay);
+        
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
         dataChart = this.sumAndDelete(dataChart);
 
-        let weekDataChart = rangeDay.map((rangeDayParam, id) => {
+        let weekDataChart = rangeDay.map((rangeDayParam,id) => {
           let dataChartSelect = dataChart.filter(param => {
             let stateParam = rangeDayParam.filter(day => { return day === param.dayNumber })[0];
             return param.dayNumber === stateParam;
@@ -111,20 +90,18 @@ export default class Example extends PureComponent {
           let startDayParam = rangeDayParam[0];
           let endDayParam = rangeDayParam[rangeDayParam.length - 1];
           let datePrint;
-          if ((new Date(startDayParam)).getMonth() === (new Date(endDayParam)).getMonth()) {
+          if ((new Date(startDayParam)).getMonth() === (new Date(endDayParam)).getMonth()) { // tính ngày datePrint 7-9/10
             datePrint = (new Date(startDayParam)).getDate() + "-" + (new Date(endDayParam)).getDate() + "/" + ((new Date(startDayParam)).getMonth() + 1)
-
           }
           else {
             datePrint = (new Date(startDayParam)).getDate() + "/" + ((new Date(startDayParam)).getMonth() + 1) + "-" + (new Date(endDayParam)).getDate() + "/" + ((new Date(endDayParam)).getMonth() + 1)
-
           }
-
           let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
-          for (let i = 0; i <= dataChartSelect.length - 1; i++) {
+          for (let i = 0; i <= dataChartSelect.length - 1; i++) { //  tính item= tổng 7 item còn lại
             sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
             sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
           }
+          sumData.Sum_basecost = Number(sumData.Sum_basecost.toFixed(1));
           return sumData;
 
         })
@@ -132,13 +109,12 @@ export default class Example extends PureComponent {
         return weekDataChart;
       }
 
-      else if (rangeDay.length <= 730) {
-        rangeDay = rangeDay.map(param => { return { date: param, month: new Date(param).getMonth() } })
-        rangeDay = _.groupBy(rangeDay, "month");
+      else if (rangeDay.length <= 730) { // giới hạn 2 năm, chia thàng các tháng
+        rangeDay = rangeDay.map(param => { return { date: param, month: new Date(param).getMonth() } }) // tính toán để chia range day thành các tháng
+        rangeDay = _.groupBy(rangeDay, "month"); // group thành các tháng
         rangeDay = _.toPairs(rangeDay).map(param => param[1]);
-        rangeDay.sort((a, b) => { return (a[0].date - b[0].date) });
+        rangeDay.sort((a, b) => { return (a[0].date - b[0].date) }); // lọc từ tháng trước đến tháng sau
         rangeDay = rangeDay.map(param => { param = param.map(param2 => param2.date); return param })
-        console.log(rangeDay);
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
         dataChart = this.sumAndDelete(dataChart);
         // het tinh rangeDay
@@ -152,38 +128,26 @@ export default class Example extends PureComponent {
           let startDayParam = rangeDayParam[0];
           let endDayParam = rangeDayParam[rangeDayParam.length - 1];
           let datePrint = (((new Date(startDayParam)).getMonth() + 1) + "/" + ((new Date(startDayParam)).getFullYear()));
-
           let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {
             sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
             sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
           }
+          sumData.Sum_basecost = Number(sumData.Sum_basecost.toFixed(1));
           return sumData;
-
-
         })
-
         return monthDataChart;
-
       }
       return dataChart;
     }
-
   }
   render() {
-
-
     let dataChart = [];
-
     let rangeDay = this.Math_rangeDay();  // tính arr=[xxx]  la khoang thoi gian select
-    if (this.props.items.type === "getListByCustom") {
+    if (this.props.items.type === "getListByCustom") { // nêu GET (getListByCustom), gọi hàm  nội bộ (Math_dataChart) dể tính và xuất ra  data của biểu đồ
       dataChart = this.Math_dataChart(JSON.parse(JSON.stringify(this.props.items.listItem)), rangeDay);
-      console.log(dataChart, rangeDay);
-
     }
     let style = this.props.styleChart;
-
-
     let payload = (this.props.styleChart === "Sum_lineitemquantity" ? [{ value: 'Số lượng', type: 'line' }] : [{ value: 'Tổng Base Cost', type: 'line' }])
     return (
       <ComposedChart
@@ -194,12 +158,12 @@ export default class Example extends PureComponent {
           top: 20, right: 20, bottom: 20, left: 20,
         }}
       >
-        <CartesianGrid stroke="#f5f5f5" />
+        <CartesianGrid stroke="#fff" />  {/* đường sọc ngang dọc, chia ô */}
         <XAxis dataKey="day" />
         <YAxis />
         <Tooltip />
-        <Legend payload={payload} />
-        <Bar dataKey={style} barSize={20} fill="#c0ded9" >
+        <Legend payload={payload} /> {/* tên của biểu đồ */}
+        <Bar dataKey={style} barSize={20} fill="#c0ded9" >  {/* cột của biểu đò */}
           <LabelList dataKey={style} position="top" />
         </Bar>
       </ComposedChart>
