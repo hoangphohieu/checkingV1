@@ -1,25 +1,6 @@
 {
   "items": [
     {
-      "day": 1575478800000,
-      "partner": "atuan",
-      "phonecasetype": "glass",
-      "name": "mj0272",
-      "shippingname": "Darin Dean",
-      "shippingaddress1": "6433 Peggy Drive",
-      "shippingaddress2": null,
-      "shippingcity": "Fort Worth",
-      "shippingzip": 76133,
-      "shippingprovince": "TX",
-      "shippingcountry": "US",
-      "shippingphone": "(817) 937-6930",
-      "basecost": 9.5,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Phone case iPhone Samsung dah120833 - Galaxy S9",
-      "id": "MJ02729.5phone-case-i-phone-samsung-dah-120833-galaxy-s-9"
-    },
-    {
       "day": 1575392400000,
       "partner": "atuan",
       "phonecasetype": "glass",
