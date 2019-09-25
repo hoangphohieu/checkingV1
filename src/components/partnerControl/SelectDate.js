@@ -73,7 +73,6 @@ export default class Example extends React.Component {
     getEndPoint = (partnerSelect, dateFrom, dateTo) => {
         let timeNow = new Date();
         let monthNow = timeNow.getMonth() + 1;
-        let yearNow = timeNow.getFullYear();
         let endPoint = null;
         if (dateFrom === null && dateTo === null) {
             endPoint = "?namePartner=" + partnerSelect

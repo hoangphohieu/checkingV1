@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import _ from 'lodash';
 
 import {
-  ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   Legend, LabelList
 } from 'recharts';
 
@@ -42,7 +42,7 @@ export default class Example extends PureComponent {
   }
   Math_dataChart = (dataChart, rangeDay) => {
     if (dataChart !== undefined) { // TH1: select date = -
-      if (rangeDay.length == 0) {
+      if (rangeDay.length === 0) {
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
         dataChart = this.sumAndDelete(dataChart); // lọc
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
@@ -126,7 +126,6 @@ export default class Example extends PureComponent {
           })
           dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual);
           let startDayParam = rangeDayParam[0];
-          let endDayParam = rangeDayParam[rangeDayParam.length - 1];
           let datePrint = (((new Date(startDayParam)).getMonth() + 1) + "/" + ((new Date(startDayParam)).getFullYear()));
           let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {

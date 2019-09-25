@@ -12,7 +12,7 @@ class CheckingProperties extends Component {
 
       postItemsExcelFail = (param, id) => {
             console.log(param, id);
-            if (param.id.slice(0,7) === "listday"||  param.id === "listPartner") {
+            if (param.id.slice(0, 7) === "listday" || param.id === "listPartner") {
                   this.props.patchItemsExcelCountFail(param, id);
             }
             else {
@@ -41,7 +41,7 @@ class CheckingProperties extends Component {
                   }
             }
             this.props.deleteItemsExcelFail(id);
-            
+
       }
 
 
@@ -76,7 +76,7 @@ class CheckingProperties extends Component {
                                     </button>
                                     {
                                           item.map((param, id) => {
-                                                return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
+                                                return (<p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>)
                                           })
                                     }
                               </div>
@@ -104,7 +104,7 @@ class CheckingProperties extends Component {
                                                                   <span className="checking-item-title">{param[0]}:</span>
                                                                   <input type="text" className="form-control" placeholder="" ref={param[0]} defaultValue={param[1]} />
                                                             </p>
-
+                                                      return 0;
                                                 })
                                           }
                                     </Modal.Body>

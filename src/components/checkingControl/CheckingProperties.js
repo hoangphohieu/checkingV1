@@ -58,6 +58,7 @@ class CheckingProperties extends Component {
                                           item.map((param, id) => {
                                                 if (param[0] !== "id" && param[0] !== "printStatus")
                                                       return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
+                                                      return 0;
                                           })
                                     }
                               </div>
