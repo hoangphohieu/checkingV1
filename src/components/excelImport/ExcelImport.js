@@ -13,6 +13,8 @@ class InputExcel extends Component {
             reRender: 0,
             stateListItemCountFail: 0,
             stateListItemPatchFail: 0,
+            firstPostListItemCount: 0,
+            firstPatchListItemCount: 0,
 
         }
     }
@@ -46,21 +48,22 @@ class InputExcel extends Component {
 
 
     componentDidUpdate = () => {
-        this.CDU_reRenderWhenItemsExcelZero(); // rerender khi post het list items from excel
         this.CDU_ItemsCountProperties();
-        this.CDU_stateImportExcelToDefault();
+        // this.CDU_stateImportExcelToDefault();
         this.CDU_postListItemCount();
         this.CDU_checkRequest(); // kiểm tra và thực hiện hành động khi có request trả về
+        this.CDU_reRenderWhenItemsExcelZero(); // rerender khi post het list items from excel
+
     }
     CDU_stateImportExcelToDefault = () => {
-        // if ((this.props.itemExcelReload.dataFetched === true || this.props.itemExcelReload.error === true)
-        //     && (
-        //         ((JSON.parse(localStorage.getItem("ItemsExcel")).length === 0) && (JSON.parse(localStorage.getItem("ItemsExcelFail")).length === 0))
-        //         && ((JSON.parse(localStorage.getItem("ItemsExcelSuccess")).length === 0) && (JSON.parse(localStorage.getItem("listItemCount")).length === 0))
-        //     )
-        // ) {
-        //     this.props.stateImportExcelToDefault();
-        // }
+        if ((this.props.itemExcelReload.dataFetched === true || this.props.itemExcelReload.error === true)
+            && (
+                ((JSON.parse(localStorage.getItem("ItemsExcel")).length === 0) && (JSON.parse(localStorage.getItem("ItemsExcelFail")).length === 0))
+                && ((JSON.parse(localStorage.getItem("ItemsExcelSuccess")).length === 0) && (JSON.parse(localStorage.getItem("listItemCount")).length === 0))
+            )
+        ) {
+            this.props.stateImportExcelToDefault();
+        }
 
     }
 
@@ -131,7 +134,7 @@ class InputExcel extends Component {
 
             listDay = _.toPairs(listDay).filter(param => { return param[0] !== "id" }).map(param => param[1]);
             for (let j = 0; j <= listDay.length - 1; j++) {
-                let  uuidv1 = require('uuid/v1');
+                let uuidv1 = require('uuid/v1');
                 let item = { id: uuidv1(), namePartner: "allPartner", dayNumber: listDay[j][1] }
                 let item2 = ItemsExcelSuccess;
                 item["Sum_lineitemquantity"] = 0;
@@ -154,8 +157,8 @@ class InputExcel extends Component {
 
             localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCountPatch));
             localStorage.setItem("listItemCountPost", JSON.stringify(listItemCountPost));
-            console.log( JSON.parse(localStorage.getItem("listItemCountPatch")));
-            console.log( JSON.parse(localStorage.getItem("listItemCountPost")));
+            console.log(JSON.parse(localStorage.getItem("listItemCountPatch")));
+            console.log(JSON.parse(localStorage.getItem("listItemCountPost")));
 
             localStorage.setItem("ItemsExcelSuccess", JSON.stringify([]));
             // console.log(listItemCount);
@@ -164,6 +167,7 @@ class InputExcel extends Component {
 
         }
     }
+
     CDU_reRenderWhenItemsExcelZero() {
         let payload = this.props.itemExcelReload;
         if ((payload.dataFetched === true || payload.error === true) && (JSON.parse(localStorage.getItem("ItemsExcel")).length === 0)) {
@@ -172,19 +176,26 @@ class InputExcel extends Component {
     }
     // read data from excel 
     CDU_postListItemCount = () => {
-        if (JSON.parse(localStorage.getItem("listItemCountPost")).length > 0) {
-            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
-            this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
-        }
-        else if (JSON.parse(localStorage.getItem("listItemCountPatch")).length > 0) {
+        // if (JSON.parse(localStorage.getItem("listItemCountPost")).length > 0 && this.state.firstPostListItemCount === 0) {
+        //     let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
+        //     this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
+        //     this.setState({ firstPostListItemCount: 1 })
+        // }
+        // else
+         if (JSON.parse(localStorage.getItem("listItemCountPatch")).length > 0 && this.state.firstPatchListItemCount === 0) {
             let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
             this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
+            this.setState({ firstPatchListItemCount: 1 })
+
         }
     }
     CDU_checkRequest() {
         if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_SUCSESS") { this.doingWhenPostItemSucsess() }
         else if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_RFAILURE") { this.doingWhenPostItemFail() }
-        else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_SUCSESS") { this.doingWhenPostListItemCountSucsess() }
+        else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_SUCSESS") {
+            console.log("doingWhenPostListItemCountSucsess");
+            this.doingWhenPostListItemCountSucsess()
+        }
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPostListItemCountFail() }
         else if (this.props.itemExcelReload.type === "PATCH_LIST_ITEM_COUNT_SUCSESS") { this.doingWhenPatchListItemCountSucsess() }
         else if (this.props.itemExcelReload.type === "PATCH_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPatchListItemCountFail() }
@@ -220,10 +231,10 @@ class InputExcel extends Component {
     doingWhenPostListItemCountSucsess = () => {
         let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
         if (listItemCount.length > 0) {
+            console.log(listItemCount);
             listItemCount.pop();
             localStorage.setItem("listItemCountPost", JSON.stringify(listItemCount));
-            console.log(JSON.parse(localStorage.getItem("listItemCountPost")));
-            this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
+            if (listItemCount.length > 0) this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
         }
     }
     doingWhenPostListItemCountFail = () => {
@@ -381,13 +392,7 @@ class InputExcel extends Component {
         }
     }
     render() {
-        console.log(this.props.itemExcelReload.type);
-
-
-        // console.log(this.props.itemExcelReload);
-
-
-
+        console.log("rerender");
 
         let ItemsExcel = JSON.stringify(this.state.dataExcel);
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
