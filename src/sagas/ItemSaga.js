@@ -1,11 +1,9 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import getTotalPageAPI from './../fetchAPI/GetTotalPageAPI';
-import postItemExcelAPI from './../fetchAPI/PostItemExcelAPI';
 import patchPrintStatusItemAPI from './../fetchAPI/PatchPrintStatusItemAPI';
 import patchItemCheckingPropertiesAPI from './../fetchAPI/PatchItemCheckingPropertiesAPI';
 import deleteItemCheckingAPI from './../fetchAPI/DeleteItemCheckingAPI';
 import itemsPrintFalseAPI from './../fetchAPI/ItemsPrintFalseAPI';
-import patchItemsExcelFailAPI from './../fetchAPI/PatchItemsExcelFailAPI';
 import * as type from './../constants';
 
 function* getChecking(param) {     // lấy total page
@@ -26,46 +24,6 @@ function* getChecking(param) {     // lấy total page
     }
 
 }
-
-
-function* postItemExcel(param) {     // lấy total page
-    // console.log(param);
-    try {
-        let res1 = yield postItemExcelAPI(param.payload); //gọi API
-        yield put({
-            type: type.POST_ITEM_EXCEL_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
-            payload: res1
-        })
-    } catch (error) {
-        yield put({
-            type: type.POST_ITEM_EXCEL_RFAILURE, // trigger itemsReducer
-            payload: {
-                errorMessage: error
-            }
-        })
-    }
-
-}
-function* patchItemsExcelFail(param) {     // lấy total page
-    // console.log(param);
-    try {  
-        let res1 = yield patchItemsExcelFailAPI(param.payload); //gọi API
-        yield put({
-            type: type.POST_ITEM_EXCEL_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
-            payload: res1
-        })
-    } catch (error) {
-        yield put({
-            type: type.POST_ITEM_EXCEL_RFAILURE, // trigger itemsReducer
-            payload: {
-                errorMessage: error
-            }
-        })
-    }
-
-}
-
-
 function* patchPrintStatusItem(param) {     // lấy total page
     console.log(param);
 
@@ -155,8 +113,6 @@ function* itemsPrintFalse() {     // lấy total page
 }
 export const IteamSaga = [
     takeEvery(type.GET_CHECKING_REQUEST, getChecking),
-    takeEvery(type.POST_ITEM_EXCEL_REQUEST, postItemExcel),
-    takeEvery(type.PATCH_ITEM_EXCEL_FAIL_REQUEST, patchItemsExcelFail),
     takeEvery(type.CHANGE_PRINT_STATUS_REQUEST, patchPrintStatusItem),
     takeEvery(type.PATCH_ITEM_CHECKING_PROPERTIES_REQUEST, patchItemCheckingProperties),
     takeEvery(type.DELETE_ITEM_CHECKING_REQUEST, deleteItemChecking),

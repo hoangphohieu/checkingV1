@@ -1,0 +1,78 @@
+import { put, takeEvery } from 'redux-saga/effects';
+import postItemExcelAPI from './../fetchAPI/PostItemExcelAPI';
+import patchItemsExcelFailAPI from './../fetchAPI/PatchItemsExcelFailAPI';
+import postListItemCountAPI from './../fetchAPI/PostListItemCountAPI';
+import patchListItemCountAPI from './../fetchAPI/PatchListItemCountAPI';
+import * as type from './../constants';
+
+function* postItemExcel(param) {     // lấy total page
+      try {
+            let res1 = yield postItemExcelAPI(param.payload); //gọi API
+            yield put({
+                  type: type.POST_ITEM_EXCEL_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+                  payload: res1
+            })
+      } catch (error) {
+            yield put({
+                  type: type.POST_ITEM_EXCEL_RFAILURE, // trigger itemsReducer
+                  payload: {
+                        errorMessage: error
+                  }
+            })
+      }
+
+}
+function* patchItemsExcelFail(param) {     // lấy total page
+      try {
+            let res1 = yield patchItemsExcelFailAPI(param.payload); //gọi API
+            yield put({
+                  type: type.POST_ITEM_EXCEL_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+                  payload: res1
+            })
+      } catch (error) {
+            yield put({
+                  type: type.POST_ITEM_EXCEL_RFAILURE, // trigger itemsReducer
+                  payload: {
+                        errorMessage: error
+                  }
+            })
+      }
+      function* postListItemCount(param) {     // lấy total page
+            try {
+                  let res1 = yield postListItemCountAPI(param.payload); //gọi API
+                  yield put({
+                        type: type.POST_LIST_ITEM_COUNT_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+                        payload: res1
+                  })
+            } catch (error) {
+                  yield put({
+                        type: type.POST_LIST_ITEM_COUNT_RFAILURE, // trigger itemsReducer
+                        payload: {
+                              errorMessage: error
+                        }
+                  })
+            }
+
+            function* patchListItemCount(param) {     // lấy total page
+                  try {
+                        let res1 = yield patchListItemCountAPI(param.payload); //gọi API
+                        yield put({
+                              type: type.PATCH_LIST_ITEM_COUNT_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+                              payload: res1
+                        })
+                  } catch (error) {
+                        yield put({
+                              type: type.PATCH_LIST_ITEM_COUNT_RFAILURE, // trigger itemsReducer
+                              payload: {
+                                    errorMessage: error
+                              }
+                        })
+                  }
+
+            } export const IteamSaga = [
+                  takeEvery(type.POST_ITEM_EXCEL_REQUEST, postItemExcel),
+                  takeEvery(type.PATCH_ITEM_EXCEL_FAIL_REQUEST, patchItemsExcelFail),
+                  takeEvery(type.POST_LIST_ITEM_COUNT_REQUEST, postListItemCount),
+                  takeEvery(type.PATCH_LIST_ITEM_COUNT_REQUEST, patchListItemCount),
+
+            ];   

@@ -4,6 +4,7 @@ let DEFAULT_STATE = {
     dataFetched: false,
     isFetching: false,
     error: false,
+    type: null,
     errorMessesage: null
 }
 export default (state = DEFAULT_STATE, action) => {
@@ -16,6 +17,7 @@ export default (state = DEFAULT_STATE, action) => {
                 dataFetched: false,
                 isFetching: false,
                 error: false,
+                type: null,
                 errorMessesage: null
             }
 
@@ -26,6 +28,7 @@ export default (state = DEFAULT_STATE, action) => {
                 isFetching: false,
                 dataFetched: true,
                 error: false,
+                type: "POST_ITEM_EXCEL_SUCSESS",
                 errorMessesage: null,
                 listItem: action.payload
             }
@@ -35,6 +38,49 @@ export default (state = DEFAULT_STATE, action) => {
                 ...state,
                 isFetching: false,
                 error: true,
+                type: "POST_ITEM_EXCEL_RFAILURE",
+                dataFetched: false,
+                errorMessesage: action.payload.errorMessesage
+            }
+        case type.POST_LIST_ITEM_COUNT_SUCSESS:
+
+            return {
+                ...state,
+                isFetching: false,
+                dataFetched: true,
+                error: false,
+                type: "POST_LIST_ITEM_COUNT_SUCSESS",
+                errorMessesage: null,
+                listItem: action.payload
+            }
+
+        case type.POST_LIST_ITEM_COUNT_RFAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: true,
+                type: "POST_LIST_ITEM_COUNT_RFAILURE",
+                dataFetched: false,
+                errorMessesage: action.payload.errorMessesage
+            }
+        case type.PATCH_LIST_ITEM_COUNT_SUCSESS:
+
+            return {
+                ...state,
+                isFetching: false,
+                dataFetched: true,
+                error: false,
+                type: "PATCH_LIST_ITEM_COUNT_SUCSESS",
+                errorMessesage: null,
+                listItem: action.payload
+            }
+
+        case type.PATCH_LIST_ITEM_COUNT_RFAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: true,
+                type: "PATCH_LIST_ITEM_COUNT_RFAILURE",
                 dataFetched: false,
                 errorMessesage: action.payload.errorMessesage
             }
