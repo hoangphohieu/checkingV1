@@ -13,6 +13,7 @@ function mapDispatchToProps(dispatch) {
         postListItemCount:(param)=>dispatch(actions.postListItemCountAPI(param)),
         patchListItemCount:(param)=>dispatch(actions.patchListItemCountAPI(param)),
         patchItemsExcelFail:(param)=>dispatch(actions.patchItemsExcelFailAPI(param)),
+        postListItemCountPatchFail:(param)=>dispatch(actions.postListItemCountPatchFailAPI(param)),
         stateImportExcelToDefault:(param)=>dispatch(actions.stateImportExcelToDefault(param)),
     };
 }

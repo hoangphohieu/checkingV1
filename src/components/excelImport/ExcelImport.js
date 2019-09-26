@@ -12,6 +12,7 @@ class InputExcel extends Component {
             changeItemsExcelFail: 0,
             reRender: 0,
             stateListItemCountFail: 0,
+            stateListItemPatchFail: 0,
 
         }
     }
@@ -27,14 +28,14 @@ class InputExcel extends Component {
             localStorage.setItem("listItemCountPatch", JSON.stringify([]));
         }
         if (JSON.parse(localStorage.getItem("listItemCountPatchFail")) === null) {
-            localStorage.setItem("listItemCountPatch", JSON.stringify([]));
+            localStorage.setItem("listItemCountPatchFail", JSON.stringify([]));
         }
 
         if (JSON.parse(localStorage.getItem("listItemCountPost")) === null) {
             localStorage.setItem("listItemCountPost", JSON.stringify([]));
         }
         if (JSON.parse(localStorage.getItem("listItemCountPostFail")) === null) {
-            localStorage.setItem("listItemCountPost", JSON.stringify([]));
+            localStorage.setItem("listItemCountPostFail", JSON.stringify([]));
         }
     }
     componentDidMount() {
@@ -52,17 +53,14 @@ class InputExcel extends Component {
         this.CDU_checkRequest(); // kiểm tra và thực hiện hành động khi có request trả về
     }
     CDU_stateImportExcelToDefault = () => {
-        if (
-            (this.props.itemExcelReload.dataFetched === true || this.props.itemExcelReload.error === true)
-            && (
-                ((JSON.parse(localStorage.getItem("ItemsExcel")).length === 0) && (JSON.parse(localStorage.getItem("ItemsExcelFail")).length === 0))
-                && ((JSON.parse(localStorage.getItem("ItemsExcelSuccess")).length === 0) && (JSON.parse(localStorage.getItem("listItemCount")).length === 0))
-            )
-
-        ) {
-            this.props.stateImportExcelToDefault();
-
-        }
+        // if ((this.props.itemExcelReload.dataFetched === true || this.props.itemExcelReload.error === true)
+        //     && (
+        //         ((JSON.parse(localStorage.getItem("ItemsExcel")).length === 0) && (JSON.parse(localStorage.getItem("ItemsExcelFail")).length === 0))
+        //         && ((JSON.parse(localStorage.getItem("ItemsExcelSuccess")).length === 0) && (JSON.parse(localStorage.getItem("listItemCount")).length === 0))
+        //     )
+        // ) {
+        //     this.props.stateImportExcelToDefault();
+        // }
 
     }
 
@@ -115,13 +113,13 @@ class InputExcel extends Component {
                     item["Sum_basecost"] = 0;
                     item["partnertype"] = arrListPartner[i][1][0];
                     item["Sum_us"] = 0;
-                    if (param.partnertype.trim().toLowerCase() === "phonecase") item["Sum_luminous"] = 0;
+                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item["Sum_luminous"] = 0;
                     let month = (new Date(PartnerAndDay[j][1])).getMonth() + 1;
                     let year = (new Date(PartnerAndDay[j][1])).getFullYear();
                     item["monthNumber"] = month;
                     item["yearNumber"] = year;
                     item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sum_us = item.Sum_us + param.lineitemquantity });
-                    if (param.partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sum_luminous = item.Sum_luminous + param.lineitemquantity });
+                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sum_luminous = item.Sum_luminous + param.lineitemquantity });
                     item2.filter(param => { return param.day === PartnerAndDay[j][1] }).forEach(param => {
                         item.Sum_lineitemquantity = (item.Sum_lineitemquantity + param.lineitemquantity);
                         item.Sum_basecost = (item.Sum_basecost + param.lineitemquantity * param.basecost);
@@ -133,7 +131,7 @@ class InputExcel extends Component {
 
             listDay = _.toPairs(listDay).filter(param => { return param[0] !== "id" }).map(param => param[1]);
             for (let j = 0; j <= listDay.length - 1; j++) {
-                const uuidv1 = require('uuid/v1');
+                let  uuidv1 = require('uuid/v1');
                 let item = { id: uuidv1(), namePartner: "allPartner", dayNumber: listDay[j][1] }
                 let item2 = ItemsExcelSuccess;
                 item["Sum_lineitemquantity"] = 0;
@@ -156,8 +154,8 @@ class InputExcel extends Component {
 
             localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCountPatch));
             localStorage.setItem("listItemCountPost", JSON.stringify(listItemCountPost));
-            // console.log( JSON.parse(localStorage.getItem("listItemCountPatch")));
-            // console.log( JSON.parse(localStorage.getItem("listItemCountPost")));
+            console.log( JSON.parse(localStorage.getItem("listItemCountPatch")));
+            console.log( JSON.parse(localStorage.getItem("listItemCountPost")));
 
             localStorage.setItem("ItemsExcelSuccess", JSON.stringify([]));
             // console.log(listItemCount);
@@ -174,12 +172,12 @@ class InputExcel extends Component {
     }
     // read data from excel 
     CDU_postListItemCount = () => {
-        if (JSON.parse(localStorage.getItem("listItemCountPatch")).length > 0) {
-            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+        if (JSON.parse(localStorage.getItem("listItemCountPost")).length > 0) {
+            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
             this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
         }
-        else if (JSON.parse(localStorage.getItem("listItemCountPost")).length > 0) {
-            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
+        else if (JSON.parse(localStorage.getItem("listItemCountPatch")).length > 0) {
+            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
             this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
         }
     }
@@ -190,6 +188,8 @@ class InputExcel extends Component {
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPostListItemCountFail() }
         else if (this.props.itemExcelReload.type === "PATCH_LIST_ITEM_COUNT_SUCSESS") { this.doingWhenPatchListItemCountSucsess() }
         else if (this.props.itemExcelReload.type === "PATCH_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPatchListItemCountFail() }
+        else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_PATCH_FAIL_SUCSESS") { this.doingWhenPostListItemCountPatchFailSucsess() }
+        else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_PATCH_FAIL_RFAILURE") { this.doingWhenPostListItemCountPatchFailFail() }
     }
     postToServer = (ItemsExcel) => {
         if (ItemsExcel.length > 0) {
@@ -222,6 +222,7 @@ class InputExcel extends Component {
         if (listItemCount.length > 0) {
             listItemCount.pop();
             localStorage.setItem("listItemCountPost", JSON.stringify(listItemCount));
+            console.log(JSON.parse(localStorage.getItem("listItemCountPost")));
             this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
         }
     }
@@ -229,27 +230,71 @@ class InputExcel extends Component {
         let listItemCountFail = JSON.parse(localStorage.getItem("listItemCountPostFail"));
         let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
         if (listItemCount.length > 0) {
-            if (JSON.stringify(listItemCount[listItemCount.length - 1]) !== JSON.stringify(listItemCountFail[listItemCountFail.length - 1])) {
-                localStorage.setItem("listItemCountPostFail", JSON.stringify([...listItemCountFail, listItemCount[listItemCount.length - 1]]));
-                listItemCount.pop();
-                localStorage.setItem("listItemCountPost", JSON.stringify(listItemCount));
-            }
+            localStorage.setItem("listItemCountPostFail", JSON.stringify([...listItemCountFail, listItemCount[listItemCount.length - 1]]));
+            listItemCount.pop();
+            localStorage.setItem("listItemCountPost", JSON.stringify(listItemCount));
         }
         else if (listItemCountFail.length > 0 && this.state.stateListItemCountFail === 0) {
             localStorage.setItem("listItemCountPost", JSON.stringify(JSON.parse(localStorage.getItem("listItemCountPostFail"))));
             localStorage.setItem("listItemCountPostFail", JSON.stringify([]));
-            this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
+            let listItemCountElse = JSON.parse(localStorage.getItem("listItemCountPost"));
+            this.props.postListItemCount(listItemCountElse[listItemCountElse.length - 1]);
             this.setState({ stateListItemCountFail: 1 })
 
         }
 
     }
     doingWhenPatchListItemCountSucsess = () => {
+        let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+        if (listItemCount.length > 0) {
+            listItemCount.pop();
+            localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
+            this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
+        }
     }
     doingWhenPatchListItemCountFail = () => {
+        let listItemCountFail = JSON.parse(localStorage.getItem("listItemCountPatchFail"));
+        let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+        if (listItemCount.length > 0) {
+            if (JSON.stringify(listItemCount[listItemCount.length - 1]) !== JSON.stringify(listItemCountFail[listItemCountFail.length - 1])) {
+                localStorage.setItem("listItemCountPatchFail", JSON.stringify([...listItemCountFail, listItemCount[listItemCount.length - 1]]));
+                listItemCount.pop();
+                localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
+            }
+        }
+        else if (listItemCount.length === 0 && (listItemCountFail.length > 0 && this.state.stateListItemPatchFail === 0)) {
+            localStorage.setItem("listItemCountPatch", JSON.stringify(JSON.parse(localStorage.getItem("listItemCountPatchFail"))));
+            localStorage.setItem("listItemCountPatchFail", JSON.stringify([]));
+            this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
+            this.setState({ stateListItemPatchFail: 1 })
+
+        }
+        else if (listItemCount.length === 0 && (listItemCountFail.length > 0 && this.state.stateListItemPatchFail === 1)) {
+            localStorage.setItem("listItemCountPatch", JSON.stringify(JSON.parse(localStorage.getItem("listItemCountPatchFail"))));
+            localStorage.setItem("listItemCountPatchFail", JSON.stringify([]));
+            this.props.postListItemCountPatchFail(listItemCount[listItemCount.length - 1]);
+            this.setState({ stateListItemPatchFail: 2 })
+
+        }
     }
+    doingWhenPostListItemCountPatchFailSucsess() {
+        let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+        if (listItemCount.length > 0) {
+            listItemCount.pop();
+            localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
+            this.props.postListItemCountPatchFail(listItemCount[listItemCount.length - 1]);
+        }
+    }
+    doingWhenPostListItemCountPatchFailFail() {
+        let listItemCountFail = JSON.parse(localStorage.getItem("listItemCountPatchFail"));
+        let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
 
-
+        if (listItemCount.length > 0) {
+            localStorage.setItem("listItemCountPatchFail", JSON.stringify([...listItemCountFail, listItemCount[listItemCount.length - 1]]));
+            listItemCount.pop();
+            localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
+        }
+    }
 
     changeItemsExcelFail = (param, id) => {
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
@@ -336,8 +381,8 @@ class InputExcel extends Component {
         }
     }
     render() {
-        console.log(this.state.dataExcel);
-        console.log(JSON.parse(localStorage.getItem("ItemsExcel")));
+        console.log(this.props.itemExcelReload.type);
+
 
         // console.log(this.props.itemExcelReload);
 
