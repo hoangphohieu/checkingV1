@@ -45,6 +45,14 @@ class InputExcel extends Component {
             this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")) })
         }
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.stateListItemPatchFail !== nextState.stateListItemPatchFail) { return false }
+        if (this.state.firstPatchListItemCount !== nextState.firstPatchListItemCount) { return false }
+        if (this.state.stateListItemCountFail !== nextState.stateListItemCountFail) { return false }
+        if (this.state.firstPostListItemCount !== nextState.firstPostListItemCount) { return false }
+        return true;
+
+    }
 
 
     componentDidUpdate = () => {
@@ -52,6 +60,8 @@ class InputExcel extends Component {
         // this.CDU_stateImportExcelToDefault();
         this.CDU_postListItemCount();
         this.CDU_checkRequest(); // kiểm tra và thực hiện hành động khi có request trả về
+        this.CDU_patchListItemCountAgain(); // patch lại những item count patch bị lỗi
+
         this.CDU_reRenderWhenItemsExcelZero(); // rerender khi post het list items from excel
 
     }
@@ -176,29 +186,25 @@ class InputExcel extends Component {
     }
     // read data from excel 
     CDU_postListItemCount = () => {
-        // if (JSON.parse(localStorage.getItem("listItemCountPost")).length > 0 && this.state.firstPostListItemCount === 0) {
-        //     let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
-        //     this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
-        //     this.setState({ firstPostListItemCount: 1 })
-        // }
-        // else
-         if (JSON.parse(localStorage.getItem("listItemCountPatch")).length > 0 && this.state.firstPatchListItemCount === 0) {
-            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
-            this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
-            this.setState({ firstPatchListItemCount: 1 })
-
+        if (JSON.parse(localStorage.getItem("listItemCountPost")).length > 0 && this.state.firstPostListItemCount === 0) {
+            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
+            this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
+            this.setState({ firstPostListItemCount: 1 })
         }
+        // else
+        // if (JSON.parse(localStorage.getItem("listItemCountPatch")).length > 0 && this.state.firstPatchListItemCount === 0) {
+        //     let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+        //     console.log(listItemCount);
+        //     this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
+        //     this.setState({ firstPatchListItemCount: 1 })
+        // }
     }
     CDU_checkRequest() {
         if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_SUCSESS") { this.doingWhenPostItemSucsess() }
         else if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_RFAILURE") { this.doingWhenPostItemFail() }
-        else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_SUCSESS") {
-            console.log("doingWhenPostListItemCountSucsess");
-            this.doingWhenPostListItemCountSucsess()
-        }
+        else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_SUCSESS") { this.doingWhenPostListItemCountSucsess() }
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPostListItemCountFail() }
         else if (this.props.itemExcelReload.type === "PATCH_LIST_ITEM_COUNT_SUCSESS") { this.doingWhenPatchListItemCountSucsess() }
-        else if (this.props.itemExcelReload.type === "PATCH_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPatchListItemCountFail() }
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_PATCH_FAIL_SUCSESS") { this.doingWhenPostListItemCountPatchFailSucsess() }
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_PATCH_FAIL_RFAILURE") { this.doingWhenPostListItemCountPatchFailFail() }
     }
@@ -231,7 +237,6 @@ class InputExcel extends Component {
     doingWhenPostListItemCountSucsess = () => {
         let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
         if (listItemCount.length > 0) {
-            console.log(listItemCount);
             listItemCount.pop();
             localStorage.setItem("listItemCountPost", JSON.stringify(listItemCount));
             if (listItemCount.length > 0) this.props.postListItemCount(listItemCount[listItemCount.length - 1]);
@@ -255,25 +260,41 @@ class InputExcel extends Component {
         }
 
     }
-    doingWhenPatchListItemCountSucsess = () => {
-        let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
-        if (listItemCount.length > 0) {
-            listItemCount.pop();
-            localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
-            this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
-        }
-    }
-    doingWhenPatchListItemCountFail = () => {
-        let listItemCountFail = JSON.parse(localStorage.getItem("listItemCountPatchFail"));
-        let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
-        if (listItemCount.length > 0) {
-            if (JSON.stringify(listItemCount[listItemCount.length - 1]) !== JSON.stringify(listItemCountFail[listItemCountFail.length - 1])) {
-                localStorage.setItem("listItemCountPatchFail", JSON.stringify([...listItemCountFail, listItemCount[listItemCount.length - 1]]));
+    doingWhenPatchListItemCountSucsess = () => {// doingWhenPatchListItemCountSucsess
+        let payload = this.props.itemExcelReload.payload;
+        payload = _.toPairs(payload);
+        if (payload.length !== 0) {
+            console.log("doingWhenPatchListItemCountSucsess");
+            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+            if (listItemCount.length > 0) {
                 listItemCount.pop();
                 localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
+                this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
             }
         }
-        else if (listItemCount.length === 0 && (listItemCountFail.length > 0 && this.state.stateListItemPatchFail === 0)) {
+        else {// doingWhenPatchListItemCountFail
+            console.log("doingWhenPatchListItemCountFail");
+            let listItemCountFail = JSON.parse(localStorage.getItem("listItemCountPatchFail"));
+            let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+            if (listItemCount.length > 0) {// listItemCountPatch -1 và listItemCountPatchFail +1
+                if (JSON.stringify(listItemCount[listItemCount.length - 1]) !== JSON.stringify(listItemCountFail[listItemCountFail.length - 1])) {
+                    localStorage.setItem("listItemCountPatchFail", JSON.stringify([...listItemCountFail, listItemCount[listItemCount.length - 1]]));
+                    listItemCount.pop();
+                    localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
+                    if (listItemCount.length > 0) { this.props.patchListItemCount(listItemCount[listItemCount.length - 1]); }
+
+                }
+            }
+
+        }
+
+    }
+    CDU_patchListItemCountAgain() {
+        let listItemCountFail = JSON.parse(localStorage.getItem("listItemCountPatchFail"));
+        let listItemCount = JSON.parse(localStorage.getItem("listItemCountPatch"));
+
+        if (listItemCount.length === 0 && (listItemCountFail.length > 0 && this.state.stateListItemPatchFail === 0)) {
+            console.log("TH2");
             localStorage.setItem("listItemCountPatch", JSON.stringify(JSON.parse(localStorage.getItem("listItemCountPatchFail"))));
             localStorage.setItem("listItemCountPatchFail", JSON.stringify([]));
             this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
@@ -281,9 +302,11 @@ class InputExcel extends Component {
 
         }
         else if (listItemCount.length === 0 && (listItemCountFail.length > 0 && this.state.stateListItemPatchFail === 1)) {
+            console.log("TH3");
             localStorage.setItem("listItemCountPatch", JSON.stringify(JSON.parse(localStorage.getItem("listItemCountPatchFail"))));
             localStorage.setItem("listItemCountPatchFail", JSON.stringify([]));
-            this.props.postListItemCountPatchFail(listItemCount[listItemCount.length - 1]);
+            let listItemCount2 = JSON.parse(localStorage.getItem("listItemCountPatch"));
+            this.props.postListItemCountPatchFail(listItemCount2[listItemCount2.length - 1]);
             this.setState({ stateListItemPatchFail: 2 })
 
         }
@@ -293,7 +316,7 @@ class InputExcel extends Component {
         if (listItemCount.length > 0) {
             listItemCount.pop();
             localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
-            this.props.postListItemCountPatchFail(listItemCount[listItemCount.length - 1]);
+            if (listItemCount.length > 0) { this.props.postListItemCountPatchFail(listItemCount[listItemCount.length - 1]); }
         }
     }
     doingWhenPostListItemCountPatchFailFail() {
@@ -392,7 +415,7 @@ class InputExcel extends Component {
         }
     }
     render() {
-        console.log("rerender");
+        console.log("reRender!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         let ItemsExcel = JSON.stringify(this.state.dataExcel);
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));

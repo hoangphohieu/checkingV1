@@ -58,11 +58,14 @@ function* postListItemCount(param) {     // lấy total page
 function* patchListItemCount(param) {     // lấy total page
       try {
             let res1 = yield patchListItemCountAPI(param.payload); //gọi API
+            
             yield put({
                   type: type.PATCH_LIST_ITEM_COUNT_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
             })
       } catch (error) {
+            console.log(error);
+            
             yield put({
                   type: type.PATCH_LIST_ITEM_COUNT_RFAILURE, // trigger itemsReducer
                   payload: {
