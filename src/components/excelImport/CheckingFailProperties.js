@@ -29,7 +29,7 @@ class CheckingProperties extends Component {
                         arrObj[param[i][0]] = this.refs[param[i][0]].value;
                   }
             }
-            this.props.changeItemsExcelFail(id);
+            this.props.changeItemsExcelFail(arrObj,id);
       }
 
       deleteItemChecking = (param, id) => {

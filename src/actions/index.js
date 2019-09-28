@@ -54,3 +54,6 @@ export function patchListItemCountAPI(payload) {                  // gọi lên 
 export function postListItemCountPatchFailAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.POST_LIST_ITEM_COUNT_PATCH_FAIL_REQUEST, payload })    // payload:valueToGetAPI
 }
+export function getLastItemOflistItemCountPatch(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_REQUEST, payload })    // payload:valueToGetAPI
+}

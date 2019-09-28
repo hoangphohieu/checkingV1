@@ -107,6 +107,40 @@ export default (state = DEFAULT_STATE, action) => {
                 dataFetched: false,
                 errorMessesage: action.payload.errorMessesage
             }
+
+        case type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_SUCSESS:
+
+            return {
+                ...state,
+                isFetching: false,
+                dataFetched: true,
+                error: false,
+                type: "GET_LAST_ITEM_OF_LIST_ITEM_COUNT_SUCSESS",
+                errorMessesage: null,
+                listItem: action.payload
+            }
+
+        case type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_RFAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: true,
+                type: "GET_LAST_ITEM_OF_LIST_ITEM_COUNT_RFAILURE",
+                dataFetched: false,
+                errorMessesage: action.payload.errorMessesage
+            }
+
+
+
+
+
+
+
+
+
+
+
+
         default:
             return state;
     }
