@@ -20,7 +20,7 @@ export default class Example extends React.Component {
         return {
             from: undefined,
             to: undefined,
-            listDay: [],
+            listDay: [[]],
         };
     }
 
@@ -32,10 +32,13 @@ export default class Example extends React.Component {
         if (this.props.items !== undefined) {
             if (this.props.items.type === "getListDayById") {
                 let listDay = JSON.parse(JSON.stringify(this.props.items.listItem));
-                listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]).map(param => { return (new Date(param)) });
+                listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1])
+                // .map(param => param[1]).map(param => { return (new Date(param)) });
                 listDay.length = 300;
                 listDay = listDay.filter(param => { return param !== undefined });
-                if (this.state.listDay.join("") !== listDay.join("")) {
+                let paramId = _.toPairs(JSON.parse(JSON.stringify(this.props.items.listItem))[0]).filter(param => { return param[0] === "id" });
+                listDay.push(paramId[0]);
+                if (this.state.listDay[this.state.listDay.length - 1][1] !== listDay[listDay.length - 1][1]) {
                     this.setState({ listDay: listDay })
                 }
             }
@@ -54,6 +57,7 @@ export default class Example extends React.Component {
     }
     getdataFromServer = () => {
         let partnerSelect = this.props.partnerSelect; // props lấy từ  component (SelectPartnerAndDay)
+        let partnerType = this.props.partnerType; // props lấy từ  component (SelectPartnerAndDay)
         let dateFrom = null;
         let dateTo = null;
         if (this.props.date !== null) { // tính dateFrom và dateTo là số 121212121212121, lấy từ component (PartnerControl)
@@ -62,20 +66,22 @@ export default class Example extends React.Component {
         }
         let endPoint = null;
 
-        if (partnerSelect !== null) {  // tính endPoint ứng với partnerSelect và date select
-            endPoint = this.getEndPoint(partnerSelect, dateFrom, dateTo);
+        if (partnerType !== null) {  // tính endPoint ứng với partnerSelect và date select
+            endPoint = this.getEndPoint(partnerSelect, partnerType, dateFrom, dateTo);
         }
-        else if (partnerSelect === null) {
-            endPoint = this.getEndPoint("allPartner", dateFrom, dateTo);
+        else if (partnerType === null) {
+            endPoint = this.getEndPoint("allPartner", partnerType, dateFrom, dateTo);
         }
         this.props.getListByCustom(endPoint); // GET API
     }
-    getEndPoint = (partnerSelect, dateFrom, dateTo) => {
+    getEndPoint = (partnerSelect, partnerType, dateFrom, dateTo) => {
         let timeNow = new Date();
         let monthNow = timeNow.getMonth() + 1;
         let endPoint = null;
+        partnerSelect = (partnerSelect !== "allPartner" && partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?namePartner=allPartner" + ((partnerType !== null) ? ("&Sumpartnertype=" + partnerType) : ""));
+
         if (dateFrom === null && dateTo === null) {
-            endPoint = "?namePartner=" + partnerSelect
+            endPoint = partnerSelect
                 + "&monthNumber=" + monthNow
                 + "&monthNumber=" + ((monthNow === 1) ? "12" : (monthNow - 1));
         }
@@ -83,18 +89,18 @@ export default class Example extends React.Component {
             let monthDateFrom = new Date(dateFrom).getMonth() + 1;
             let monthdateTo = new Date(dateTo).getMonth() + 1;
             if (monthDateFrom === monthdateTo) {
-                endPoint = "?namePartner=" + partnerSelect
+                endPoint = partnerSelect
                     + "&monthNumber=" + monthdateTo
                     + "&monthNumber=" + ((monthdateTo === 1) ? "12" : (monthdateTo - 1));
             }
             else if (monthDateFrom < monthdateTo) {
-                endPoint = "?namePartner=" + partnerSelect;
+                endPoint = partnerSelect;
                 for (let i = monthDateFrom; i <= monthdateTo; i++) {
                     endPoint = endPoint + "&monthNumber=" + i
                 }
             }
             else if (monthDateFrom > monthdateTo) {
-                endPoint = "?namePartner=" + partnerSelect;
+                endPoint = partnerSelect;
                 for (let i = monthDateFrom; i <= 12; i++) {
                     endPoint = endPoint + "&monthNumber=" + i
                 }
@@ -105,7 +111,7 @@ export default class Example extends React.Component {
         }
         else if (dateFrom !== null || dateTo !== null) {
             let monthNowSelect = new Date(((dateFrom !== null) ? dateFrom : dateTo)).getMonth() + 1;
-            endPoint = "?namePartner=" + partnerSelect
+            endPoint = partnerSelect
                 + "&monthNumber=" + monthNowSelect
                 + "&monthNumber=" + ((monthNowSelect === 1) ? "12" : (monthNowSelect - 1));
         }
@@ -113,13 +119,21 @@ export default class Example extends React.Component {
     }
 
     render() {
+        console.log(this.state.listDay);
+
+        let listDay = (this.props.partnerType !== null) ? this.state.listDay.filter(param => { return param[0] === this.props.partnerType }) : this.state.listDay.filter(param => { return param[0] !== "id" });
+        listDay = listDay.map(param => { return (new Date(param[1])) })
+        // listDay =.map(param => param[1]).map(param => { return (new Date(param)) });
+        console.log(listDay);
+
+
 
         let { from, to } = this.props.date;
         let modifiers = { start: from, end: to, highlighted: [] };  // obj chứa date select và ngày nổi trội hơn 
-        modifiers.highlighted = this.state.listDay;
+        modifiers.highlighted = listDay;
         return (
             <div className="RangeExample">
-                <p className="p_reset_day"> 
+                <p className="p_reset_day">
                     {!from && !to && 'Click to select range date'}
                     {from && !to && 'Click to select range date'}
                     {from &&

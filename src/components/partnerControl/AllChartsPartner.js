@@ -4,17 +4,15 @@ import _ from 'lodash';
 
 class AllChartsPartner extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(this.props.date, nextProps.date);
         if (this.props.date !== nextProps.date) { return false }
         return true
     }
     render() {
-        console.log(this.props.items.listItem);
 
         return (
             <React.Fragment>
-                <ChartPartner styleChart="Sum_lineitemquantity"  {...this.props} />
-                <ChartPartner styleChart="Sum_basecost" {...this.props} />
+                <ChartPartner styleChart="Sumlineitemquantity"  {...this.props} />
+                <ChartPartner styleChart="Sumbasecost" {...this.props} />
             </React.Fragment>
         );
     }

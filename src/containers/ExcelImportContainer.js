@@ -15,13 +15,13 @@ function mapDispatchToProps(dispatch) {
         patchItemsExcelFail:(param)=>dispatch(actions.patchItemsExcelFailAPI(param)),
         postListItemCountPatchFail:(param)=>dispatch(actions.postListItemCountPatchFailAPI(param)),
         getLastItemOflistItemCountPatch:(param)=>dispatch(actions.getLastItemOflistItemCountPatch(param)),
-        propsImportExcelToDefault:(param)=>dispatch(actions.stateImportExcelToDefault(param)),
+        propsImportExcelToDefault:()=>dispatch(actions.stateImportExcelToDefault())
         
     };
 }
 
 class ExcelImportContainer extends Component {
-    render() {
+    render() {    
         return (
             <React.Fragment>
                 <ExcelImport {...this.props}/>

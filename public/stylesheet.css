@@ -17,8 +17,11 @@
 p.p_reset_day {
     margin: 1rem 0 -0.5rem 0;
 }
+body{
+    background-image: linear-gradient(-221deg, #ffffff , #ececec);
+} 
 
-.App.back_ground_all {
+.App {
     /* background: #f3f3f3; */
     background-image: linear-gradient(-221deg, #ffffff , #ececec);
 }

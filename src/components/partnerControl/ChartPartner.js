@@ -12,10 +12,10 @@ export default class Example extends PureComponent {
   sumAndDelete = (dataChart) => { // hàm tính những ngày bị trùng nhau, cộng lại là để lại 1 ngày duy nhất
     for (let i = 0; i <= dataChart.length - 2; i++) {
       if (dataChart[i].dayNumber === dataChart[i + 1].dayNumber) {
-        dataChart[i + 1].Sum_basecost += dataChart[i].Sum_basecost;
-        dataChart[i + 1].Sum_lineitemquantity += dataChart[i].Sum_lineitemquantity;
-        dataChart[i + 1].Sum_luminous += dataChart[i].Sum_luminous;
-        dataChart[i + 1].Sum_us += dataChart[i].Sum_us;
+        dataChart[i + 1].Sumbasecost += dataChart[i].Sumbasecost;
+        dataChart[i + 1].Sumlineitemquantity += dataChart[i].Sumlineitemquantity;
+        dataChart[i + 1].Sumluminous += dataChart[i].Sumluminous;
+        dataChart[i + 1].Sumus += dataChart[i].Sumus;
         dataChart[i] = null;
 
       }
@@ -48,8 +48,8 @@ export default class Example extends PureComponent {
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
           return {
             day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),
-            Sum_lineitemquantity: param.Sum_lineitemquantity,
-            Sum_basecost: Number(param.Sum_basecost.toFixed(1))
+            Sumlineitemquantity: param.Sumlineitemquantity,
+            Sumbasecost: Number(param.Sumbasecost.toFixed(1))
           }
         })
         return dataChart;
@@ -64,10 +64,10 @@ export default class Example extends PureComponent {
           })
           dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual); // đồng thời (dataChart) xóa những cái vừa lọc ở trên đi 
           let datePrint = (((new Date(rangeDayParam)).getDate()) + "/" + ((new Date(rangeDayParam)).getMonth() + 1));
-          let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
+          let sumData = { day: datePrint, Sumlineitemquantity: 0, Sumbasecost: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {
-            sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
-            sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1)); // làm tròn tới số thập phân thứ 1
+            sumData.Sumlineitemquantity += dataChartSelect[i].Sumlineitemquantity;
+            sumData.Sumbasecost += Number(dataChartSelect[i].Sumbasecost.toFixed(1)); // làm tròn tới số thập phân thứ 1
           }
 
           return sumData;
@@ -77,11 +77,11 @@ export default class Example extends PureComponent {
       else if (rangeDay.length <= 119) { // TH3: seledate là khoảng thời gian 4 tháng, chia thành các tuần
         rangeDay = _.chunk(rangeDay, 7); // chia thành  từng 7 ngày
         console.log(rangeDay);
-        
+
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
         dataChart = this.sumAndDelete(dataChart);
 
-        let weekDataChart = rangeDay.map((rangeDayParam,id) => {
+        let weekDataChart = rangeDay.map((rangeDayParam, id) => {
           let dataChartSelect = dataChart.filter(param => {
             let stateParam = rangeDayParam.filter(day => { return day === param.dayNumber })[0];
             return param.dayNumber === stateParam;
@@ -96,12 +96,12 @@ export default class Example extends PureComponent {
           else {
             datePrint = (new Date(startDayParam)).getDate() + "/" + ((new Date(startDayParam)).getMonth() + 1) + "-" + (new Date(endDayParam)).getDate() + "/" + ((new Date(endDayParam)).getMonth() + 1)
           }
-          let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
+          let sumData = { day: datePrint, Sumlineitemquantity: 0, Sumbasecost: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) { //  tính item= tổng 7 item còn lại
-            sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
-            sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
+            sumData.Sumlineitemquantity += dataChartSelect[i].Sumlineitemquantity;
+            sumData.Sumbasecost += Number(dataChartSelect[i].Sumbasecost.toFixed(1));
           }
-          sumData.Sum_basecost = Number(sumData.Sum_basecost.toFixed(1));
+          sumData.Sumbasecost = Number(sumData.Sumbasecost.toFixed(1));
           return sumData;
 
         })
@@ -127,12 +127,12 @@ export default class Example extends PureComponent {
           dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual);
           let startDayParam = rangeDayParam[0];
           let datePrint = (((new Date(startDayParam)).getMonth() + 1) + "/" + ((new Date(startDayParam)).getFullYear()));
-          let sumData = { day: datePrint, Sum_lineitemquantity: 0, Sum_basecost: 0 };
+          let sumData = { day: datePrint, Sumlineitemquantity: 0, Sumbasecost: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {
-            sumData.Sum_lineitemquantity += dataChartSelect[i].Sum_lineitemquantity;
-            sumData.Sum_basecost += Number(dataChartSelect[i].Sum_basecost.toFixed(1));
+            sumData.Sumlineitemquantity += dataChartSelect[i].Sumlineitemquantity;
+            sumData.Sumbasecost += Number(dataChartSelect[i].Sumbasecost.toFixed(1));
           }
-          sumData.Sum_basecost = Number(sumData.Sum_basecost.toFixed(1));
+          sumData.Sumbasecost = Number(sumData.Sumbasecost.toFixed(1));
           return sumData;
         })
         return monthDataChart;
@@ -142,12 +142,14 @@ export default class Example extends PureComponent {
   }
   render() {
     let dataChart = [];
+    console.log(this.props.items.listItem);
+
     let rangeDay = this.Math_rangeDay();  // tính arr=[xxx]  la khoang thoi gian select
     if (this.props.items.type === "getListByCustom") { // nêu GET (getListByCustom), gọi hàm  nội bộ (Math_dataChart) dể tính và xuất ra  data của biểu đồ
       dataChart = this.Math_dataChart(JSON.parse(JSON.stringify(this.props.items.listItem)), rangeDay);
     }
     let style = this.props.styleChart;
-    let payload = (this.props.styleChart === "Sum_lineitemquantity" ? [{ value: 'Số lượng', type: 'line' }] : [{ value: 'Tổng Base Cost', type: 'line' }])
+    let payload = (this.props.styleChart === "Sumlineitemquantity" ? [{ value: 'Số lượng', type: 'line' }] : [{ value: 'Tổng Base Cost', type: 'line' }])
     return (
       <ComposedChart
         width={(dataChart.length > 5) ? dataChart.length * 100 : 500}

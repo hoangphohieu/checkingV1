@@ -41,6 +41,7 @@ class InputExcel extends Component {
         }
     }
     shouldComponentUpdate(nextProps, nextState) {
+        if (nextState.firstPatchListItemCount === 0 || nextState.firstPostListItemCount === 0) { return true }
         if (this.state.firstPatchListItemCount !== nextState.firstPatchListItemCount) { return false }
         if (this.state.firstPostListItemCount !== nextState.firstPostListItemCount) { return false }
         return true;
@@ -56,6 +57,7 @@ class InputExcel extends Component {
         }
         this.CDU_propsImportExcelToDefault();
         this.CDU_reRenderWhenItemsExcelZero(); // rerender khi post het list items from excel
+        console.log(this.props.itemExcelReload);
 
     }
 
@@ -67,6 +69,7 @@ class InputExcel extends Component {
         if ((ItemsExcel.length === 0 && ItemsExcelFail.length === 0) && ItemsExcelSuccess.length > 0) {
             let listItemCountPost = [];
             let listItemCountPatch = [];
+            console.log(ItemsExcelSuccess);
 
             // danh sach so partner
             let listPartner = _.uniq(ItemsExcelSuccess.map(param => [param.partnertype + param.partner, [param.partnertype, param.partner]]));  // lọc số partner vaf lọc trùng;
@@ -102,20 +105,22 @@ class InputExcel extends Component {
                 for (let j = 0; j <= PartnerAndDay.length - 1; j++) {
                     let item = { id: uuidv1(), namePartner: arrListPartner[i][1][1], dayNumber: PartnerAndDay[j][1] }
                     let item2 = ItemsExcelSuccess.filter(param => { return param.partner === arrListPartner[i][1][1] });
-                    item["Sum_lineitemquantity"] = 0;
-                    item["Sum_basecost"] = 0;
-                    item["partnertype"] = arrListPartner[i][1][0];
-                    item["Sum_us"] = 0;
-                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item["Sum_luminous"] = 0;
+                    item["Sumlineitemquantity"] = 0;
+                    item["Sumbasecost"] = 0;
+                    item["Sumpartnertype"] = arrListPartner[i][1][0];
+                    item["Sumus"] = 0;
+                    item["Sumtrackingnumber"] = [];
+                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
                     let month = (new Date(PartnerAndDay[j][1])).getMonth() + 1;
                     let year = (new Date(PartnerAndDay[j][1])).getFullYear();
                     item["monthNumber"] = month;
                     item["yearNumber"] = year;
-                    item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sum_us = item.Sum_us + param.lineitemquantity });
-                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sum_luminous = item.Sum_luminous + param.lineitemquantity });
+                    item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sumus = item.Sumus + param.lineitemquantity });
+                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
                     item2.filter(param => { return param.day === PartnerAndDay[j][1] }).forEach(param => {
-                        item.Sum_lineitemquantity = (item.Sum_lineitemquantity + param.lineitemquantity);
-                        item.Sum_basecost = (item.Sum_basecost + param.lineitemquantity * param.basecost);
+                        item.Sumlineitemquantity = (item.Sumlineitemquantity + param.lineitemquantity);
+                        item.Sumtrackingnumber.push(param.trackingnumber);
+                        item.Sumbasecost = (item.Sumbasecost + param.lineitemquantity * param.basecost);
                     })
                     listItemCountPost.push(item);
                 }
@@ -126,20 +131,22 @@ class InputExcel extends Component {
                 let uuidv1 = require('uuid/v1');
                 let item = { id: uuidv1(), namePartner: "allPartner", dayNumber: listDay[j][1] }
                 let item2 = ItemsExcelSuccess;
-                item["Sum_lineitemquantity"] = 0;
-                item["Sum_basecost"] = 0;
-                item["partnertype"] = listDay[j][0];
-                item["Sum_us"] = 0;
-                item["Sum_luminous"] = 0;
+                item["Sumlineitemquantity"] = 0;
+                item["Sumbasecost"] = 0;
+                item["Sumpartnertype"] = listDay[j][0];
+                item["Sumus"] = 0;
+                item["Sumluminous"] = 0;
+                item["Sumtrackingnumber"] = [];
                 let month = (new Date(listDay[j][1])).getMonth() + 1;
                 let year = (new Date(listDay[j][1])).getFullYear();
                 item["monthNumber"] = month;
                 item["yearNumber"] = year;
-                item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sum_us = item.Sum_us + param.lineitemquantity });
-                item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sum_luminous = item.Sum_luminous + param.lineitemquantity });
+                item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sumus = item.Sumus + param.lineitemquantity });
+                item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
                 item2.filter(param => { return param.day === listDay[j][1] }).forEach(param => {
-                    item.Sum_lineitemquantity = (item.Sum_lineitemquantity + param.lineitemquantity);
-                    item.Sum_basecost = (item.Sum_basecost + param.lineitemquantity * param.basecost);
+                    item.Sumlineitemquantity = (item.Sumlineitemquantity + param.lineitemquantity);
+                    item.Sumtrackingnumber.push(param.trackingnumber);
+                    item.Sumbasecost = (item.Sumbasecost + param.lineitemquantity * param.basecost);
                 })
                 listItemCountPost.push(item);
             }
@@ -161,6 +168,7 @@ class InputExcel extends Component {
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_PATCH_FAIL_RFAILURE") { this.doingWhenPostListItemCountPatchFailFail() }
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_SUCSESS") { this.doingWhenPostListItemCountSucsess(listItemCountPost) }
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPostListItemCountFail() }
+        else if (this.props.itemExcelReload.type === "STATE_POST_TO_DEFAULT") { }
     }
 
     CDU_postListItemCount = () => {
@@ -184,6 +192,8 @@ class InputExcel extends Component {
         if ((this.props.itemExcelReload.dataFetched === true || this.props.itemExcelReload.error === true)
             && ((JSON.parse(localStorage.getItem("listItemCountPost")).length === 0) && (JSON.parse(localStorage.getItem("listItemCountPatch")).length === 0))
         ) {
+            console.log("CDU_propsImportExcelToDefault..........................");
+            console.log(JSON.parse(localStorage.getItem("listItemCountPatch")).length, JSON.parse(localStorage.getItem("listItemCountPost")).length);
             this.setState({ firstPostListItemCount: 0, firstPatchListItemCount: 0 });
             this.props.propsImportExcelToDefault();
 
@@ -191,8 +201,11 @@ class InputExcel extends Component {
     }
 
     CDU_reRenderWhenItemsExcelZero() {
+        console.log("CDU_reRenderWhenItemsExcelZero");
+
         let payload = this.props.itemExcelReload;
         if ((payload.dataFetched === true || payload.error === true) && (JSON.parse(localStorage.getItem("ItemsExcel")).length === 0)) {
+            console.log(this.state.dataExcel);
             if (this.state.dataExcel !== null) { this.setState({ dataExcel: null }); };
         }
     }
@@ -307,6 +320,13 @@ class InputExcel extends Component {
         var first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
         var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 }); // data= arr[[],[]...[]]
         data[0] = data[0].map(param => { param = param.trim().toLowerCase().split(" ").join(""); return param }) // data[0] bo space va chu hoa
+        data = data.map(param => { // chuyuyển thuộc tính undefined thành null
+            for (let i = 1; i <= param.length - 1; i++) {
+                if (param[i] === undefined) param[i] = null;
+            }
+            return param
+        })
+
         let dataObj = data.map(param => { return _.zipObject(data[0], param) });  // [{},{}...{}]
         dataObj.shift();
         dataObj.map(param => { // lọc day, shippingcountry , và id
@@ -362,8 +382,6 @@ class InputExcel extends Component {
     }
 
     render() {
-        console.log("reRender!", this.props.itemExcelReload);
-
         let ItemsExcel = JSON.stringify(this.state.dataExcel);
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
 
@@ -378,6 +396,7 @@ class InputExcel extends Component {
                     patchItemsExcelCountFail={this.patchItemsExcelCountFail} />
             })
         }
+
 
         return (
             <div className="App mt-4">

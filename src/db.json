@@ -2,12 +2,13 @@
   "items": [
     {
       "day": 1568394000000,
-      "partner": "anam",
-      "partnertype": "phoneCase",
+      "partner": "aluyen",
+      "partnertype": "dress",
       "phonecasetype": "luminous",
-      "name": "ht0016",
+      "name": "al14",
       "shippingname": "Kreistein  Patacsil",
       "shippingaddress1": "7812 Comanche Avenue",
+      "shippingaddress2": null,
       "shippingcity": "Winnetka",
       "shippingzip": 91306,
       "shippingprovince": "CA",
@@ -18,334 +19,18 @@
       "lineitemquantity": 1,
       "lineitemname": "Luminous Glow Phone case iPhone Samsung dah230816 ",
       "lineitemsku": " Galaxy S8+",
-      "id": "ht0016luminousglowphonecaseiphonesamsungdah230816galaxys8"
-    },
-    {
-      "day": 1568307600000,
-      "partner": "atuan",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "ht0015",
-      "shippingname": "Aekrat Somrueang",
-      "shippingaddress1": "405 5 Ave SW",
-      "shippingcity": "Redcliff",
-      "shippingzip": "T0J 2P0",
-      "shippingprovince": "AB",
-      "shippingcountry": "WW",
-      "shippingphone": "'+1 403-977-3960",
-      "basecost": 10.1,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Luminous Glow Phone case iPhone Samsung nam220805 ",
-      "lineitemsku": " iPhone X",
-      "id": "ht0015luminousglowphonecaseiphonesamsungnam220805iphonex"
-    },
-    {
-      "day": 1568221200000,
-      "partner": "adung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "ht0014",
-      "shippingname": "Dat Tran",
-      "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
-      "shippingcity": "Singapore",
-      "shippingzip": 331038,
-      "shippingcountry": "WW",
-      "shippingphone": 98515422,
-      "basecost": 9.5,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Phone case iPhone Samsung tlm290706 ",
-      "lineitemsku": " iPhone X",
-      "id": "ht0014phonecaseiphonesamsungtlm290706iphonex"
-    },
-    {
-      "id": "dfab9615-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1568221200000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "dfab9614-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1568307600000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "dfab9613-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1568394000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "Sum_luminous": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "dfab9612-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "adung",
-      "dayNumber": 1568221200000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "dfab9611-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "atuan",
-      "dayNumber": 1568307600000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "dfab9610-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "anam",
-      "dayNumber": 1568394000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "listdayadung",
-      "phoneCase1568221200000": [
-        "phoneCase",
-        1568221200000
-      ],
-      "phoneCase1568134800000": [
-        "phoneCase",
-        1568134800000
-      ]
-    },
-    {
-      "id": "listdayatuan",
-      "phoneCase1568307600000": [
-        "phoneCase",
-        1568307600000
-      ],
-      "phoneCase1569258000000": [
-        "phoneCase",
-        1569258000000
-      ]
-    },
-    {
-      "id": "listdayanam",
-      "phoneCase1568394000000": [
-        "phoneCase",
-        1568394000000
-      ]
-    },
-    {
-      "phoneCase1568394000000": [
-        "phoneCase",
-        1568394000000
-      ],
-      "phoneCase1568307600000": [
-        "phoneCase",
-        1568307600000
-      ],
-      "phoneCase1568221200000": [
-        "phoneCase",
-        1568221200000
-      ],
-      "id": "listdaylistPartner",
-      "phoneCase1569344400000": [
-        "phoneCase",
-        1569344400000
-      ],
-      "phoneCase1569258000000": [
-        "phoneCase",
-        1569258000000
-      ],
-      "phoneCase1568134800000": [
-        "phoneCase",
-        1568134800000
-      ]
-    },
-    {
-      "phoneCaseanam": [
-        "phoneCase",
-        "anam"
-      ],
-      "phoneCaseatuan": [
-        "phoneCase",
-        "atuan"
-      ],
-      "phoneCaseadung": [
-        "phoneCase",
-        "adung"
-      ],
-      "id": "listPartner",
-      "phoneCaseatung": [
-        "phoneCase",
-        "atung"
-      ]
-    },
-    {
-      "day": 1569344400000,
-      "partner": "atung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "luminous",
-      "name": "mj0030",
-      "shippingname": "Kreistein  Patacsil",
-      "shippingaddress1": "7812 Comanche Avenue",
-      "shippingcity": "Winnetka",
-      "shippingzip": 91306,
-      "shippingprovince": "CA",
-      "shippingcountry": "US",
-      "shippingphone": 8183262941,
-      "basecost": 10.1,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Luminous Glow Phone case iPhone Samsung dah230816 ",
-      "lineitemsku": " Galaxy S8+",
-      "id": "mj0030luminousglowphonecaseiphonesamsungdah230816galaxys8"
-    },
-    {
-      "day": 1569258000000,
-      "partner": "atuan",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "mj0015",
-      "shippingname": "Aekrat Somrueang",
-      "shippingaddress1": "405 5 Ave SW",
-      "shippingcity": "Redcliff",
-      "shippingzip": "T0J 2P0",
-      "shippingprovince": "AB",
-      "shippingcountry": "WW",
-      "shippingphone": "'+1 403-977-3960",
-      "basecost": 10.1,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Luminous Glow Phone case iPhone Samsung nam220805 ",
-      "lineitemsku": " iPhone X",
-      "id": "mj0015luminousglowphonecaseiphonesamsungnam220805iphonex"
-    },
-    {
-      "day": 1568134800000,
-      "partner": "adung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "mj0001",
-      "shippingname": "Dat Tran",
-      "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
-      "shippingcity": "Singapore",
-      "shippingzip": 331038,
-      "shippingcountry": "WW",
-      "shippingphone": 98515422,
-      "basecost": 9.5,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Phone case iPhone Samsung tlm290706 ",
-      "lineitemsku": " iPhone X",
-      "id": "mj0001phonecaseiphonesamsungtlm290706iphonex"
-    },
-    {
-      "id": "e1c9e235-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1568134800000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "e1c9e234-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1569258000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "e1c9e233-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1569344400000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "Sum_luminous": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "e1c9e232-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "adung",
-      "dayNumber": 1568134800000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "e1c9e231-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "atuan",
-      "dayNumber": 1569258000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "e1c9e230-e1e7-11e9-a974-892e1e4a510f",
-      "namePartner": "atung",
-      "dayNumber": 1569344400000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "listdayatung",
-      "phoneCase1569344400000": [
-        "phoneCase",
-        1569344400000
-      ]
+      "trackingnumber": "xk1004",
+      "id": "al14luminousglowphonecaseiphonesamsungdah230816galaxys8"
     },
     {
       "day": 1568394000000,
-      "partner": "anam",
-      "partnertype": "phoneCase",
+      "partner": "aluyen",
+      "partnertype": "dress",
       "phonecasetype": "luminous",
-      "name": "ht0016",
+      "name": "al13",
       "shippingname": "Kreistein  Patacsil",
       "shippingaddress1": "7812 Comanche Avenue",
+      "shippingaddress2": null,
       "shippingcity": "Winnetka",
       "shippingzip": 91306,
       "shippingprovince": "CA",
@@ -356,16 +41,18 @@
       "lineitemquantity": 1,
       "lineitemname": "Luminous Glow Phone case iPhone Samsung dah230816 ",
       "lineitemsku": " Galaxy S8+",
-      "id": "fc0c27d0-e1eb-11e9-a974-892e1e4a510f"
+      "trackingnumber": "xk1002",
+      "id": "al13luminousglowphonecaseiphonesamsungdah230816galaxys8"
     },
     {
       "day": 1568307600000,
-      "partner": "atuan",
-      "partnertype": "phoneCase",
+      "partner": "aluyen",
+      "partnertype": "dress",
       "phonecasetype": "glass",
-      "name": "ht0015",
+      "name": "al12",
       "shippingname": "Aekrat Somrueang",
       "shippingaddress1": "405 5 Ave SW",
+      "shippingaddress2": null,
       "shippingcity": "Redcliff",
       "shippingzip": "T0J 2P0",
       "shippingprovince": "AB",
@@ -376,18 +63,21 @@
       "lineitemquantity": 1,
       "lineitemname": "Luminous Glow Phone case iPhone Samsung nam220805 ",
       "lineitemsku": " iPhone X",
-      "id": "fc892000-e1eb-11e9-a974-892e1e4a510f"
+      "trackingnumber": "xk1001",
+      "id": "al12luminousglowphonecaseiphonesamsungnam220805iphonex"
     },
     {
       "day": 1568221200000,
-      "partner": "adung",
-      "partnertype": "phoneCase",
+      "partner": "aluyen",
+      "partnertype": "dress",
       "phonecasetype": "glass",
-      "name": "ht0014",
+      "name": "al11",
       "shippingname": "Dat Tran",
       "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
+      "shippingaddress2": null,
       "shippingcity": "Singapore",
       "shippingzip": 331038,
+      "shippingprovince": null,
       "shippingcountry": "WW",
       "shippingphone": 98515422,
       "basecost": 9.5,
@@ -395,359 +85,144 @@
       "lineitemquantity": 1,
       "lineitemname": "Phone case iPhone Samsung tlm290706 ",
       "lineitemsku": " iPhone X",
-      "id": "fcd173a0-e1eb-11e9-a974-892e1e4a510f"
+      "trackingnumber": "xk1000",
+      "id": "al11phonecaseiphonesamsungtlm290706iphonex"
     },
     {
-      "id": "fd454412-e1eb-11e9-a974-892e1e4a510f",
+      "id": "46083384-e2a3-11e9-a47e-f93cbe4224d0",
       "namePartner": "allPartner",
       "dayNumber": 1568221200000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 9.5,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumluminous": 0,
+      "Sumtrackingnumber": [
+        "xk1000"
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "fd454411-e1eb-11e9-a974-892e1e4a510f",
+      "id": "46083383-e2a3-11e9-a47e-f93cbe4224d0",
       "namePartner": "allPartner",
       "dayNumber": 1568307600000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 10.1,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumluminous": 0,
+      "Sumtrackingnumber": [
+        "xk1001"
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "fd454410-e1eb-11e9-a974-892e1e4a510f",
+      "id": "46083382-e2a3-11e9-a47e-f93cbe4224d0",
       "namePartner": "allPartner",
       "dayNumber": 1568394000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "Sum_luminous": 1,
+      "Sumlineitemquantity": 2,
+      "Sumbasecost": 20.2,
+      "Sumpartnertype": "dress",
+      "Sumus": 2,
+      "Sumluminous": 2,
+      "Sumtrackingnumber": [
+        "xk1004",
+        "xk1002"
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "fd451d02-e1eb-11e9-a974-892e1e4a510f",
-      "namePartner": "adung",
+      "id": "46083381-e2a3-11e9-a47e-f93cbe4224d0",
+      "namePartner": "aluyen",
       "dayNumber": 1568221200000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 9.5,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumtrackingnumber": [
+        "xk1000"
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "fd451d01-e1eb-11e9-a974-892e1e4a510f",
-      "namePartner": "atuan",
+      "id": "46083380-e2a3-11e9-a47e-f93cbe4224d0",
+      "namePartner": "aluyen",
       "dayNumber": 1568307600000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 10.1,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumtrackingnumber": [
+        "xk1001"
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "fd451d00-e1eb-11e9-a974-892e1e4a510f",
-      "namePartner": "anam",
+      "id": "46080c70-e2a3-11e9-a47e-f93cbe4224d0",
+      "namePartner": "aluyen",
       "dayNumber": 1568394000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
+      "Sumlineitemquantity": 2,
+      "Sumbasecost": 20.2,
+      "Sumpartnertype": "dress",
+      "Sumus": 2,
+      "Sumtrackingnumber": [
+        "xk1004",
+        "xk1002"
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "day": 1569344400000,
-      "partner": "atung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "luminous",
-      "name": "mj0030",
-      "shippingname": "Kreistein  Patacsil",
-      "shippingaddress1": "7812 Comanche Avenue",
-      "shippingcity": "Winnetka",
-      "shippingzip": 91306,
-      "shippingprovince": "CA",
-      "shippingcountry": "US",
-      "shippingphone": 8183262941,
-      "basecost": 10.1,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Luminous Glow Phone case iPhone Samsung dah230816 ",
-      "lineitemsku": " Galaxy S8+",
-      "id": "0551b9f0-e1f5-11e9-a974-892e1e4a510f"
+      "id": "listdayaluyen",
+      "dress1568394000000": [
+        "dress",
+        1568394000000
+      ],
+      "dress1568307600000": [
+        "dress",
+        1568307600000
+      ],
+      "dress1568221200000": [
+        "dress",
+        1568221200000
+      ]
     },
     {
-      "day": 1568134800000,
-      "partner": "adung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "mj0001",
-      "shippingname": "Dat Tran",
-      "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
-      "shippingcity": "Singapore",
-      "shippingzip": 331038,
-      "shippingcountry": "WW",
-      "shippingphone": 98515422,
-      "basecost": 9.5,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Phone case iPhone Samsung tlm290706 ",
-      "lineitemsku": " iPhone X",
-      "id": "05f1a370-e1f5-11e9-a974-892e1e4a510f"
+      "dress1568394000000": [
+        "dress",
+        1568394000000
+      ],
+      "dress1568307600000": [
+        "dress",
+        1568307600000
+      ],
+      "dress1568221200000": [
+        "dress",
+        1568221200000
+      ],
+      "id": "listdaylistPartner"
     },
     {
-      "day": 1568134800000,
-      "partner": "adung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "mj0001",
-      "shippingname": "Dat Tran",
-      "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
-      "shippingcity": "Singapore",
-      "shippingzip": 331038,
-      "shippingcountry": "WW",
-      "shippingphone": 98515422,
-      "basecost": 9.5,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Phone case iPhone Samsung tlm290706 ",
-      "lineitemsku": " iPhone X",
-      "id": "081c99c0-e1f5-11e9-a974-892e1e4a510f"
-    },
-    {
-      "id": "0991d4a3-e1f5-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1568134800000,
-      "Sum_lineitemquantity": 2,
-      "Sum_basecost": 19,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "0991d4a2-e1f5-11e9-a974-892e1e4a510f",
-      "namePartner": "allPartner",
-      "dayNumber": 1569344400000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "Sum_luminous": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "0991d4a1-e1f5-11e9-a974-892e1e4a510f",
-      "namePartner": "adung",
-      "dayNumber": 1568134800000,
-      "Sum_lineitemquantity": 2,
-      "Sum_basecost": 19,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "0991d4a0-e1f5-11e9-a974-892e1e4a510f",
-      "namePartner": "atung",
-      "dayNumber": 1569344400000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "day": 1568221200000,
-      "partner": "adung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "ht0014",
-      "shippingname": "Dat Tran",
-      "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
-      "shippingcity": "Singapore",
-      "shippingzip": 331038,
-      "shippingcountry": "WW",
-      "shippingphone": 98515422,
-      "basecost": 9.5,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Phone case iPhone Samsung tlm290706 ",
-      "lineitemsku": " iPhone X",
-      "id": "6fbbda50-e1f5-11e9-a677-81cec993217e"
-    },
-    {
-      "id": "707c6b31-e1f5-11e9-a677-81cec993217e",
-      "namePartner": "allPartner",
-      "dayNumber": 1568221200000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "707c6b30-e1f5-11e9-a677-81cec993217e",
-      "namePartner": "adung",
-      "dayNumber": 1568221200000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "day": 1569344400000,
-      "partner": "atung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "luminous",
-      "name": "mj0030",
-      "shippingname": "Kreistein  Patacsil",
-      "shippingaddress1": "7812 Comanche Avenue",
-      "shippingcity": "Winnetka",
-      "shippingzip": 91306,
-      "shippingprovince": "CA",
-      "shippingcountry": "US",
-      "shippingphone": 8183262941,
-      "basecost": 10.1,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Luminous Glow Phone case iPhone Samsung dah230816 ",
-      "lineitemsku": " Galaxy S8+",
-      "id": "8f052460-e20a-11e9-81da-c10bc8925f6e"
-    },
-    {
-      "day": 1569258000000,
-      "partner": "atuan",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "mj0015",
-      "shippingname": "Aekrat Somrueang",
-      "shippingaddress1": "405 5 Ave SW",
-      "shippingcity": "Redcliff",
-      "shippingzip": "T0J 2P0",
-      "shippingprovince": "AB",
-      "shippingcountry": "WW",
-      "shippingphone": "'+1 403-977-3960",
-      "basecost": 10.1,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Luminous Glow Phone case iPhone Samsung nam220805 ",
-      "lineitemsku": " iPhone X",
-      "id": "b5404830-e20a-11e9-81da-c10bc8925f6e"
-    },
-    {
-      "day": 1568134800000,
-      "partner": "adung",
-      "partnertype": "phoneCase",
-      "phonecasetype": "glass",
-      "name": "mj0001",
-      "shippingname": "Dat Tran",
-      "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
-      "shippingcity": "Singapore",
-      "shippingzip": 331038,
-      "shippingcountry": "WW",
-      "shippingphone": 98515422,
-      "basecost": 9.5,
-      "fee": 5,
-      "lineitemquantity": 1,
-      "lineitemname": "Phone case iPhone Samsung tlm290706 ",
-      "lineitemsku": " iPhone X",
-      "id": "b559eab0-e20a-11e9-81da-c10bc8925f6e"
-    },
-    {
-      "id": "b5ffeeb1-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "allPartner",
-      "dayNumber": 1568134800000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "b5ffeeb0-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "allPartner",
-      "dayNumber": 1569258000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "b5ffc7a3-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "allPartner",
-      "dayNumber": 1569344400000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "Sum_luminous": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "b5ffc7a2-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "adung",
-      "dayNumber": 1568134800000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 9.5,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "b5ffc7a1-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "atuan",
-      "dayNumber": 1569258000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "monthNumber": 9,
-      "yearNumber": 2019
-    },
-    {
-      "id": "b5ffc7a0-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "atung",
-      "dayNumber": 1569344400000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "monthNumber": 9,
-      "yearNumber": 2019
+      "dressaluyen": [
+        "dress",
+        "aluyen"
+      ],
+      "id": "listPartner"
     },
     {
       "day": 1568394000000,
-      "partner": "anam",
-      "partnertype": "phoneCase",
+      "partner": "aluyen",
+      "partnertype": "dress",
       "phonecasetype": "luminous",
-      "name": "ht0016",
+      "name": "all1237",
       "shippingname": "Kreistein  Patacsil",
       "shippingaddress1": "7812 Comanche Avenue",
+      "shippingaddress2": null,
       "shippingcity": "Winnetka",
       "shippingzip": 91306,
       "shippingprovince": "CA",
@@ -758,16 +233,38 @@
       "lineitemquantity": 1,
       "lineitemname": "Luminous Glow Phone case iPhone Samsung dah230816 ",
       "lineitemsku": " Galaxy S8+",
-      "id": "c271a990-e20a-11e9-81da-c10bc8925f6e"
+      "id": "all1237luminousglowphonecaseiphonesamsungdah230816galaxys8"
+    },
+    {
+      "day": 1568394000000,
+      "partner": "aluyen",
+      "partnertype": "dress",
+      "phonecasetype": "luminous",
+      "name": "all1236",
+      "shippingname": "Kreistein  Patacsil",
+      "shippingaddress1": "7812 Comanche Avenue",
+      "shippingaddress2": null,
+      "shippingcity": "Winnetka",
+      "shippingzip": 91306,
+      "shippingprovince": "CA",
+      "shippingcountry": "US",
+      "shippingphone": 8183262941,
+      "basecost": 10.1,
+      "fee": 5,
+      "lineitemquantity": 1,
+      "lineitemname": "Luminous Glow Phone case iPhone Samsung dah230816 ",
+      "lineitemsku": " Galaxy S8+",
+      "id": "all1236luminousglowphonecaseiphonesamsungdah230816galaxys8"
     },
     {
       "day": 1568307600000,
-      "partner": "atuan",
-      "partnertype": "phoneCase",
+      "partner": "aluyen",
+      "partnertype": "dress",
       "phonecasetype": "glass",
-      "name": "ht0015",
+      "name": "all1235",
       "shippingname": "Aekrat Somrueang",
       "shippingaddress1": "405 5 Ave SW",
+      "shippingaddress2": null,
       "shippingcity": "Redcliff",
       "shippingzip": "T0J 2P0",
       "shippingprovince": "AB",
@@ -778,51 +275,115 @@
       "lineitemquantity": 1,
       "lineitemname": "Luminous Glow Phone case iPhone Samsung nam220805 ",
       "lineitemsku": " iPhone X",
-      "id": "c2ea8310-e20a-11e9-81da-c10bc8925f6e"
+      "id": "all1235luminousglowphonecaseiphonesamsungnam220805iphonex"
     },
     {
-      "id": "cbb4b9c3-e20a-11e9-81da-c10bc8925f6e",
+      "day": 1568221200000,
+      "partner": "aluyen",
+      "partnertype": "dress",
+      "phonecasetype": "glass",
+      "name": "all1234",
+      "shippingname": "Dat Tran",
+      "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
+      "shippingaddress2": null,
+      "shippingcity": "Singapore",
+      "shippingzip": 331038,
+      "shippingprovince": null,
+      "shippingcountry": "WW",
+      "shippingphone": 98515422,
+      "basecost": 9.5,
+      "fee": 5,
+      "lineitemquantity": 1,
+      "lineitemname": "Phone case iPhone Samsung tlm290706 ",
+      "lineitemsku": " iPhone X",
+      "id": "all1234phonecaseiphonesamsungtlm290706iphonex"
+    },
+    {
+      "id": "b63cb815-e2a3-11e9-a47e-f93cbe4224d0",
+      "namePartner": "allPartner",
+      "dayNumber": 1568221200000,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 9.5,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumluminous": 0,
+      "Sumtrackingnumber": [
+        null
+      ],
+      "monthNumber": 9,
+      "yearNumber": 2019
+    },
+    {
+      "id": "b63cb814-e2a3-11e9-a47e-f93cbe4224d0",
       "namePartner": "allPartner",
       "dayNumber": 1568307600000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
-      "Sum_luminous": 0,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 10.1,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumluminous": 0,
+      "Sumtrackingnumber": [
+        null
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "cbb4b9c2-e20a-11e9-81da-c10bc8925f6e",
+      "id": "b63cb813-e2a3-11e9-a47e-f93cbe4224d0",
       "namePartner": "allPartner",
       "dayNumber": 1568394000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
-      "Sum_luminous": 1,
+      "Sumlineitemquantity": 2,
+      "Sumbasecost": 20.2,
+      "Sumpartnertype": "dress",
+      "Sumus": 2,
+      "Sumluminous": 2,
+      "Sumtrackingnumber": [
+        null,
+        null
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "cbb4b9c1-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "atuan",
+      "id": "b63cb812-e2a3-11e9-a47e-f93cbe4224d0",
+      "namePartner": "aluyen",
+      "dayNumber": 1568221200000,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 9.5,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumtrackingnumber": [
+        null
+      ],
+      "monthNumber": 9,
+      "yearNumber": 2019
+    },
+    {
+      "id": "b63cb811-e2a3-11e9-a47e-f93cbe4224d0",
+      "namePartner": "aluyen",
       "dayNumber": 1568307600000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 0,
+      "Sumlineitemquantity": 1,
+      "Sumbasecost": 10.1,
+      "Sumpartnertype": "dress",
+      "Sumus": 0,
+      "Sumtrackingnumber": [
+        null
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     },
     {
-      "id": "cbb4b9c0-e20a-11e9-81da-c10bc8925f6e",
-      "namePartner": "anam",
+      "id": "b63cb810-e2a3-11e9-a47e-f93cbe4224d0",
+      "namePartner": "aluyen",
       "dayNumber": 1568394000000,
-      "Sum_lineitemquantity": 1,
-      "Sum_basecost": 10.1,
-      "partnertype": "phoneCase",
-      "Sum_us": 1,
+      "Sumlineitemquantity": 2,
+      "Sumbasecost": 20.2,
+      "Sumpartnertype": "dress",
+      "Sumus": 2,
+      "Sumtrackingnumber": [
+        null,
+        null
+      ],
       "monthNumber": 9,
       "yearNumber": 2019
     }

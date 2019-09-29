@@ -8,18 +8,17 @@ let DEFAULT_STATE = {
     errorMessesage: null
 }
 export default (state = DEFAULT_STATE, action) => {
-    console.log(action);
+    // console.log(action);
 
     switch (action.type) {
 
         case type.STATE_POST_TO_DEFAULT:
             return {
-                ...state,
                 listItem: [],
                 dataFetched: false,
                 isFetching: false,
                 error: false,
-                type: null,
+                type: "STATE_POST_TO_DEFAULT",
                 errorMessesage: null
             }
 
