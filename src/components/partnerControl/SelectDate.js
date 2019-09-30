@@ -119,12 +119,10 @@ export default class Example extends React.Component {
     }
 
     render() {
-        console.log(this.state.listDay);
 
         let listDay = (this.props.partnerType !== null) ? this.state.listDay.filter(param => { return param[0] === this.props.partnerType }) : this.state.listDay.filter(param => { return param[0] !== "id" });
         listDay = listDay.map(param => { return (new Date(param[1])) })
         // listDay =.map(param => param[1]).map(param => { return (new Date(param)) });
-        console.log(listDay);
 
 
 

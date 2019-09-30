@@ -58,3 +58,15 @@ export function postListItemCountPatchFailAPI(payload) {                  // g�
 export function getLastItemOflistItemCountPatch(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_REQUEST, payload })    // payload:valueToGetAPI
 }
+
+export function patchItemCheckingControlAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.PATCH_ITEM_TRACKING_CONTROL_REQUEST, payload })    // payload:valueToGetAPI
+}
+export function getItemTrackingFailAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_ITEM_TRACKING_FAIL_REQUEST, payload })    // payload:valueToGetAPI
+}
+
+export function postListTrackingCountAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.POST_LIST_TRACKING_COUNT_REQUEST, payload })    // payload:valueToGetAPI
+}
+

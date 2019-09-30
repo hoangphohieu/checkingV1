@@ -142,7 +142,6 @@ export default class Example extends PureComponent {
   }
   render() {
     let dataChart = [];
-    console.log(this.props.items.listItem);
 
     let rangeDay = this.Math_rangeDay();  // tính arr=[xxx]  la khoang thoi gian select
     if (this.props.items.type === "getListByCustom") { // nêu GET (getListByCustom), gọi hàm  nội bộ (Math_dataChart) dể tính và xuất ra  data của biểu đồ

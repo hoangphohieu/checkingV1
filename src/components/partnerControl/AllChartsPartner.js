@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChartPartner from './ChartPartner';
+import TrackingPagination from './TrackingPagination';
 import _ from 'lodash';
 
 class AllChartsPartner extends Component {
@@ -13,6 +14,7 @@ class AllChartsPartner extends Component {
             <React.Fragment>
                 <ChartPartner styleChart="Sumlineitemquantity"  {...this.props} />
                 <ChartPartner styleChart="Sumbasecost" {...this.props} />
+                <TrackingPagination {...this.props}/>
             </React.Fragment>
         );
     }

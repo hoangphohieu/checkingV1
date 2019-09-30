@@ -57,7 +57,6 @@ class InputExcel extends Component {
         }
         this.CDU_propsImportExcelToDefault();
         this.CDU_reRenderWhenItemsExcelZero(); // rerender khi post het list items from excel
-        console.log(this.props.itemExcelReload);
 
     }
 
@@ -286,6 +285,8 @@ class InputExcel extends Component {
             if (listItemCountPost.length > 0) this.props.postListItemCount(listItemCountPost[listItemCountPost.length - 1]);
         }
     }
+
+    
     doingWhenPostListItemCountFail = () => {
         alert("Kiểm tra đường truyền mạng và F5 lại trang !! (4) ");
     }
