@@ -108,17 +108,17 @@ class InputExcel extends Component {
                     item["Sumbasecost"] = 0;
                     item["Sumpartnertype"] = arrListPartner[i][1][0];
                     item["Sumus"] = 0;
-                    item["Sumtrackingnumber"] = [];
-                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
+                    item["Sumorder"] = [];
+                    if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
                     let month = (new Date(PartnerAndDay[j][1])).getMonth() + 1;
                     let year = (new Date(PartnerAndDay[j][1])).getFullYear();
                     item["monthNumber"] = month;
                     item["yearNumber"] = year;
                     item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sumus = item.Sumus + param.lineitemquantity });
-                    // if (param.partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
+                    if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
                     item2.filter(param => { return param.day === PartnerAndDay[j][1] }).forEach(param => {
                         item.Sumlineitemquantity = (item.Sumlineitemquantity + param.lineitemquantity);
-                        item.Sumtrackingnumber.push(param.trackingnumber);
+                        item.Sumorder.push(param.name);
                         item.Sumbasecost = (item.Sumbasecost + param.lineitemquantity * param.basecost);
                     })
                     listItemCountPost.push(item);
@@ -134,17 +134,17 @@ class InputExcel extends Component {
                 item["Sumbasecost"] = 0;
                 item["Sumpartnertype"] = listDay[j][0];
                 item["Sumus"] = 0;
-                item["Sumluminous"] = 0;
-                item["Sumtrackingnumber"] = [];
+                if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
+                item["Sumorder"] = [];
                 let month = (new Date(listDay[j][1])).getMonth() + 1;
                 let year = (new Date(listDay[j][1])).getFullYear();
                 item["monthNumber"] = month;
                 item["yearNumber"] = year;
                 item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sumus = item.Sumus + param.lineitemquantity });
-                item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
+                if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
                 item2.filter(param => { return param.day === listDay[j][1] }).forEach(param => {
                     item.Sumlineitemquantity = (item.Sumlineitemquantity + param.lineitemquantity);
-                    item.Sumtrackingnumber.push(param.trackingnumber);
+                    item.Sumorder.push(param.name);
                     item.Sumbasecost = (item.Sumbasecost + param.lineitemquantity * param.basecost);
                 })
                 listItemCountPost.push(item);
@@ -286,7 +286,7 @@ class InputExcel extends Component {
         }
     }
 
-    
+
     doingWhenPostListItemCountFail = () => {
         alert("Kiểm tra đường truyền mạng và F5 lại trang !! (4) ");
     }

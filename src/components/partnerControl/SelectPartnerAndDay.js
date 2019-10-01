@@ -9,7 +9,6 @@ class SelectPartnerAndDay extends Component {
             partnerSelect: null,
             listPartner: null,
             listDay: [],
-            partnerType: null
         }
     }
 
@@ -42,7 +41,7 @@ class SelectPartnerAndDay extends Component {
             listDay.push(this.props.items.listItem[0].id); // đã lọc listDay=[] với 7 ngày  gần nhất +  tên  là id tương ứng với  (getListDayById)
             if (this.state.listDay.join("") !== listDay.join("")) { // khi listDay thay đổi thì mới setState (listDay) mới
                 this.setState({ listDay: listDay });
-                if ((this.props.date.from === undefined && this.props.date.to === undefined) && this.state.partnerType === null) {  // khi chưa  select Date thì GET (getListByCustom) với endpoint với 7 ngày gần nhaatys ứng với (partnerSelect)
+                if ((this.props.date.from === undefined && this.props.date.to === undefined) && this.props.partnerType === null) {  // khi chưa  select Date thì GET (getListByCustom) với endpoint với 7 ngày gần nhaatys ứng với (partnerSelect)
                     let endPoint = "?namePartner=" + ((this.state.partnerSelect !== null) ? this.state.partnerSelect : "allPartner");
                     for (let i = 0; i <= listDay.length - 1; i++) {
                         endPoint = endPoint + "&dayNumber=" + listDay[i][1];
@@ -56,7 +55,7 @@ class SelectPartnerAndDay extends Component {
                         dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
                         dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
                     }
-                    let endPoint = this.getEndPoint(this.state.partnerSelect, this.state.partnerType, dateFrom, dateTo); // gọi hàm tạo endpoint ứng với date đã select
+                    let endPoint = this.getEndPoint(this.state.partnerSelect, this.props.partnerType, dateFrom, dateTo); // gọi hàm tạo endpoint ứng với date đã select
                     this.props.getListByCustom(endPoint); // GET (getListByCustom) với endpoint ở trên
                 }
 
@@ -121,7 +120,8 @@ class SelectPartnerAndDay extends Component {
             dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
             dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
         }
-        this.setState({ partnerType: param });
+        // this.setState({ partnerType: param });
+        this.props.setpartnerType(param);
         let endPoint = this.getEndPoint(this.state.partnerSelect, param, dateFrom, dateTo);
         this.props.getListByCustom(endPoint);
 
@@ -132,8 +132,8 @@ class SelectPartnerAndDay extends Component {
         if (listPartner !== null) { // chuyển listPartner=[] thành các DOM <p/> để render ra màn hình
             listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
             let listPartnerType = _.uniq(listPartner.map(param => param[0]));
-            renderlistPartnerType = listPartnerType.map((param, id) => { return <button type="button" className={"btn btn-" + (this.state.partnerType === param ? "primary" : "info")} key={id} onClick={() => this.changePartnerType(param)}>{param}</button> });
-            renderListPartner = listPartner.filter(param => { return param[0] === this.state.partnerType }).map((param, id) => {
+            renderlistPartnerType = listPartnerType.map((param, id) => { return <button type="button" className={"btn btn-" + (this.props.partnerType === param ? "primary" : "info")} key={id} onClick={() => this.changePartnerType(param)}>{param}</button> });
+            renderListPartner = listPartner.filter(param => { return param[0] === this.props.partnerType }).map((param, id) => {
                 return <p className={"renderListPartner" + ((this.state.partnerSelect === param[1]) ? " renderListPartner_select" : "")}
                     key={id} onClick={() => this.callAPIAndSetPartnerSelect(param[1])}>{param[1]}</p>
             })
@@ -142,7 +142,7 @@ class SelectPartnerAndDay extends Component {
             <React.Fragment>
                 {renderlistPartnerType}
                 {renderListPartner}
-                <SelectDate partnerSelect={this.state.partnerSelect} partnerType={this.state.partnerType} {...this.props} /> {/* component để select Date*/}
+                <SelectDate partnerSelect={this.state.partnerSelect} partnerType={this.props.partnerType} {...this.props} /> {/* component để select Date*/}
             </React.Fragment>
         );
     }

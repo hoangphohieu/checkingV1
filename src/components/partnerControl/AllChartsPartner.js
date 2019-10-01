@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ChartPartner from './ChartPartner';
-import TrackingPagination from './TrackingPagination';
+import ChartAmount from './ChartAmount';
+import ChartBaseCost from './ChartBaseCost';
+
 import _ from 'lodash';
 
 class AllChartsPartner extends Component {
@@ -12,9 +13,9 @@ class AllChartsPartner extends Component {
 
         return (
             <React.Fragment>
-                <ChartPartner styleChart="Sumlineitemquantity"  {...this.props} />
-                <ChartPartner styleChart="Sumbasecost" {...this.props} />
-                <TrackingPagination {...this.props}/>
+                <ChartAmount styleChart="Sumlineitemquantity"  {...this.props} />
+                <ChartBaseCost styleChart="Sumbasecost" {...this.props} />
+                
             </React.Fragment>
         );
     }

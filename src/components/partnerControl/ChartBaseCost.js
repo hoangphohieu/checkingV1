@@ -147,8 +147,7 @@ export default class Example extends PureComponent {
     if (this.props.items.type === "getListByCustom") { // nêu GET (getListByCustom), gọi hàm  nội bộ (Math_dataChart) dể tính và xuất ra  data của biểu đồ
       dataChart = this.Math_dataChart(JSON.parse(JSON.stringify(this.props.items.listItem)), rangeDay);
     }
-    let style = this.props.styleChart;
-    let payload = (this.props.styleChart === "Sumlineitemquantity" ? [{ value: 'Số lượng', type: 'line' }] : [{ value: 'Tổng Base Cost', type: 'line' }])
+    let payload = [{ value: 'Số lượng', type: 'line' }];
     return (
       <ComposedChart
         width={(dataChart.length > 5) ? dataChart.length * 100 : 500}
@@ -163,8 +162,8 @@ export default class Example extends PureComponent {
         <YAxis />
         <Tooltip />
         <Legend payload={payload} /> {/* tên của biểu đồ */}
-        <Bar dataKey={style} barSize={20} fill="#c0ded9" >  {/* cột của biểu đò */}
-          <LabelList dataKey={style} position="top" />
+        <Bar dataKey="Sumbasecost" barSize={20} fill="#c0ded9" >  {/* cột của biểu đò */}
+          <LabelList dataKey="Sumbasecost" position="top" />
         </Bar>
       </ComposedChart>
     );
