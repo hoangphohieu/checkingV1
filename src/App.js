@@ -15,10 +15,9 @@ function App() {
         <div className="container-fluid background_nav_top">
           <div className="container">
             <div className="row ">
-              <Link to="/partner" className="col-3 nav-item-h"> Partner</Link>
-              <Link to="/" className="col-3 nav-item-h"> Checking Control</Link>
-              <Link to="/excelImport" className="col-3 nav-item-h">Excel Import</Link>
-              <Link to="/trackingImport" className="col-3 nav-item-h">Tracking Import</Link>
+              <Link to="/partner" className="col-4 nav-item-h"> Partner</Link>
+              <Link to="/" className="col-4 nav-item-h"> Checking Control</Link>
+              <Link to="/excelImport" className="col-4 nav-item-h">Excel Import</Link>
             </div>
           </div>
         </div>
@@ -28,7 +27,6 @@ function App() {
           <Route exact path="/" render={(props) => <CheckingControlContainer {...props} />} />
           <Route exact path="/excelImport" render={(props) => <ExcelImportContainer {...props} />} />
           <Route exact path="/partner" render={(props) => <PartnerControlContainer {...props} />} />
-          <Route exact path="/trackingImport" render={(props) => <TrackingImportContainer {...props} />} />
         </Switch>
 
         {/* <CheckingControlContainer/> */}

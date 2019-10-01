@@ -1,5 +1,7 @@
 export const FETCH_URL_ITEMS = "http://localhost:3001/items";
 export const CLOUDINARY_URL_CDN = "https://res.cloudinary.com/hieudz/image/upload/v1566581774/demo%20tool/";
+export const TRACKINGMORE_KEY = "febd481b-51b5-4387-96a2-aa1c865e96d4";
+export const GET_TRACKINGMORE_API ="https://cors-anywhere.herokuapp.com/http://api.trackingmore.com/v2/trackings/get";
 
 export const STATE_POST_TO_DEFAULT = "STATE_POST_TO_DEFAULT";
 
@@ -70,5 +72,10 @@ export const GET_ITEM_TRACKING_FAIL_RFAILURE = "GET_ITEM_TRACKING_FAIL_RFAILURE"
 export const POST_LIST_TRACKING_COUNT_REQUEST = "POST_LIST_TRACKING_COUNT_REQUEST";
 export const POST_LIST_TRACKING_COUNT_SUCSESS = "POST_LIST_TRACKING_COUNT_SUCSESS";
 export const POST_LIST_TRACKING_COUNT_RFAILURE = "POST_LIST_TRACKING_COUNT_RFAILURE";
+
+export const GET_TRACKING_REQUEST = "GET_TRACKING_REQUEST";
+export const GET_TRACKING_SUCSESS = "GET_TRACKING_SUCSESS";
+export const GET_TRACKING_RFAILURE = "GET_TRACKING_RFAILURE";
+
 
 

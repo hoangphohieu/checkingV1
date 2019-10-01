@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TrackingSearch from '../components/partnerControl/TrackingSearch';
-
+import * as actions from './../actions';
+ 
 function mapStateToProps(state) {
     return {
-
+        listItems: state.TrackingReducer
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        getTracking: (param) => dispatch(actions.getTrackingAPI(param)),
+
+    };
+}
 class TrackingSearchContainer extends Component {
     render() {
         return (
@@ -19,5 +26,5 @@ class TrackingSearchContainer extends Component {
 }
 
 export default connect(
-    mapStateToProps,
+    mapStateToProps, mapDispatchToProps
 )(TrackingSearchContainer);

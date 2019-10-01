@@ -69,4 +69,7 @@ export function getItemTrackingFailAPI(payload) {                  // gọi lên
 export function postListTrackingCountAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.POST_LIST_TRACKING_COUNT_REQUEST, payload })    // payload:valueToGetAPI
 }
+export function getTrackingAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_TRACKING_REQUEST, payload })    // payload:valueToGetAPI
+}
 

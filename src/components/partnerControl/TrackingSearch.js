@@ -3,11 +3,17 @@ import _ from 'lodash';
 
 class TrackingSearch extends Component {
     searchTracking(param) {
-        console.log(param);
+        param = [...param].join(",");
+        let endPoint = "?orders=" + param+"&limit=500";
+
+        this.props.getTracking(endPoint);
+        // console.log(endPoint);
 
     }
     render() {
-        let numberPerTrack = 2;
+        console.log(this.props.listItems);
+
+        let numberPerTrack = 150;
         let listOrder = [];
         this.props.items.listItem.forEach(param => { listOrder.push(param.Sumorder) });
         listOrder = _.chunk(_.flattenDeep(listOrder).map(param => { return _.replace(param, '#', '%23') }), numberPerTrack);
