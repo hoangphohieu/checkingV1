@@ -12,6 +12,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getTracking: (param) => dispatch(actions.getTrackingAPI(param)),
+        setStateStoreToDefault: () => dispatch(actions.setStateStoreToDefault()),
+        
 
     };
 }

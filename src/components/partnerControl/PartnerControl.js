@@ -34,8 +34,12 @@ class PartnerControl extends Component {
                         <div className="col-8 d-flex-column align-item-center">
                             <p>Biểu đồ col-8</p>
                             <AllChartsPartner date={this.state.date} partnerType={this.state.partnerType} {...this.props} />
+                        </div>
+
+                        <div className="col-12 mt-3">
                             <TrackingSearchContainer {...this.props} />
                         </div>
+
                     </div>
                 </div>
             </div>

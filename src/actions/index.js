@@ -36,8 +36,8 @@ export function getListDayById(payload) {                  // gọi lên itemSag
     return ({ type: type.GET_LIST_DAY_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
 }
 
-export function stateImportExcelToDefault() {     
-                 // gọi lên itemSaga và itemsReducer 
+export function stateImportExcelToDefault() {
+    // gọi lên itemSaga và itemsReducer 
     return ({ type: type.STATE_POST_TO_DEFAULT })    // payload:valueToGetAPI
 }
 export function getListByCustom(payload) {                  // gọi lên itemSaga và itemsReducer 
@@ -73,3 +73,6 @@ export function getTrackingAPI(payload) {                  // gọi lên itemSag
     return ({ type: type.GET_TRACKING_REQUEST, payload })    // payload:valueToGetAPI
 }
 
+export function setStateStoreToDefault() {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.SET_STATE_STORE_TO_DEFAULT })    // payload:valueToGetAPI
+}

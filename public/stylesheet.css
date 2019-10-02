@@ -1,6 +1,108 @@
 *{
     margin: 0;
     padding: 0;
+    
+}
+body{
+    scroll-behavior: smooth;
+}
+
+.hover-cursor:hover {cursor: pointer;text-decoration: underline;/* box-sizing: border-box !important; */}
+
+.bold {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.border-transit {
+    font-weight: 500;
+    background: #3a87ad;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+.border-delivered {
+    font-weight: 500;
+    background: #82af6f;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+.border-pickup {
+    font-weight: 500;
+    background: #f89406;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+.border-exception {
+    font-weight: 500;
+    background: #d15b47;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+.border-expired {
+    font-weight: 500;
+    background: #006;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+.border-notfound {
+    font-weight: 500;
+    background: #000;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+.border-undelivered {
+    font-weight: 500;
+    background: #9B59B6;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+.border-pending {
+    font-weight: 500;
+    background: #43dbe0;
+    color: #fff;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;;
+    border-radius: 5px;
+}
+
+
+.title-render-tracking-success {
+    color: #28a745;
+    border-bottom: 2px solid #28a745;
+}
+
+spam.bold {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+p.title-render-tracking-fail-more {
+    text-align: left;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0;
+}
+
+.title-render-tracking-fail {
+    color: #dc3545;
+    border-bottom: 2px solid #dc3545;
+    /* padding: 0; */
+}
+
+p.title-render-tracking {
+    text-align: LEFT;
+    font-weight: 500;
+    font-size: 2rem;
+    text-transform: uppercase;
+    /* color: red; */
+    /* margin-top: 1rem; */
+    /* border-bottom: 2px solid red; */
 }
 
 .link.button_reset_day {

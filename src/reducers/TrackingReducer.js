@@ -32,7 +32,15 @@ export default (state = DEFAULT_STATE, action) => {
                         listItem: action.payload
                   }
 
-
+            case type.SET_STATE_STORE_TO_DEFAULT:
+                  return {
+                        listItem: [],
+                        dataFetched: false,
+                        isFetching: false,
+                        error: false,
+                        type: null,
+                        errorMessesage: null
+                  }
 
 
             default:

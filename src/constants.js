@@ -4,6 +4,8 @@ export const TRACKINGMORE_KEY = "febd481b-51b5-4387-96a2-aa1c865e96d4";
 export const GET_TRACKINGMORE_API ="https://cors-anywhere.herokuapp.com/http://api.trackingmore.com/v2/trackings/get";
 
 export const STATE_POST_TO_DEFAULT = "STATE_POST_TO_DEFAULT";
+export const SET_STATE_STORE_TO_DEFAULT = "SET_STATE_STORE_TO_DEFAULT";
+
 
 export const GET_CHECKING_REQUEST = "GET_CHECKING_REQUEST";
 export const GET_CHECKING_SUCSESS = "GET_CHECKING_SUCSESS";
