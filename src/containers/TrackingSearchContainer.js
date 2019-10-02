@@ -5,7 +5,7 @@ import * as actions from './../actions';
  
 function mapStateToProps(state) {
     return {
-        listItems: state.TrackingReducer
+        itemsPayload: state.TrackingReducer
     };
 }
 

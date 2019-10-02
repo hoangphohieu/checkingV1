@@ -4,7 +4,7 @@
       "day": 1570813200000,
       "partner": "aluyen",
       "partnertype": "dress",
-      "name": "1195-SB",
+      "name": "11 95-SB",
       "shippingname": "Kreistein  Patacsil",
       "shippingaddress1": "8008 Comanche Avenue",
       "shippingaddress2": null,
@@ -3984,7 +3984,7 @@
       "day": 1570813200000,
       "partner": "aluyen",
       "partnertype": "dress",
-      "name": "#MJ10032",
+      "name": "#MJ 10032",
       "shippingname": "Dat Tran",
       "shippingaddress1": "38A BENDEMEER ROAD, 09-826",
       "shippingaddress2": null,
@@ -3998,7 +3998,7 @@
       "lineitemquantity": 1,
       "lineitemname": "Phone case iPhone Samsung tlm290706 ",
       "lineitemsku": " iPhone X",
-      "id": "mj10032phonecaseiphonesamsungtlm290706iphonex"
+      "id": "MJ 10032phonecaseiphonesamsungtlm290706iphonex"
     },
     {
       "id": "69888a71-e4cf-11e9-9c87-6d563c9c7962",
@@ -4009,7 +4009,7 @@
       "Sumpartnertype": "dress",
       "Sumus": 198,
       "Sumorder": [
-        "1195-SB",
+        "11 95-SB",
         "#TMT13515",
         "#TMT13516",
         "#TMT13523",
@@ -4208,7 +4208,7 @@
         "#MJ10052",
         "#TMT13322",
         "#MJ10026",
-        "#MJ10032"
+        "#MJ 10032"
       ],
       "monthNumber": 10,
       "yearNumber": 2019
@@ -4222,7 +4222,7 @@
       "Sumpartnertype": "dress",
       "Sumus": 198,
       "Sumorder": [
-        "1195-SB",
+        "11 95-SB",
         "#TMT13515",
         "#TMT13516",
         "#TMT13523",
@@ -4421,7 +4421,7 @@
         "#MJ10052",
         "#TMT13322",
         "#MJ10026",
-        "#MJ10032"
+        "#MJ 10032"
       ],
       "monthNumber": 10,
       "yearNumber": 2019
