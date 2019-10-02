@@ -5,7 +5,6 @@ import { Switch, Route, Link } from 'react-router-dom';
 import CheckingControlContainer from './containers/CheckingControlContainer';
 import ExcelImportContainer from './containers/ExcelImportContainer';
 import PartnerControlContainer from "./containers/PartnerControlContainer";
-import TrackingImportContainer from "./containers/TrackingImportContainer";
 
 function App() {
   return (

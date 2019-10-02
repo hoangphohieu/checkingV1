@@ -340,6 +340,7 @@ class InputExcel extends Component {
             else { param.shippingcountry = "US" } // lọc và định dạnh lại shipping country
             let id = _.kebabCase(param.name).split("-").join("") + _.kebabCase(param.lineitemname).split("-").join("") + _.kebabCase(param.lineitemsku).split("-").join("");
             param["id"] = id;// tạo id
+            param.name = param.name.trim();
             return param;
         });
 
