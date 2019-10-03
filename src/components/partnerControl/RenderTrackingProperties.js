@@ -4,15 +4,53 @@ class RenderTrackingProperties extends Component {
       constructor(props, context) {
             super(props, context);
             this.state = {
-                  listItemsRender: []
+                  listItemsRender: [],
+                  itemSelect: null,
+                  valueItemRequest: null
             }
       }
-
+      componentDidUpdate() {
+            this.CDU_checkRequest();
+      }
       renderStateItems = (param) => {
             this.setState({ listItemsRender: param });
       }
+      CDU_checkRequest = () => {
+            if (this.props.itemsPayload.type === "GET_ONE_TRACKING_SUCSESS") { this.WhenGetOneTrackingSuccess() }
+            else if (this.props.itemsPayload.type === "GET_ONE_TRACKING_RFAILURE") { this.WhenGetOneTrackingFail() }
+      }
+      WhenGetOneTrackingSuccess = () => {
+            let items = this.props.itemsPayload.listItem;
+            console.log(items);
+
+            if (items.meta.code === 200) this.setState({ valueItemRequest: items.data.items })
+            else {
+                  alert(items.meta.message);
+                  alert("Có lỗi xảy ra, vui lòng thực hiện lại");
+            }
+            this.props.setStateStoreToDefault();
+
+      }
+      WhenGetOneTrackingFail = () => {
+            alert("Lỗi internet, vui lòng kiểm tra đường truyền, F5 lại trang và thực hiện lại");
+      }
+
+      setStateItemSelect = (param) => {
+            this.setState({ itemSelect: param })
+      }
+      setValueSearchTracking = (e) => {
+            this.setState({ itemSelect: e.target.value })
+      }
+      searchOneTracking = () => {
+            let _this = this;
+            let endPoint = "?numbers=" + this.state.itemSelect
+            if (this.state.itemSelect !== null)
+                  setTimeout(function () {
+                        _this.props.SearchOneTracking(endPoint);
+                  }, 1000);
+      }
       render() {
-            console.log(this.state.listItemsRender);
+            console.log(this.props.itemsPayload);
 
             let trackingFail = JSON.parse(this.props.trackingFail);
             let trackingSuccess = JSON.parse(this.props.trackingSuccess);
@@ -42,8 +80,8 @@ class RenderTrackingProperties extends Component {
                                     this.state.listItemsRender.map((param, id) => {
                                           return <tr key={id} className={(id % 2 === 0) ? ("border-" + param[2]) : ""}>
                                                 <th scope="row">{id + 1}</th>
-                                                <td>{param[0]}</td>
-                                                <td>{param[1]}</td>
+                                                <td className="cursor-item-tracking" >{param[0]}</td>
+                                                <td className="cursor-item-tracking" onClick={() => this.setStateItemSelect(param[1])}>{param[1]}</td>
                                           </tr>
                                     })
                               }
@@ -106,13 +144,18 @@ class RenderTrackingProperties extends Component {
                                           {renderStateItems}
                                     </div>
                                     <div className="col-7">
-                                          lorem vdmlv nskvdsnvksdnv ksdvnsdvksdnvsdkv sdkvsdnvkdsvnsdvkm sdvksdvn sdkvnsdkvsdnvksdv sdkvjsdv svsdvskvjsdvsdv  sd
+                                          <div className="input-group mb-3">
+                                                <input className="text" class="form-control" placeholder="Tìm kiếm Tracking bằng  Tracking Number" aria-describedby="button-addon2" value={this.state.itemSelect} onChange={this.setValueSearchTracking} />
+                                                <div className="input-group-append">
+                                                      <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={this.searchOneTracking}>Button</button>
+                                                </div>
+                                          </div>
                                     </div>
                               </div>
                         </div>
 
-                        
-                  </div>
+
+                  </div >
             );
       }
 }

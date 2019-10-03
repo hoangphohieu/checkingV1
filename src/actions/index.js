@@ -76,3 +76,8 @@ export function getTrackingAPI(payload) {                  // gọi lên itemSag
 export function setStateStoreToDefault() {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.SET_STATE_STORE_TO_DEFAULT })    // payload:valueToGetAPI
 }
+
+export function SearchOneTrackingAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_ONE_TRACKING_REQUEST, payload })    // payload:valueToGetAPI
+}
+

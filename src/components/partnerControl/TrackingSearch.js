@@ -130,7 +130,7 @@ class TrackingSearch extends Component {
         return (
             <div>
                 <button type="button" className="btn btn-info" onClick={this.searchTracking}>Search</button>
-                <RenderTrackingProperties trackingFail={this.state.trackingFail} trackingSuccess={this.state.trackingSuccess} listStatus={this.state.listStatus} />
+                <RenderTrackingProperties trackingFail={this.state.trackingFail} trackingSuccess={this.state.trackingSuccess} listStatus={this.state.listStatus} {...this.props} />
             </div>
         );
     }
