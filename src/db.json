@@ -181,3 +181,69 @@
     }
   ]
 }
+
+
+
+
+
+  {
+    "tracking_number": "LT100034894SG", // tên tracking
+    "carrier_code": "singapore-post", // đơn vị vận chuyển
+    "status": "delivered",  // trạng thái
+    "customer_email": "", // email
+    "title": "Phone case",
+    "order_id": "#MJ10060",
+    "comment": null,
+    "customer_name": "TONY Razmovski",
+    "original_country": "Singapore", // nước bắt đầu
+    "destination_country": "Australia", // nước kết thúc
+    "itemTimeLength": 15, // thời gian vận chuyển của một lô hàng
+    "stayTimeLength": 5, // cập nhật lần cuối 5 ngày trước
+    "origin_info": { // thông tin từ đơn vị bắt đầu
+      // "ReferenceNumber": null,
+      "ItemReceived": "2019-09-11 00:00:00", // thời gian bắt đầu
+      "ItemDispatched": null, // Time of departure from outward office of exchange
+      "DepartfromAirport": null, // thời gian đến sân bay
+      "ArrivalfromAbroad": null, // thời gian đến nước kết thúc
+      "CustomsClearance": null, // thời gian 1 gói bàn giao cho hải quan
+      "DestinationArrived": null,  // thời gian đến văn phòng giao hàng
+      "weblink": "http://www.singpost.com/",  // web của bên giao hàng
+      "phone": "0065 - 6841 2000", // sdt liên lạc với họ
+      "carrier_code": "singapore-post", // mã đơn vị giao hàng
+      "trackinfo": [ // thông tin theo dõi gói hàng
+        {
+          "Date": "2019-09-26 00:00:00",
+          "StatusDescription": "Product Delivered (Country code: AU)",
+          "Details": "",
+          "checkpoint_status": "delivered"
+        },
+        {
+          "Date": "2019-09-18 00:00:00",
+          "StatusDescription": "Arrival at Destination Post (Country: AU)",
+          "Details": "",
+          "checkpoint_status": "transit"
+        },
+        {
+          "Date": "2019-09-11 00:00:00",
+          "StatusDescription": "Despatched to overseas (Country code: AU)                                                            For more information on tracking, click here",
+          "Details": "",
+          "checkpoint_status": "transit",
+          "ItemNode": "ItemReceived"
+        }
+      ]
+    },
+    "destination_info": { // thông tin từ đơn vị kết thúc
+      "ItemReceived": null,
+      "ItemDispatched": null,
+      "DepartfromAirport": null,
+      "ArrivalfromAbroad": null,
+      "CustomsClearance": null,
+      "DestinationArrived": null,
+      "weblink": "http://auspost.com.au/",
+      "phone": "61 3 8847 9980",
+      "carrier_code": "australia-post",
+      "trackinfo": null
+    },
+    "lastEvent": "Product Delivered (Country code: AU),2019-09-26 00:00:00", // thông tin theo dõi mới nhất
+    "lastUpdateTime": "2019-09-26 00:00:00" // thời gian update gần nhất
+  }

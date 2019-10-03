@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import _ from "lodash";
 class RenderTrackingProperties extends Component {
       constructor(props, context) {
             super(props, context);
@@ -23,7 +23,7 @@ class RenderTrackingProperties extends Component {
             let items = this.props.itemsPayload.listItem;
             console.log(items);
 
-            if (items.meta.code === 200) this.setState({ valueItemRequest: items.data.items })
+            if (items.meta.code === 200) this.setState({ valueItemRequest: items.data.items[0] })
             else {
                   alert(items.meta.message);
                   alert("Có lỗi xảy ra, vui lòng thực hiện lại");
@@ -96,6 +96,28 @@ class RenderTrackingProperties extends Component {
             if (trackingFail !== null) {
                   renderTrackingFail = trackingFail.map((param, id) => <div className=" btn btn-danger mr-2 mt-2" key={id}>{param}</div>)
             }
+            let status, order, tracking, name, title, startCountry, endCountry, lastEvent, timeShip, lastTimeUpdate;
+            if (this.state.valueItemRequest !== null) {
+
+                  let item = { ...this.state.valueItemRequest };
+                  item = _.omit(item, ['id', 'track_update', 'created_at', 'updated_at', 'order_create_time', 'archived', 'service_code', 'status_info', 'substatus']);
+
+                  console.log(item);
+
+
+                  // status = item.status; // trạng thái
+                  // order = item.order_id; // tên order
+                  // tracking = item.tracking_number; // mã trecking
+                  // name = item.customer_name; // tên khách hàng
+                  // title = item.title; // tên sản phẩm
+                  // startCountry = item.original_country; //  quốc gia bắt đầu
+                  // endCountry = item.destination_country; //  quốc gia kết thúc
+                  // lastEvent = item.lastEvent; // thông tin cuối cùng
+                  // timeShip = item.itemTimeLength; // thời gian vân chuyển hàng ( theo ngày)
+                  // lastTimeUpdate = item.lastUpdateTime; // thời gian cập nhật cuối cùng
+
+
+            }
             console.log(transit);
 
             return (
@@ -150,6 +172,21 @@ class RenderTrackingProperties extends Component {
                                                       <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={this.searchOneTracking}>Button</button>
                                                 </div>
                                           </div>
+
+                                          {/* {(this.state.valueItemRequest !== null) ? <div>
+                                                <p className="value-soo"><span className="title-soo">Trạng thái: </span>{status}</p>
+                                                <p className="value-soo"><span className="title-soo">Mã Order: </span>{order}</p>
+                                                <p className="value-soo"><span className="title-soo">Mã Tracking: </span>{tracking}</p>
+                                                <p className="value-soo"><span className="title-soo">Tên khách hàng: </span>{name}</p>
+                                                <p className="value-soo"><span className="title-soo">Tên sản phẩm: </span>{title}</p>
+                                                <p className="value-soo"><span className="title-soo">Quốc gia bắt đầu: </span>{startCountry}</p>
+                                                <p className="value-soo"><span className="title-soo">Quốc gia kết thúc: </span>{endCountry}</p>
+                                                <p className="value-soo"><span className="title-soo">Thông tin cuối cùng: </span>{lastEvent}</p>
+                                                <p className="value-soo"><span className="title-soo">Thời gian vận chuyển: </span>{timeShip} ngày</p>
+                                                <p className="value-soo"><span className="title-soo">Thơi gian cập nhật cuối: </span>{lastTimeUpdate}</p>
+                                          </div>
+                                                :
+                                                ""} */}
                                     </div>
                               </div>
                         </div>
