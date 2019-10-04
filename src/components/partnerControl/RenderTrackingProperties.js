@@ -96,7 +96,6 @@ class RenderTrackingProperties extends Component {
             if (trackingFail !== null) {
                   renderTrackingFail = trackingFail.map((param, id) => <div className=" btn btn-danger mr-2 mt-2" key={id}>{param}</div>)
             }
-            let status, order, tracking, name, title, startCountry, endCountry, lastEvent, timeShip, lastTimeUpdate;
             if (this.state.valueItemRequest !== null) {
 
                   let item = { ...this.state.valueItemRequest };
@@ -105,7 +104,7 @@ class RenderTrackingProperties extends Component {
                   console.log(item);
 
 
-                  // status = item.status; // trạng thái
+
                   // order = item.order_id; // tên order
                   // tracking = item.tracking_number; // mã trecking
                   // name = item.customer_name; // tên khách hàng
@@ -173,23 +172,67 @@ class RenderTrackingProperties extends Component {
                                                 </div>
                                           </div>
 
-                                          {/* {(this.state.valueItemRequest !== null) ? <div>
-                                                <p className="value-soo"><span className="title-soo">Trạng thái: </span>{status}</p>
-                                                <p className="value-soo"><span className="title-soo">Mã Order: </span>{order}</p>
-                                                <p className="value-soo"><span className="title-soo">Mã Tracking: </span>{tracking}</p>
-                                                <p className="value-soo"><span className="title-soo">Tên khách hàng: </span>{name}</p>
-                                                <p className="value-soo"><span className="title-soo">Tên sản phẩm: </span>{title}</p>
-                                                <p className="value-soo"><span className="title-soo">Quốc gia bắt đầu: </span>{startCountry}</p>
-                                                <p className="value-soo"><span className="title-soo">Quốc gia kết thúc: </span>{endCountry}</p>
-                                                <p className="value-soo"><span className="title-soo">Thông tin cuối cùng: </span>{lastEvent}</p>
-                                                <p className="value-soo"><span className="title-soo">Thời gian vận chuyển: </span>{timeShip} ngày</p>
-                                                <p className="value-soo"><span className="title-soo">Thơi gian cập nhật cuối: </span>{lastTimeUpdate}</p>
-                                          </div>
+                                          {/* {(this.state.valueItemRequest !== null) ?
+                                                <div>
+                                                      <p className="value-soo"><span className="title-soo">Trạng thái: </span>{item.status}</p>
+                                                      <p className="value-soo"><span className="title-soo">Mã Order: </span>{item.order_id}</p>
+                                                      <p className="value-soo"><span className="title-soo">Mã Tracking: </span>{item.tracking_number}</p>
+                                                      <p className="value-soo"><span className="title-soo">Tên khách hàng: </span>{item.customer_name}</p>
+                                                      <p className="value-soo"><span className="title-soo">Email khách hàng: </span>{item.customer_email}</p>
+                                                      <p className="value-soo"><span className="title-soo">Ghi chú: </span>{item.comment}</p>
+                                                      <p className="value-soo"><span className="title-soo">Tên sản phẩm: </span>{item.title}</p>
+                                                      <p className="value-soo"><span className="title-soo">Đơn vị vận chuyển: </span>{item.carrier_code}</p>
+                                                      <p className="value-soo"><span className="title-soo">Quốc gia bắt đầu: </span>{item.original_country}</p>
+                                                      <p className="value-soo"><span className="title-soo">Quốc gia kết thúc: </span>{item.destination_country}</p>
+                                                      <p className="value-soo"><span className="title-soo">Thời gian vận chuyển: </span>{item.itemTimeLength} ngày</p>
+                                                      <p className="value-soo"><span className="title-soo">Thông tin cuối cùng: </span>{item.lastEvent}</p>
+                                                      <p className="value-soo"><span className="title-soo">Thơi gian cập nhật cuối: </span>{item.lastUpdateTime}</p>
+                                                      <p className="value-soo-info">origin_info</p>
+                                                      <p className="value-soo"><span className="title-soo">Thơi gian tiếp nhận: </span>{item.origin_info.ItemReceived}</p>
+                                                      <p className="value-soo"><span className="title-soo">ItemDispatched: </span>{item.origin_info.ItemDispatched}</p>
+                                                      <p className="value-soo"><span className="title-soo">DepartfromAirport: </span>{item.origin_info.DepartfromAirport}</p>
+                                                      <p className="value-soo"><span className="title-soo">ArrivalfromAbroad: </span>{item.origin_info.ArrivalfromAbroad}</p>
+                                                      <p className="value-soo"><span className="title-soo">CustomsClearance: </span>{item.origin_info.CustomsClearance}</p>
+                                                      <p className="value-soo"><span className="title-soo">DestinationArrived: </span>{item.origin_info.DestinationArrived}</p>
+                                                      <p className="value-soo"><span className="title-soo">Web thông tin: </span>{item.origin_info.weblink}</p>
+                                                      <p className="value-soo"><span className="title-soo">SDT liên lạc bên vận chuyển: </span>{item.origin_info.phone}</p>
+                                                      <p className="value-soo"><span className="title-soo">Mã đơn vị vận chuyển: </span>{item.origin_info.carrier_code}</p>
+
+
+                                                      < p className="value-soo-info" > destination_info</p >
+                                                </div>
                                                 :
                                                 ""} */}
                                     </div>
                               </div>
                         </div>
+
+
+
+                        {/* <table className="table table-striped">
+                              <thead>
+                                    <tr>
+                                          <th scope="col">STT</th>
+                                          <th scope="col">Ngày</th>
+                                          <th scope="col">Thông tin</th>
+                                          <th scope="col">Chú thích</th>
+                                          <th scope="col">Trạng thái</th>
+                                    </tr>
+                              </thead>
+                              <tbody>
+                                    item.origin_info.trackinfo.map((param, id) => {
+                                           <tr key={id}>
+                                                <th scope="row">{id + 1}</th>
+                                                <td>{param.Date}</td>
+                                                <td>{param.StatusDescription}</td>
+                                                <td>{param.Details}</td>
+                                                <td>{param.checkpoint_status}</td>
+                                          </tr>)}
+                                    
+            </tbody>
+                        </table>
+ */}
+
 
 
                   </div >
