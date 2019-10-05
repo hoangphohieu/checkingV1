@@ -3,6 +3,22 @@
     padding: 0;
     
 }
+
+p.value-soo-info {
+    text-align: left;
+    font-size: 1.5rem;
+    color: #17a2b8;
+    border-bottom: 1px solid #17a2b8;
+}
+
+p.value-soo {
+    text-align: left;
+    cursor: pointer;
+}
+
+.title-soo {
+    font-weight: 700;
+}
 body{
     scroll-behavior: smooth;
 }
