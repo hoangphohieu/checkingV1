@@ -1,7 +1,7 @@
 export const FETCH_URL_ITEMS = "http://localhost:3001/items";
 export const CLOUDINARY_URL_CDN = "https://res.cloudinary.com/hieudz/image/upload/v1566581774/demo%20tool/";
 export const TRACKINGMORE_KEY = "febd481b-51b5-4387-96a2-aa1c865e96d4";
-export const GET_TRACKINGMORE_API ="https://cors-anywhere.herokuapp.com/http://api.trackingmore.com/v2/trackings/get";
+export const GET_TRACKINGMORE_API = "https://cors-anywhere.herokuapp.com/http://api.trackingmore.com/v2/trackings/get";
 
 export const STATE_POST_TO_DEFAULT = "STATE_POST_TO_DEFAULT";
 export const SET_STATE_STORE_TO_DEFAULT = "SET_STATE_STORE_TO_DEFAULT";
@@ -83,4 +83,13 @@ export const GET_ONE_TRACKING_REQUEST = "GET_ONE_TRACKING_REQUEST";
 export const GET_ONE_TRACKING_SUCSESS = "GET_ONE_TRACKING_SUCSESS";
 export const GET_ONE_TRACKING_RFAILURE = "GET_ONE_TRACKING_RFAILURE";
 
+export const GET_USE_INFO_REQUEST = "GET_USE_INFO_REQUEST";
+export const GET_USE_INFO_SUCSESS = "GET_USE_INFO_SUCSESS";
+export const GET_USE_INFO_RFAILURE = "GET_USE_INFO_RFAILURE";
+
+export const STATE_USER_TO_DEFAULT = "STATE_USER_TO_DEFAULT";
+
+export const GET_LIST_USER_REQUEST = "GET_LIST_USER_REQUEST";
+export const GET_LIST_USER_SUCSESS = "GET_LIST_USER_SUCSESS";
+export const GET_LIST_USER_RFAILURE = "GET_LIST_USER_RFAILURE";
 

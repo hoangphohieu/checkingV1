@@ -178,11 +178,23 @@
         "aluyen"
       ],
       "id": "listPartner"
+    },
+    {
+      "id": "adminretc_000",
+      "routerUse": "CRUD",
+      "partnerTypeUse": "all",
+      "partnerNameUse": "all",
+      "nameUse": "admin",
+      "phoneUse": "11111111"
+    },
+    {
+      "id": "hieuhieu",
+      "routerUse": "R",
+      "partnerTypeUse": "dress",
+      "partnerNameUse": "aluyen",
+      "nameUse": "hieu",
+      "phoneUse": "0000000",
+      "dataType": "user"
     }
   ]
 }
-
-
-
-
- 

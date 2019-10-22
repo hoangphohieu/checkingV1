@@ -81,3 +81,17 @@ export function SearchOneTrackingAPI(payload) {                  // gọi lên i
     return ({ type: type.GET_ONE_TRACKING_REQUEST, payload })    // payload:valueToGetAPI
 }
 
+export function getUseAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_USE_INFO_REQUEST, payload })    // payload:valueToGetAPI
+}
+
+export function setStateUserToDefault(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.STATE_USER_TO_DEFAULT, payload })    // payload:valueToGetAPI
+}
+
+export function getListUserAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_LIST_USER_REQUEST, payload })    // payload:valueToGetAPI
+}
+
+
+
