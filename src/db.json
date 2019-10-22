@@ -181,19 +181,27 @@
     },
     {
       "id": "adminretc_000",
-      "routerUse": "CRUD",
+      "routerUse": "retc_000",
       "partnerTypeUse": "all",
-      "partnerNameUse": "all",
       "nameUse": "admin",
       "phoneUse": "11111111"
     },
     {
       "id": "hieuhieu",
       "routerUse": "R",
-      "partnerTypeUse": "dress",
-      "partnerNameUse": "aluyen",
+      "partnerTypeUse": ["dressaluyen","dressatuan"],
       "nameUse": "hieu",
+      "passWordUse": "hieu",
       "phoneUse": "0000000",
+      "dataType": "user"
+    },
+    {
+      "id": "kietkiet",
+      "routerUse": "CRUD",
+      "partnerTypeUse": ["dressaluyen"],
+      "nameUse": "kiet",
+      "passWordUse": "kiet",
+      "phoneUse": "2222222222",
       "dataType": "user"
     }
   ]

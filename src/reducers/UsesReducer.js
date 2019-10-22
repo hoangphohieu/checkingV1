@@ -33,6 +33,20 @@ export default (state = DEFAULT_STATE, action) => {
                         listItem: action.payload
                   }
 
+            case type.USER_GET_LIST_BY_ID_SUCSESS:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "USER_GET_LIST_BY_ID_SUCSESS",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
+
+
+                  
+
             case type.GET_USE_INFO_RFAILURE:
                   return {
                         ...state,

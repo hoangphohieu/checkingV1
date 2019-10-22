@@ -13,6 +13,7 @@ function mapDispatchToProps(dispatch) {
         getUse: (param) => dispatch(actions.getUseAPI(param)),
         setStateStoreToDefault: (param) => dispatch(actions.setStateUserToDefault(param)),
         getListUser: (param) => dispatch(actions.getListUserAPI(param)),
+        userGetListById: (param) => dispatch(actions.userGetListById(param)),
         
 
     };

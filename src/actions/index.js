@@ -93,5 +93,8 @@ export function getListUserAPI(payload) {                  // gọi lên itemSag
     return ({ type: type.GET_LIST_USER_REQUEST, payload })    // payload:valueToGetAPI
 }
 
+export function userGetListById(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.USER_GET_LIST_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
+}
 
 

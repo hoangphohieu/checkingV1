@@ -44,7 +44,7 @@ class UseControl extends Component {
 
         return (
             <div>
-                {(UserProperties.length === 0) ? <LoginUses  {...this.props} /> : ((UserProperties[0] === "R") ? <UserR  {...this.props} /> : <UserCRUD  {...this.props} />)}
+                {(UserProperties.length === 0) ? <LoginUses  {...this.props} /> : ((UserProperties[0] === "retc_000") ? <UserCRUD  {...this.props} /> : <UserR  {...this.props} />)}
             </div>
         );
     }
