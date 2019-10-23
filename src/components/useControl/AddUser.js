@@ -18,10 +18,13 @@ class UserProperties extends Component {
       saveChange = (id) => {
             this.setState({ change: false });
             let obj = {
-                  id: id,
+                  id: this.refs["nameUse"].value.trim() + this.refs["passWordUse"].value.trim(),
                   routerUse: this.state.RouterUse,
                   partnerTypeUse: this.state.partnerTypeUse,
                   phoneUse: this.refs["phoneUse"].value,
+                  nameUse: this.refs["nameUse"].value,
+                  passWordUse: this.refs["passWordUse"].value,
+                  dataType: "user"
             };
             console.log(obj);
             if (this.state.RouterUse === null) {
@@ -29,10 +32,17 @@ class UserProperties extends Component {
             }
             else if (this.state.partnerTypeUse.length === 0) {
                   alert("Không thành Công, hãy chọn quyền !");
+            }
+            else if (this.refs["nameUse"].value === "") {
+                  alert("Không thành Công, hãy đặt tên đăng nhập !");
+            }
 
+            else if (this.refs["passWordUse"].value === "") {
+                  alert("Không thành Công, hãy đặt mật khẩu !");
             }
             else {
-                  this.props.changeUserProperties(obj);
+                  this.props.createUser(obj);
+
             }
 
 
@@ -40,7 +50,6 @@ class UserProperties extends Component {
       }
       deleteItemChecking = (param) => {
             this.handleDeleteClose();
-            this.props.deleteUser(param);
       }
       setRouterUse = (e) => {
             this.setState({ RouterUse: e.target.value })
@@ -49,9 +58,7 @@ class UserProperties extends Component {
       handleClose = () => { this.setState({ change: false }) };
       handleShow = () => { this.setState({ change: true }) };
       handleDeleteClose = () => { this.setState({ delete: false }) };
-      handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
-            let item = this.props.userProperties;
             let listPartner = { ... this.props.listPartner };
             listPartner = _.toPairs(listPartner).filter(param => { return param[0] !== "id" }).map(param => param[1]);
 
@@ -64,24 +71,14 @@ class UserProperties extends Component {
             return (
                   <React.Fragment>
                         <div className="row border-item-checking">
-                              <div className="col-12">
-                                    <p className="checking-item-altribute"><span className="checking-item-title">User:</span><span>{item.nameUse}</span></p>
-                                    <p className="checking-item-altribute"><span className="checking-item-title">PassWord:</span><span>{item.passWordUse}</span></p>
-                                    <p className="checking-item-altribute"><span className="checking-item-title">Chứ Năng:</span><span>{(item.routerUse === "R") ? "Đọc" : "Đọc, thêm, sửa, xóa"}</span></p>
-                                    <p className="checking-item-altribute"><span className="checking-item-title">Đối tượng:</span><span>{item.partnerTypeUse.join(",")}</span></p>
-                                    <p className="checking-item-altribute"><span className="checking-item-title">SDT:</span><span>{item.phoneUse}</span></p>
-
-                              </div>
 
 
                               {/* modal */}
                               <div className="state_itemChecking">
-                                    <Button className="state_itemChecking_button" variant="primary" onClick={this.handleShow}>
-                                          Thay đổi
+                                    <Button className="state_itemChecking_button" variant="warning" onClick={this.handleShow}>
+                                          Thêm
                               </Button>
-                                    <Button className="state_itemChecking_button" variant="danger" onClick={this.handleDeleteShow}>
-                                          Xóa
-                              </Button>
+
                               </div>
 
                               <Modal show={this.state.change} onHide={this.handleClose}>
@@ -115,10 +112,18 @@ class UserProperties extends Component {
                                           </div>
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">SDT:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue={item.phoneUse} />
+                                                <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue="000" />
                                           </p>
 
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Tên:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="nameUse" placeholder="Tên đăng nhập" defaultValue="" />
+                                          </p>
 
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Mật khẩu:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="passWordUse" placeholder="Mật khẩu là..." defaultValue="" />
+                                          </p>
 
 
                                     </Modal.Body>
@@ -126,8 +131,8 @@ class UserProperties extends Component {
                                           <Button variant="secondary" onClick={this.handleClose}>
                                                 Close
                                     </Button>
-                                          <Button variant="primary" onClick={() => this.saveChange(item.id)}>
-                                                Save Changes
+                                          <Button variant="primary" onClick={this.saveChange}>
+                                                Tạo tài khoản
                                      </Button>
                                     </Modal.Footer>
                               </Modal>
@@ -144,7 +149,7 @@ class UserProperties extends Component {
                                     </Modal.Header>
 
                                     <Modal.Footer>
-                                          <Button variant="primary" onClick={() => this.deleteItemChecking(item)}>
+                                          <Button variant="primary" onClick={this.deleteItemChecking}>
                                                 OK
                                           </Button>
                                           <Button variant="secondary" onClick={this.handleDeleteClose}>

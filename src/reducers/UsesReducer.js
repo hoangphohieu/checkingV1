@@ -45,7 +45,7 @@ export default (state = DEFAULT_STATE, action) => {
                   }
 
 
-                  
+
 
             case type.GET_USE_INFO_RFAILURE:
                   return {
@@ -61,7 +61,70 @@ export default (state = DEFAULT_STATE, action) => {
 
 
 
+            case type.CHANGE_USE_PROPERTIES_SUCSESS:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "CHANGE_USE_PROPERTIES_SUCSESS",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
+            case type.CHANGE_USE_PROPERTIES_RFAILURE:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "CHANGE_USE_PROPERTIES_RFAILURE",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
 
+
+            case type.CREATE_USER_SUCSESS:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "CREATE_USER_SUCSESS",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
+            case type.CREATE_USER_RFAILURE:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "CREATE_USER_RFAILURE",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
+
+
+            case type.DELETE_USER_SUCSESS:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "DELETE_USER_SUCSESS",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
+            case type.DELETE_USER_RFAILURE:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "DELETE_USER_RFAILURE",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
 
 
 

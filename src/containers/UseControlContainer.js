@@ -14,6 +14,11 @@ function mapDispatchToProps(dispatch) {
         setStateStoreToDefault: (param) => dispatch(actions.setStateUserToDefault(param)),
         getListUser: (param) => dispatch(actions.getListUserAPI(param)),
         userGetListById: (param) => dispatch(actions.userGetListById(param)),
+        changeUserProperties: (param) => dispatch(actions.changeUserPropertiesAPI(param)),
+        createUser: (param) => dispatch(actions.createUser(param)),
+        deleteUser: (param) => dispatch(actions.deleteUser(param)),
+
+        
         
 
     };

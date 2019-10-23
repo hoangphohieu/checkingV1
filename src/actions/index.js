@@ -97,4 +97,14 @@ export function userGetListById(payload) {                  // gọi lên itemSa
     return ({ type: type.USER_GET_LIST_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
 }
 
+export function changeUserPropertiesAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.CHANGE_USE_PROPERTIES_REQUEST, payload })    // payload:valueToGetAPI
+}
 
+export function createUser(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.CREATE_USER_REQUEST, payload })    // payload:valueToGetAPI
+}
+
+export function deleteUser(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.DELETE_USER_REQUEST, payload })    // payload:valueToGetAPI
+}

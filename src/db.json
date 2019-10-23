@@ -177,6 +177,10 @@
         "dress",
         "aluyen"
       ],
+      "phoneCaseahieu": [
+        "phoneCase",
+        "ahieu"
+      ],
       "id": "listPartner"
     },
     {
@@ -187,21 +191,21 @@
       "phoneUse": "11111111"
     },
     {
-      "id": "hieuhieu",
-      "routerUse": "R",
-      "partnerTypeUse": ["dressaluyen","dressatuan"],
-      "nameUse": "hieu",
-      "passWordUse": "hieu",
-      "phoneUse": "0000000",
-      "dataType": "user"
-    },
-    {
-      "id": "kietkiet",
+      "id": "jj",
       "routerUse": "CRUD",
-      "partnerTypeUse": ["dressaluyen"],
-      "nameUse": "kiet",
-      "passWordUse": "kiet",
-      "phoneUse": "2222222222",
+      "partnerTypeUse": [
+        [
+          "dress",
+          "aluyen"
+        ],
+        [
+          "phoneCase",
+          "ahieu"
+        ]
+      ],
+      "phoneUse": "000",
+      "nameUse": "j",
+      "passWordUse": "j",
       "dataType": "user"
     }
   ]

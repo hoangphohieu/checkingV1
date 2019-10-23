@@ -35,11 +35,10 @@ class UseControl extends Component {
 
     }
     render() {
-        // let user = this.props.itemsPayload.listItem;
-        // console.log(user);
+
 
         let UserProperties = JSON.parse(localStorage.UserProperties);
-        console.log(UserProperties);
+        // console.log(UserProperties);
 
 
         return (
