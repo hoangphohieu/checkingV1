@@ -4,11 +4,7 @@ import UserR from './UserR';
 import UserCRUD from './UserCRUD';
 class UseControl extends Component {
 
-    componentWillMount() {
-        if (JSON.parse(localStorage.getItem("UserProperties")) === null) {
-            localStorage.setItem("UserProperties", JSON.stringify([]));
-        }
-    }
+ 
     componentDidUpdate() {
         this.CDU_checkRequest();
     }
@@ -21,12 +17,12 @@ class UseControl extends Component {
         if (user.length === 1) {
             let properties = [];
             properties.push(user[0].routerUse);
-            properties.push(user[0].partnerNameUse);
             properties.push(user[0].partnerTypeUse);
             properties.push(user[0].nameUse);
             properties.push(user[0].phoneUse);
             localStorage.setItem("UserProperties", JSON.stringify(properties));
-            this.props.setStateStoreToDefault();
+            // this.props.setStateStoreToDefault(); 
+            window.location.reload(true);
         }
     }
     getUserInfoFail = () => {
@@ -38,11 +34,14 @@ class UseControl extends Component {
 
 
         let UserProperties = JSON.parse(localStorage.UserProperties);
-        // console.log(UserProperties);
+        
+console.log(UserProperties);
+
 
 
         return (
             <div>
+                asacac
                 {(UserProperties.length === 0) ? <LoginUses  {...this.props} /> : ((UserProperties[0] === "retc_000") ? <UserCRUD  {...this.props} /> : <UserR  {...this.props} />)}
             </div>
         );

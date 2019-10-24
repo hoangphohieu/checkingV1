@@ -5,7 +5,7 @@ class UserR extends Component {
         let userProperties = JSON.parse(localStorage.UserProperties);
         return (
             <div>
-                <p className="title-userR">Xin chao {userProperties[3]} </p>
+                <p className="title-userR">Xin chao {userProperties[2]} </p>
                 <p className="title-userR">Bạn đã đăng nhập thành công ! </p>
             </div>
         );

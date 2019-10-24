@@ -74,7 +74,7 @@ class SelectPartnerAndDay extends Component {
         let timeNow = new Date();
         let monthNow = timeNow.getMonth() + 1;
         let endPoint = null;
-        partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?namePartner=allPartner" +"&Sumpartnertype=" + partnerType);
+        partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?namePartner=allPartner" + "&Sumpartnertype=" + partnerType);
         if (dateFrom === null && dateTo === null) { // khi chưa chọn gì , From và To = null thì  endpoint bằng 2 tháng gần nhất
             endPoint = partnerSelect
                 + "&monthNumber=" + monthNow
@@ -128,12 +128,29 @@ class SelectPartnerAndDay extends Component {
     }
     render() {
         let listPartner = this.state.listPartner;
+        // console.log(this.state.listPartner);
+        // console.log(this.state.listDay);
+
         let renderListPartner, renderlistPartnerType;
         if (listPartner !== null) { // chuyển listPartner=[] thành các DOM <p/> để render ra màn hình
             listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
             let listPartnerType = _.uniq(listPartner.map(param => param[0]));
+
+            let listPartnerTypeLS = JSON.parse(localStorage.UserProperties);
+            listPartnerTypeLS = listPartnerTypeLS[1];
+            if (listPartnerTypeLS !== "all") {
+                listPartnerTypeLS = listPartnerTypeLS.map(param => param[0]);
+                listPartnerType = _.uniq(listPartnerTypeLS);
+            }
             renderlistPartnerType = listPartnerType.map((param, id) => { return <button type="button" className={"btn btn-" + (this.props.partnerType === param ? "primary" : "info")} key={id} onClick={() => this.changePartnerType(param)}>{param}</button> });
-            renderListPartner = listPartner.filter(param => { return param[0] === this.props.partnerType }).map((param, id) => {
+
+            let listPartnerLS = listPartner.filter(param => { return param[0] === this.props.partnerType });
+            if (listPartnerTypeLS !== "all") {
+                listPartnerLS = JSON.parse(localStorage.UserProperties)[1].filter(param => { return param[0] === this.props.partnerType });
+
+            }
+
+            renderListPartner = listPartnerLS.map((param, id) => {
                 return <p className={"renderListPartner" + ((this.state.partnerSelect === param[1]) ? " renderListPartner_select" : "")}
                     key={id} onClick={() => this.callAPIAndSetPartnerSelect(param[1])}>{param[1]}</p>
             })

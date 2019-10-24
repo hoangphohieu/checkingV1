@@ -207,6 +207,93 @@
       "nameUse": "j",
       "passWordUse": "j",
       "dataType": "user"
+    },
+    {
+      "id": "aaaa",
+      "routerUse": "CRUD",
+      "partnerTypeUse": [
+        [
+          "dress",
+          "aluyen"
+        ]
+      ],
+      "phoneUse": "000",
+      "nameUse": "aa",
+      "passWordUse": "aa",
+      "dataType": "user"
+    },
+    {
+      "id": "av",
+      "routerUse": "CRUD",
+      "partnerTypeUse": [
+        [
+          "phoneCase",
+          "ahieu"
+        ]
+      ],
+      "phoneUse": "11",
+      "nameUse": "a",
+      "passWordUse": "v",
+      "dataType": "user"
+    },
+    {
+      "id": "kkssd3",
+      "routerUse": "CRUD",
+      "partnerTypeUse": [
+        [
+          "dress",
+          "aluyen"
+        ],
+        [
+          "phoneCase",
+          "ahieu"
+        ]
+      ],
+      "phoneUse": "000",
+      "nameUse": "kk",
+      "passWordUse": "ssd3",
+      "dataType": "user"
+    },
+    {
+      "id": "as2134234",
+      "routerUse": "CRUD",
+      "partnerTypeUse": "all",
+      "phoneUse": "000",
+      "nameUse": "as",
+      "passWordUse": "2134234",
+      "dataType": "user"
+    },
+    {
+      "id": "crudcrud",
+      "routerUse": "CRUD",
+      "partnerTypeUse": "all",
+      "phoneUse": "000",
+      "nameUse": "crud",
+      "passWordUse": "crud",
+      "dataType": "user"
+    },
+    {
+      "id": "rr",
+      "routerUse": "R",
+      "partnerTypeUse": "all",
+      "phoneUse": "000",
+      "nameUse": "r",
+      "passWordUse": "r",
+      "dataType": "user"
+    },
+    {
+      "id": "qq",
+      "routerUse": "R",
+      "partnerTypeUse": [
+        [
+          "dress",
+          "aluyen"
+        ]
+      ],
+      "phoneUse": "000",
+      "nameUse": "q",
+      "passWordUse": "q",
+      "dataType": "user"
     }
   ]
 }

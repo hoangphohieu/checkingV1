@@ -26,6 +26,8 @@ class UserProperties extends Component {
                   passWordUse: this.refs["passWordUse"].value,
                   dataType: "user"
             };
+
+
             console.log(obj);
             if (this.state.RouterUse === null) {
                   alert("Không thành Công, hãy chọn chức năng !");
@@ -41,6 +43,14 @@ class UserProperties extends Component {
                   alert("Không thành Công, hãy đặt mật khẩu !");
             }
             else {
+                  let arrPTU = this.state.partnerTypeUse.map(param => param.join(""));
+                  let arrPTUProps = _.toPairs(this.props.listPartner).filter(param => { return param[0] !== "id" });
+                  arrPTUProps = arrPTUProps.map(param => param[1].join(""));
+                  let differenceArr = _.difference(arrPTUProps, arrPTU);
+                  if (differenceArr.length === 0) {
+                        obj.partnerTypeUse = "all";
+                  }
+
                   this.props.createUser(obj);
 
             }
@@ -65,8 +75,7 @@ class UserProperties extends Component {
             const options = listPartner.map(param => { return { label: param[0] + ": " + param[1], value: param } })
 
 
-            console.log(this.state.partnerTypeUse);
-            console.log(this.state.RouterUse);
+            console.log(this.props.listPartner);
 
             return (
                   <React.Fragment>

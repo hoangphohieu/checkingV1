@@ -68,7 +68,7 @@ class UserProperties extends Component {
                                     <p className="checking-item-altribute"><span className="checking-item-title">User:</span><span>{item.nameUse}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">PassWord:</span><span>{item.passWordUse}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Chứ Năng:</span><span>{(item.routerUse === "R") ? "Đọc" : "Đọc, thêm, sửa, xóa"}</span></p>
-                                    <p className="checking-item-altribute"><span className="checking-item-title">Đối tượng:</span><span>{item.partnerTypeUse.join(",")}</span></p>
+                                    <p className="checking-item-altribute"><span className="checking-item-title">Đối tượng:</span><span>{(item.partnerTypeUse !== "all") ? item.partnerTypeUse.join(",") : "all"}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">SDT:</span><span>{item.phoneUse}</span></p>
 
                               </div>
