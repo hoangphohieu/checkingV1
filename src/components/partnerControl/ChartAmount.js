@@ -258,7 +258,7 @@ export default class Example extends PureComponent {
   render() {
     let rangeDay = this.Math_rangeDay();  // tính arr=[xxx]  la khoang thoi gian select , ko lien quan partnerSelect
     let dataChart = [];
-    console.log(this.props.partnerType);
+    console.log(this.props.items.listItem);
 
     if (this.props.items.type === "getListByCustom") { // nêu GET (getListByCustom), gọi hàm  nội bộ (Math_dataChartAll) dể tính và xuất ra  data của biểu đồ
       if (this.props.partnerType === "phoneCase") {

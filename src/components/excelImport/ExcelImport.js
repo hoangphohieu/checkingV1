@@ -13,6 +13,7 @@ class InputExcel extends Component {
             reRender: 0,
             firstPostListItemCount: 0,
             firstPatchListItemCount: 0,
+            partnerTypeAndName: []
 
         }
     }
@@ -34,6 +35,11 @@ class InputExcel extends Component {
         if (JSON.parse(localStorage.getItem("listItemCountPost")) === null) {
             localStorage.setItem("listItemCountPost", JSON.stringify([]));
         }
+
+
+        this.props.ExcelGetListById("listPartner"); // lay sanh sach cac partner
+
+
     }
     componentDidMount() {
         if (JSON.parse(localStorage.getItem("ItemsExcel")) !== null) {
@@ -168,8 +174,15 @@ class InputExcel extends Component {
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_SUCSESS") { this.doingWhenPostListItemCountSucsess(listItemCountPost) }
         else if (this.props.itemExcelReload.type === "POST_LIST_ITEM_COUNT_RFAILURE") { this.doingWhenPostListItemCountFail() }
         else if (this.props.itemExcelReload.type === "STATE_POST_TO_DEFAULT") { }
+        else if (this.props.itemExcelReload.type === "EXCEL_GET_LIST_BY_ID_SUCSESS") { this.getListByIdSucsess() }
+        else if (this.props.itemExcelReload.type === "EXCEL_GET_LIST_BY_ID_RFAILURE") { this.getLastItemOfListItemCountFail() }
     }
-
+    getListByIdSucsess = () => {
+        let item = this.props.itemExcelReload.listItem;
+        item = _.toPairs(item[0]).filter(param => param[0] !== "id").map(param => param[1]);
+        this.setState({ partnerTypeAndName: item });
+        this.props.propsImportExcelToDefault();
+    }
     CDU_postListItemCount = () => {
         if (this.state.firstPostListItemCount === 0) {
             let listItemCount = JSON.parse(localStorage.getItem("listItemCountPost"));
@@ -200,7 +213,7 @@ class InputExcel extends Component {
     }
 
     CDU_reRenderWhenItemsExcelZero() {
-        console.log("CDU_reRenderWhenItemsExcelZero");
+
 
         let payload = this.props.itemExcelReload;
         if ((payload.dataFetched === true || payload.error === true) && (JSON.parse(localStorage.getItem("ItemsExcel")).length === 0)) {
@@ -341,14 +354,78 @@ class InputExcel extends Component {
             let id = _.kebabCase(param.name).split("-").join("") + _.kebabCase(param.lineitemname).split("-").join("") + _.kebabCase(param.lineitemsku).split("-").join("");
             param["id"] = id;// tạo id
             param.name = param.name.trim();
+            param.partnertype = param.partnertype.trim().toLowerCase();
             return param;
         });
+        // console.log(dataObj);
+        this.checkDataFailImport(dataObj)
 
         // dua du lieu arr[] vao local storage
         localStorage.setItem("ItemsExcel", JSON.stringify(dataObj));
         this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")) });
 
     };
+    checkDataFailImport = (data) => {
+        let day = data.map(param => param.day);
+        let basecost = data.map(param => param.basecost);
+        let lineitemquantity = data.map(param => param.lineitemquantity);
+        let name = data.map(param => param.name);
+        let partnertype = data.map(param => param.partnertype);
+        let phonecasetype = data.map(param => param.phonecasetype);
+        let partner = data.map(param => param.partner);
+
+        day.forEach(param => {
+            if (isNaN(param) !== false) { this.alertError("Có 'day' không đúng, bạn vui lòng xem lại :("); }
+            else if (param < 1262278800000 && param > 1893430800000) { this.alertError("Có ngày tháng không đúng, bạn vui lòng xem lại :("); }
+        })
+        basecost.forEach(param => {
+            if (isNaN(param) !== false) { this.alertError("Có 'basecost' không đúng, bạn vui lòng xem lại :("); }
+        })
+        lineitemquantity.forEach(param => {
+            if (isNaN(param) !== false) { this.alertError("Có 'line item quantity' không đúng, bạn vui lòng xem lại :("); }
+        })
+        name.forEach(param => {
+            if (param.match(/[!@#$%^&*(),.?":{}|<>]/g)) {
+                this.alertError("Có 'name' chứa ký tực đặc biệt   " + param.match(/[!@#$%^&*(),.?":{}|<>]/g) + "     bạn vui lòng kiểm tra lại :(");
+            }
+        })
+        if (_.uniq(partnertype).length > 1) {
+            this.alertError("Mỗi bảng Excel chúng ta chỉ nên có duy nhất một 'partner Type', bạn vui lòng tách ra nhé :(  ");
+        }
+        else {
+            let partnerTypeState = this.state.partnerTypeAndName.map(param => param[0]);
+            partnerTypeState = _.uniq(partnerTypeState);
+            let differencePartnerType = _.difference(_.uniq(partnertype), partnerTypeState);
+            if (differencePartnerType.length > 0) {
+                alert("Có 'partnerType' mới: " + differencePartnerType);
+            }
+            else {
+                partner = _.uniq(partner);
+                console.log(this.state.partnerTypeAndName);
+
+                let partnerState = this.state.partnerTypeAndName.filter(param => param[0] == partnertype[0]).map(param => param[1]);
+                let differencePartner= _.difference(partner,partnerState);
+                if (differencePartner.length > 0) {
+                    alert("Có 'partner' mới: " + differencePartner);
+                }
+            }
+        }
+        if (_.uniq(partnertype)[0] === "phonecase") {
+            phonecasetype.forEach(param => {
+                if (param !== "glass" && param !== "luminous") {
+                    this.alertError("Có 'phonecasetype' không phải là glass hoặc không phải là luminous  , bạn vui lòng xem lại nhé :( ");
+
+                }
+            })
+        }
+
+
+
+    }
+    alertError = (param) => {
+        alert(param);
+        window.location = "/excelImport";
+    }
     readSingleFile = (e) => {
         let _this = this;
 
@@ -384,6 +461,8 @@ class InputExcel extends Component {
     }
 
     render() {
+ 
+
         let ItemsExcel = JSON.stringify(this.state.dataExcel);
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
 

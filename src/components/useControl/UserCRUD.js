@@ -68,13 +68,15 @@ class UserCRUD extends Component {
 
     render() {
         let listUser = this.state.listUser;
+        console.log(listUser);
+
         if (listUser !== []) {
+            listUser = listUser.filter(param => param.id !== "adminretc_000");
             listUser = listUser.map((param, id) => { return <UserProperties {...this.props} userProperties={param} key={id} listPartner={this.state.listPartner} /> })
         }
 
         return (
             <div>
-                UserCRUD
                 <AddUser {...this.props} listPartner={this.state.listPartner} />
                 {listUser}
 

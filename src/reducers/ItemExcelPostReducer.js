@@ -130,6 +130,28 @@ export default (state = DEFAULT_STATE, action) => {
             }
 
 
+        // 
+        case type.EXCEL_GET_LIST_BY_ID_SUCSESS:
+
+            return {
+                ...state,
+                isFetching: false,
+                dataFetched: true,
+                error: false,
+                type: "EXCEL_GET_LIST_BY_ID_SUCSESS",
+                errorMessesage: null,
+                listItem: action.payload
+            }
+
+        case type.EXCEL_GET_LIST_BY_ID_RFAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                error: true,
+                type: "EXCEL_GET_LIST_BY_ID_RFAILURE",
+                dataFetched: false,
+                errorMessesage: action.payload.errorMessesage
+            }
 
 
 

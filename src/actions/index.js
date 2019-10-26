@@ -108,3 +108,7 @@ export function createUser(payload) {                  // gọi lên itemSaga v�
 export function deleteUser(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.DELETE_USER_REQUEST, payload })    // payload:valueToGetAPI
 }
+export function ExcelGetListById(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.EXCEL_GET_LIST_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
+}
+

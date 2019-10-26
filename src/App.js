@@ -14,7 +14,10 @@ class App extends Component {
       localStorage.setItem("UserProperties", JSON.stringify([]));
     }
   }
-
+  logOut = () => {
+    localStorage.setItem("UserProperties", JSON.stringify([]));
+    window.location='/';
+}
   render() {
     let userProperties = JSON.parse(localStorage.UserProperties);
     // console.log(userProperties);
@@ -42,8 +45,15 @@ class App extends Component {
                 {/* <Link to="/excelImport" className=" nav-item-h">Excel Import</Link> */}
 
 
-                {(partnerTypeUser === undefined) ? <Link to="/" className=" nav-item-h">User</Link>
-                  : <Link to="/useControl" className=" nav-item-h">User</Link>}
+                {(partnerTypeUser === undefined) ? <Link to="/" className=" nav-item-h">User </Link>
+                  :
+                  <div className="d-flex align-items-center">
+                    <Link to="/useControl" className=" nav-item-h">User  </Link>
+                    <i className="fas fa-power-off hover-pointer" onClick={this.logOut}></i>
+                  
+
+                  </div>
+                }
 
               </div>
             </div>

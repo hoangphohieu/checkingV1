@@ -112,6 +112,24 @@ function* getLastItemOflistItemCountPatch(param) {     // lấy total page
       }
 
 }
+
+function* excelGetListById(param) {     // lấy total page
+      try {
+            let res1 = yield getListByIdAPI(param.payload); //gọi API
+            yield put({
+                  type: type.EXCEL_GET_LIST_BY_ID_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+                  payload: res1
+            })
+      } catch (error) {
+            yield put({
+                  type: type.EXCEL_GET_LIST_BY_ID_RFAILURE, // trigger itemsReducer
+                  payload: {
+                        errorMessage: error
+                  }
+            })
+      }
+
+}
 export const ExcelSaga = [
       takeEvery(type.POST_ITEM_EXCEL_REQUEST, postItemExcel),
       takeEvery(type.PATCH_ITEM_EXCEL_FAIL_REQUEST, patchItemsExcelFail),
@@ -119,6 +137,7 @@ export const ExcelSaga = [
       takeEvery(type.PATCH_LIST_ITEM_COUNT_REQUEST, patchListItemCount),
       takeEvery(type.POST_LIST_ITEM_COUNT_PATCH_FAIL_REQUEST, postListItemCountPatchFail),
       takeEvery(type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_REQUEST, getLastItemOflistItemCountPatch),
+      takeEvery(type.EXCEL_GET_LIST_BY_ID_REQUEST, excelGetListById),
 
 
 ];   

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 class UserR extends Component {
+
+
     render() {
         let userProperties = JSON.parse(localStorage.UserProperties);
         return (
