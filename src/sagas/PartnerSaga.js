@@ -23,7 +23,7 @@ function* getListById(param) {     // lấy total page
 
 function* getListDayById(param) {     // lấy total page
       try {
-            let res1 = yield getListDayByIdAPI(param.payload); //gọi API
+            let res1 = yield getListByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.GET_LIST_DAY_BY_ID_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1

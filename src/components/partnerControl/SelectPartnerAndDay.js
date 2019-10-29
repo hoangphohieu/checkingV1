@@ -14,7 +14,15 @@ class SelectPartnerAndDay extends Component {
 
     componentWillMount() {
         this.props.getListById("listPartner"); // lấy danh sách các tên đối tác
-        this.props.getListDayById("listdaylistPartner"); // lấy danh sách các ngày của tổng  các Partner (listPartner)
+
+        let UserProperties = JSON.parse(localStorage.UserProperties);
+        if (UserProperties[1] === "all") { this.props.getListDayById("?id=listdaylistPartner"); } // lấy danh sách các ngày của tổng  các Partner (listPartner) 
+        else {
+            let name = UserProperties[1].map(param => param[1]);
+            let endPoint = name.map(param => { let str = "id=listday" + param; return str });
+            this.props.getListDayById("?" + endPoint.join("&"));
+        }
+
 
 
     }
@@ -32,41 +40,43 @@ class SelectPartnerAndDay extends Component {
 
     CDU_setStateListDay = () => {
         if (this.props.items.type === "getListDayById") { // nếu type = getListDayById
-            let listDay = JSON.parse(JSON.stringify(this.props.items.listItem)); // listDay là state nội bộ, không liên quan đến component khác
-            listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
-            listDay.sort((a, b) => { return b[1] - a[1] });
 
-            listDay.length = 7;
-            listDay = listDay.filter(param => { return param !== undefined });
-            listDay.push(this.props.items.listItem[0].id); // đã lọc listDay=[] với 7 ngày  gần nhất +  tên  là id tương ứng với  (getListDayById)
-            if (this.state.listDay.join("") !== listDay.join("")) { // khi listDay thay đổi thì mới setState (listDay) mới
-                this.setState({ listDay: listDay });
-                if ((this.props.date.from === undefined && this.props.date.to === undefined) && this.props.partnerType === null) {  // khi chưa  select Date thì GET (getListByCustom) với endpoint với 7 ngày gần nhaatys ứng với (partnerSelect)
-                    let endPoint = "?namePartner=" + ((this.state.partnerSelect !== null) ? this.state.partnerSelect : "allPartner");
-                    for (let i = 0; i <= listDay.length - 1; i++) {
-                        endPoint = endPoint + "&dayNumber=" + listDay[i][1];
-                    }
-                    this.props.getListByCustom(endPoint);
-                }
-                else { // khi đã select date thì end Point sẽ khác
-                    let dateFrom = null;
-                    let dateTo = null;
-                    if (this.props.date !== null) { // chuyển dateFrom và dateTo sang dạng 1101101010101
-                        dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
-                        dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
-                    }
-                    let endPoint = this.getEndPoint(this.state.partnerSelect, this.props.partnerType, dateFrom, dateTo); // gọi hàm tạo endpoint ứng với date đã select
-                    this.props.getListByCustom(endPoint); // GET (getListByCustom) với endpoint ở trên
-                }
+            if ((this.props.date.from === undefined && this.props.date.to === undefined) && this.props.partnerType === null) {  // khi chưa  select Date thì GET (getListByCustom) với endpoint với 7 ngày gần nhaatys ứng với (partnerSelect)
+                let UserProperties = JSON.parse(localStorage.UserProperties);
+                let endPoint;
+                let now = new Date();
+                if (UserProperties[1] === "all") {
+                    endPoint = "?namePartner=" + ((this.state.partnerSelect !== null) ? this.state.partnerSelect : "allPartner") + "&monthNumber=" + (now.getMonth() + 1) + "&yearNumber=" + now.getFullYear();
 
+                }
+                else {
+                    let listPartner = UserProperties[1].map(param => param[1]);
+                    endPoint = "?" + ((this.state.partnerSelect !== null) ? ("namePartner=" + this.state.partnerSelect) : (listPartner.map(param => { return "namePartner=" + param }).join("&"))) + "&monthNumber=" + (now.getMonth() + 1) + "&yearNumber=" + now.getFullYear();
+
+                }
+                this.props.getListByCustom(endPoint);
             }
+            else { // khi đã select date thì end Point sẽ khác
+                let dateFrom = null;
+                let dateTo = null;
+                if (this.props.date !== null) { // chuyển dateFrom và dateTo sang dạng 1101101010101
+                    dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
+                    dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
+                }
+                let endPoint = this.getEndPoint(this.state.partnerSelect, this.props.partnerType, dateFrom, dateTo); // gọi hàm tạo endpoint ứng với date đã select
+                this.props.getListByCustom(endPoint); // GET (getListByCustom) với endpoint ở trên
+            }
+
+
         }
     }
 
 
     callAPIAndSetPartnerSelect = (param) => { //  khi click vào <p>partner</p> thì setState (partnerSelect) mới và GET (getListDayById) để lấy danh sách partnet đó với các ngày tương ứng
         this.setState({ partnerSelect: param });
-        this.props.getListDayById("listday" + param); // API toi dnh sach partner voi list day        
+        this.props.getListDayById("?id=listday" + param); // API toi dnh sach partner voi list day        
+        console.log("hahahaha................................................................................");
+        
 
     }
 
@@ -74,7 +84,13 @@ class SelectPartnerAndDay extends Component {
         let timeNow = new Date();
         let monthNow = timeNow.getMonth() + 1;
         let endPoint = null;
-        partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?namePartner=allPartner" + "&Sumpartnertype=" + partnerType);
+        let UserProperties=JSON.parse(localStorage.UserProperties)[1];
+        if ( UserProperties=== "all") {
+            partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?namePartner=allPartner" + "&Sumpartnertype=" + partnerType);
+        }
+        else {
+            partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?"+UserProperties.map(param=> "namePartner="+param[1]).join("&") + "&Sumpartnertype=" + partnerType);
+        }
         if (dateFrom === null && dateTo === null) { // khi chưa chọn gì , From và To = null thì  endpoint bằng 2 tháng gần nhất
             endPoint = partnerSelect
                 + "&monthNumber=" + monthNow

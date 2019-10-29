@@ -41,6 +41,20 @@ export default class Example extends PureComponent {
   Math_dataChartAll = (dataChart, rangeDay) => {
     if (dataChart !== undefined) { // TH1: select date = -
       if (rangeDay.length === 0) {
+
+        let userProperties = JSON.parse(localStorage.UserProperties);
+        if (userProperties[1] !== "all") {
+          userProperties = userProperties[1].map(param => param[0]);
+          dataChart = dataChart.map(param => {
+            if (userProperties.some(param2 => param2 === param.Sumpartnertype)) { return param }
+            else { return undefined }
+          });
+        }
+        dataChart = dataChart.filter(param => { return param !== undefined });
+
+        console.log(dataChart);
+
+
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
         dataChart = this.sumAndDeleteAll(dataChart); // lọc
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
@@ -157,6 +171,8 @@ export default class Example extends PureComponent {
     if (dataChart !== undefined) { // TH1: select date = -
       if (rangeDay.length === 0) {
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
+        console.log(dataChart);
+
         dataChart = this.sumAndDeletePhoneCase(dataChart); // lọc
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
           return {

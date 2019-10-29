@@ -45,6 +45,8 @@ export default class Example extends PureComponent {
       if (rangeDay.length === 0) {
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
         dataChart = this.sumAndDelete(dataChart); // lọc
+        console.log(dataChart);
+        
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
           return {
             day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),

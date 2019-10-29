@@ -32,12 +32,33 @@ export default class Example extends React.Component {
         if (this.props.items !== undefined) {
             if (this.props.items.type === "getListDayById") {
                 let listDay = JSON.parse(JSON.stringify(this.props.items.listItem));
-                listDay = _.toPairs(listDay[0]).filter(param => { return param[0] !== "id" }).map(param => param[1])
-                // .map(param => param[1]).map(param => { return (new Date(param)) });
+                console.log(listDay);
+              
+
+                listDay = listDay.map(listDayCon => _.toPairs(listDayCon).filter(param => { return param[0] !== "id" }).map(param => param[1]));
+                listDay=_.flatten(listDay);
                 listDay.length = 300;
+               
+
+                let userProperties = JSON.parse(localStorage.UserProperties);
+                if (userProperties[1] !== "all") {
+                    userProperties = userProperties[1].map(param => param[0]);
+                    listDay = listDay.map(param => {
+                        if (userProperties.some(param2 => param2 === param[0])) { return param }
+                        else { return undefined }
+                    });
+                }
+                listDay= _.uniq(listDay);
+
                 listDay = listDay.filter(param => { return param !== undefined });
-                let paramId = _.toPairs(JSON.parse(JSON.stringify(this.props.items.listItem))[0]).filter(param => { return param[0] === "id" });
-                listDay.push(paramId[0]);
+                console.log(this.state.listDay);
+                console.log(listDay);
+
+            
+
+                // let paramId = _.toPairs(JSON.parse(JSON.stringify(this.props.items.listItem))[0]).filter(param => { return param[0] === "id" });
+                // listDay.push(paramId[0]);
+                
                 if (this.state.listDay[this.state.listDay.length - 1][1] !== listDay[listDay.length - 1][1]) {
                     this.setState({ listDay: listDay })
                 }
@@ -119,6 +140,7 @@ export default class Example extends React.Component {
     }
 
     render() {
+
 
         let listDay = (this.props.partnerType !== null) ? this.state.listDay.filter(param => { return param[0] === this.props.partnerType }) : this.state.listDay.filter(param => { return param[0] !== "id" });
         listDay = listDay.map(param => { return (new Date(param[1])) })
