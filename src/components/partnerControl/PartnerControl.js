@@ -31,7 +31,7 @@ class PartnerControl extends Component {
                             <p>select col-4</p>
                             <SelectPartnerAndDay sentDayToProps={this.setDaySelect} date={this.state.date} partnerType={this.state.partnerType} setpartnerType={this.setPartnerType} {...this.props} />
                         </div>
-                        <div className="col-8 d-flex-column align-item-center">
+                        <div className="col-8 d-flex-column align-item-center over-flow-control">
                             <p>Biểu đồ col-8</p>
                             <AllChartsPartner date={this.state.date} partnerType={this.state.partnerType} {...this.props} />
                         </div>

@@ -52,7 +52,7 @@ export default class Example extends PureComponent {
         }
         dataChart = dataChart.filter(param => { return param !== undefined });
 
-        console.log(dataChart);
+        // console.log(dataChart);
 
 
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
@@ -88,7 +88,7 @@ export default class Example extends PureComponent {
       }
       else if (rangeDay.length <= 119) { // TH3: seledate là khoảng thời gian 4 tháng, chia thành các tuần
         rangeDay = _.chunk(rangeDay, 7); // chia thành  từng 7 ngày
-        console.log(rangeDay);
+        // console.log(rangeDay);
 
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
         dataChart = this.sumAndDeleteAll(dataChart);
@@ -171,7 +171,7 @@ export default class Example extends PureComponent {
     if (dataChart !== undefined) { // TH1: select date = -
       if (rangeDay.length === 0) {
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
-        console.log(dataChart);
+        // console.log(dataChart);
 
         dataChart = this.sumAndDeletePhoneCase(dataChart); // lọc
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
@@ -207,7 +207,7 @@ export default class Example extends PureComponent {
       }
       else if (rangeDay.length <= 119) { // TH3: seledate là khoảng thời gian 4 tháng, chia thành các tuần
         rangeDay = _.chunk(rangeDay, 7); // chia thành  từng 7 ngày
-        console.log(rangeDay);
+        // console.log(rangeDay);
 
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
         dataChart = this.sumAndDeletePhoneCase(dataChart);
@@ -274,7 +274,7 @@ export default class Example extends PureComponent {
   render() {
     let rangeDay = this.Math_rangeDay();  // tính arr=[xxx]  la khoang thoi gian select , ko lien quan partnerSelect
     let dataChart = [];
-    console.log(this.props.items.listItem);
+    // console.log(this.props.items.listItem);
 
     if (this.props.items.type === "getListByCustom") { // nêu GET (getListByCustom), gọi hàm  nội bộ (Math_dataChartAll) dể tính và xuất ra  data của biểu đồ
       if (this.props.partnerType === "phoneCase") {
@@ -302,7 +302,7 @@ export default class Example extends PureComponent {
         })
       }
     }
-    console.log(dataChart);
+    // console.log(dataChart);
 
     let payload = [{ value: 'Số lượng', type: 'line' }];
     let writeChart = null;

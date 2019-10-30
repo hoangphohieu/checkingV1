@@ -45,13 +45,21 @@ export default class Example extends PureComponent {
       if (rangeDay.length === 0) {
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']); // xắp xếp
         dataChart = this.sumAndDelete(dataChart); // lọc
-        console.log(dataChart);
-        
+        // console.log(dataChart.length);
+
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
-          return {
-            day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),
-            Sumlineitemquantity: param.Sumlineitemquantity,
-            Sumbasecost: Number(param.Sumbasecost.toFixed(1))
+          try {
+            return {
+              day: (new Date(param.dayNumber)).getDate() + "/" + ((new Date(param.dayNumber)).getMonth() + 1),
+              Sumlineitemquantity: param.Sumlineitemquantity,
+              Sumbasecost: Number(param.Sumbasecost.toFixed(1))
+            }
+          } catch (error) {
+            return {
+              day: 0,
+              Sumlineitemquantity: 0,
+              Sumbasecost: 0
+            }
           }
         })
         return dataChart;
@@ -78,7 +86,7 @@ export default class Example extends PureComponent {
       }
       else if (rangeDay.length <= 119) { // TH3: seledate là khoảng thời gian 4 tháng, chia thành các tuần
         rangeDay = _.chunk(rangeDay, 7); // chia thành  từng 7 ngày
-        console.log(rangeDay);
+        // console.log(rangeDay);
 
         dataChart = _.orderBy(dataChart, ['dayNumber'], ['asc']);
         dataChart = this.sumAndDelete(dataChart);

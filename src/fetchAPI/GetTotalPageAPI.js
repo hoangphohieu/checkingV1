@@ -3,7 +3,7 @@ export default function callAPi(param) {
     // console.log(param);
     
     return new Promise((resolve, reject) => {
-        let url =type.FETCH_URL_ITEMS+"?q=" +param;
+        let url =type.FETCH_URL_ITEMS+"?name=" +param;
         // console.log(url);
         
 

@@ -12,7 +12,9 @@ p.value-soo-info {
   color: #17a2b8;
   border-bottom: 1px solid #17a2b8;
 }
-
+.over-flow-control{
+  overflow-x: scroll;
+}
 p.value-soo {
   text-align: left;
   cursor: pointer;

@@ -35,6 +35,9 @@ class InputExcel extends Component {
         if (JSON.parse(localStorage.getItem("listItemCountPost")) === null) {
             localStorage.setItem("listItemCountPost", JSON.stringify([]));
         }
+        if (JSON.parse(localStorage.getItem("ItemsExcel")) === null) {
+            localStorage.setItem("ItemsExcel", JSON.stringify([]));
+        }
 
 
         this.props.ExcelGetListById("listPartner"); // lay sanh sach cac partner
@@ -385,8 +388,8 @@ class InputExcel extends Component {
             if (isNaN(param) !== false) { this.alertError("Có 'line item quantity' không đúng, bạn vui lòng xem lại :("); }
         })
         name.forEach(param => {
-            if (param.match(/[!@#$%^&*(),.?":{}|<>]/g)) {
-                this.alertError("Có 'name' chứa ký tực đặc biệt   " + param.match(/[!@#$%^&*(),.?":{}|<>]/g) + "     bạn vui lòng kiểm tra lại :(");
+            if (param.match(/[!@$%^&*(),.?":{}|<>]/g)) {
+                this.alertError("Có 'name' chứa ký tực đặc biệt   " + param.match(/[!@$%^&*(),.?":{}|<>]/g) + "     bạn vui lòng kiểm tra lại :(");
             }
         })
         if (_.uniq(partnertype).length > 1) {
@@ -404,7 +407,7 @@ class InputExcel extends Component {
                 console.log(this.state.partnerTypeAndName);
 
                 let partnerState = this.state.partnerTypeAndName.filter(param => param[0] == partnertype[0]).map(param => param[1]);
-                let differencePartner= _.difference(partner,partnerState);
+                let differencePartner = _.difference(partner, partnerState);
                 if (differencePartner.length > 0) {
                     alert("Có 'partner' mới: " + differencePartner);
                 }
@@ -461,7 +464,7 @@ class InputExcel extends Component {
     }
 
     render() {
- 
+
 
         let ItemsExcel = JSON.stringify(this.state.dataExcel);
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));

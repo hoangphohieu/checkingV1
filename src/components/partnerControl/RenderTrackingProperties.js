@@ -45,7 +45,7 @@ class RenderTrackingProperties extends Component {
       }
       searchOneTracking = () => {
             let _this = this;
-            let endPoint = ((this.state.searchBy === "byTracking") ? "?numbers=" : "?orders=") + this.state.itemSelect
+            let endPoint = ((this.state.searchBy === "byTracking") ? ("?numbers=" + this.state.itemSelect) : ("?orders=" + _.replace(this.state.itemSelect, '#', '%23')));
             if (this.state.itemSelect !== null)
                   setTimeout(function () {
                         _this.props.SearchOneTracking(endPoint);
@@ -173,7 +173,7 @@ class RenderTrackingProperties extends Component {
                                                 </Dropdown>
 
                                                 <div className="input-group-append">
-                                                      <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={this.searchOneTracking}>Button</button>
+                                                      <button className="btn btn-outline-secondary" type="button" id="button-addon2" onClick={this.searchOneTracking}>Tìm Kiếm</button>
                                                 </div>
                                           </div>
 

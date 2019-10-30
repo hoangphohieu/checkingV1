@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import _ from 'lodash';
+import { join } from 'path';
 
 export default class Example extends React.Component {
     static defaultProps = {
@@ -33,35 +34,41 @@ export default class Example extends React.Component {
             if (this.props.items.type === "getListDayById") {
                 let listDay = JSON.parse(JSON.stringify(this.props.items.listItem));
                 console.log(listDay);
-              
+
 
                 listDay = listDay.map(listDayCon => _.toPairs(listDayCon).filter(param => { return param[0] !== "id" }).map(param => param[1]));
-                listDay=_.flatten(listDay);
+                listDay = _.flatten(listDay);
                 listDay.length = 300;
-               
 
-                let userProperties = JSON.parse(localStorage.UserProperties);
-                if (userProperties[1] !== "all") {
-                    userProperties = userProperties[1].map(param => param[0]);
+
+                // let userProperties = JSON.parse(localStorage.UserProperties);
+                if (JSON.parse(localStorage.UserProperties)[1] !== "all") {
+                    let userProperties = JSON.parse(localStorage.UserProperties)[1].map(param => param[0]);
                     listDay = listDay.map(param => {
                         if (userProperties.some(param2 => param2 === param[0])) { return param }
                         else { return undefined }
                     });
                 }
-                listDay= _.uniq(listDay);
+                console.log(listDay);
+                listDay = _.uniq(listDay);
 
                 listDay = listDay.filter(param => { return param !== undefined });
                 console.log(this.state.listDay);
-                console.log(listDay);
 
-            
+
 
                 // let paramId = _.toPairs(JSON.parse(JSON.stringify(this.props.items.listItem))[0]).filter(param => { return param[0] === "id" });
                 // listDay.push(paramId[0]);
-                
-                if (this.state.listDay[this.state.listDay.length - 1][1] !== listDay[listDay.length - 1][1]) {
-                    this.setState({ listDay: listDay })
+                if (listDay.length !== 0) {
+                    console.log(this.state.listDay);
+                    console.log(listDay);
+                    if (_.flattenDeep(this.state.listDay).join("")!==_.flattenDeep(listDay).join("") ) {
+
+
+                        this.setState({ listDay: listDay })
+                    }
                 }
+
             }
         }
     }

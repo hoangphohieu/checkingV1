@@ -61,7 +61,7 @@ class TrackingSearch extends Component {
     }
 
     WhenGetTrackingSuccess = () => {
-        console.log("haha");
+        // console.log("haha");
         let _this = this;
         let items = this.props.itemsPayload.listItem;
         if (items.meta.code === 200) {
@@ -87,7 +87,7 @@ class TrackingSearch extends Component {
                     listName = listName.map(param => { return _.replace(param, ' ', '%20') });
                     listName = [...listName].join(",");
                     let endPoint = "?orders=" + listName + "&limit=500";
-                    console.log(endPoint);
+                    // console.log(endPoint);
                     setTimeout(function () { _this.props.getTracking(endPoint); }, 1000);
                 }
             }
@@ -115,12 +115,12 @@ class TrackingSearch extends Component {
         listName = [...listName].join(",")
         let endPoint = "?orders=" + listName + "&limit=500";
         this.props.getTracking(endPoint);
-        console.log(endPoint);
+        // console.log(endPoint);
 
     }
     render() {
-        console.log(this.props.itemsPayload);
-        console.log(this.state);
+        // console.log(this.props.itemsPayload);
+        // console.log(this.state);
 
 
 
