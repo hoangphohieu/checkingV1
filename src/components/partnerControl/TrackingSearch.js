@@ -128,8 +128,8 @@ class TrackingSearch extends Component {
         // console.log(listOrder);
 
         return (
-            <div>
-                <button type="button" className="btn btn-info" onClick={this.searchTracking}>Search</button>
+            <div className="relative">
+                <button type="button" className="btn btn-info search-tracking" onClick={this.searchTracking}>Search Tracking</button>
                 <RenderTrackingProperties trackingFail={this.state.trackingFail} trackingSuccess={this.state.trackingSuccess} listStatus={this.state.listStatus} {...this.props} />
             </div>
         );

@@ -5,10 +5,10 @@ let DEFAULT_STATE = {
       isFetching: false,
       error: false,
       type: null,
-      errorMessesage: null
+      errorMessesage: null 
 }
 export default (state = DEFAULT_STATE, action) => {
-      console.log(action);
+      // console.log(action);
       switch (action.type) {
 
             case type.GET_USE_INFO_SUCSESS:

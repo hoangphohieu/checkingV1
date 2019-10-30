@@ -3,6 +3,15 @@
   padding: 0;
   
 }
+
+.search-tracking {
+    position: absolute;
+    left: 10%;
+}
+
+.relative {
+    position: relative;
+}
 .hover-pointer{
 cursor: pointer;
 }
@@ -25,6 +34,8 @@ p.value-soo {
 }
 body{
   scroll-behavior: smooth;
+  font-family: 'Quicksand', sans-serif !important;
+font-size: 1.1rem;
 }
 
 .hover-cursor:hover {cursor: pointer;text-decoration: underline;/* box-sizing: border-box !important; */}
@@ -140,12 +151,12 @@ p.p_reset_day {
   margin: 1rem 0 -0.5rem 0;
 }
 body{
-  background-image: linear-gradient(-221deg, #ffffff , #ececec);
+  background-image: linear-gradient(90deg, #ffffff , #ececec);
 } 
 
 .App {
   /* background: #f3f3f3; */
-  background-image: linear-gradient(-221deg, #ffffff , #ececec);
+  background-image: linear-gradient(90deg, #fff , #ececec);
 }
 
 .background_nav_top {
@@ -240,13 +251,13 @@ img.checking-img-cdn {
 }
 
 span.checking-item-title {
-  font-size: 0.87rem;
+  /* font-size: 0.87rem; */
   font-weight: 500;
 }
 
 p.checking-item-altribute {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   letter-spacing: 0.5px;
   text-align: left;
 }
@@ -256,6 +267,7 @@ p.checking-item-name {
 }
 
 .nav-item-h {
+  font-family: 'Quicksand', sans-serif !important;
   text-align: center;
   margin: 20px;
   letter-spacing: 2px;
@@ -263,6 +275,7 @@ p.checking-item-name {
   font-size: 1.3rem;
   color: #fff;
   transform:rotate(0deg);
+  font-size: 1.5rem;
 }
 
 
@@ -542,8 +555,13 @@ input[type=text]:placeholder {
 }
 /* END USES CONTROL */
 
+.fontqs{
+  font-family: 'Quicksand', sans-serif !important;
+}
+.fontjn{
+  font-family: 'Jim Nightshade', cursive;
+}
 
 
-
-
+/* ............................................................................................ */
 

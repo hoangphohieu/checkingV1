@@ -23,6 +23,7 @@ class UserProperties extends Component {
                   partnerTypeUse: this.state.partnerTypeUse,
                   phoneUse: this.refs["phoneUse"].value,
                   nameUse: this.refs["nameUse"].value,
+                  noteUse: this.refs["noteUse"].value,
                   passWordUse: this.refs["passWordUse"].value,
                   dataType: "user"
             };
@@ -95,6 +96,23 @@ class UserProperties extends Component {
                                           <Modal.Title>Modal heading</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Tên:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="nameUse" placeholder="Tên đăng nhập" defaultValue="" />
+                                          </p>
+
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Mật khẩu:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="passWordUse" placeholder="Mật khẩu là..." defaultValue="" />
+                                          </p>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">SDT:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue="000" />
+                                          </p>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Chú thích:</span> <br />
+                                                <input type="text" className="form-control" placeholder="Chú thích" ref="noteUse" />
+                                          </p>
 
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Chức Năng:</span>
@@ -119,20 +137,8 @@ class UserProperties extends Component {
                                                       }}
                                                 />
                                           </div>
-                                          <p className="checking-item-altribute">
-                                                <span className="checking-item-title">SDT:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue="000" />
-                                          </p>
 
-                                          <p className="checking-item-altribute">
-                                                <span className="checking-item-title">Tên:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="nameUse" placeholder="Tên đăng nhập" defaultValue="" />
-                                          </p>
 
-                                          <p className="checking-item-altribute">
-                                                <span className="checking-item-title">Mật khẩu:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="passWordUse" placeholder="Mật khẩu là..." defaultValue="" />
-                                          </p>
 
 
                                     </Modal.Body>

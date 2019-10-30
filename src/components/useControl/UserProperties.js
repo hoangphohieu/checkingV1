@@ -22,6 +22,8 @@ class UserProperties extends Component {
                   routerUse: this.state.RouterUse,
                   partnerTypeUse: this.state.partnerTypeUse,
                   phoneUse: this.refs["phoneUse"].value,
+                  noteUse: this.refs["noteUse"].value,
+                  
             };
             console.log(obj);
             if (this.state.RouterUse === null) {
@@ -70,6 +72,7 @@ class UserProperties extends Component {
                                     <p className="checking-item-altribute"><span className="checking-item-title">Chứ Năng:</span><span>{(item.routerUse === "R") ? "Đọc" : "Đọc, thêm, sửa, xóa"}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Đối tượng:</span><span>{(item.partnerTypeUse !== "all") ? item.partnerTypeUse.join(",") : "all"}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">SDT:</span><span>{item.phoneUse}</span></p>
+                                    <p className="checking-item-altribute"><span className="checking-item-title">Chú thích:</span><span>{item.noteUse}</span></p>
 
                               </div>
 
@@ -116,6 +119,10 @@ class UserProperties extends Component {
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">SDT:</span> <br />
                                                 <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue={item.phoneUse} />
+                                          </p>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Chú thích:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="noteUse" defaultValue={item.noteUse} />
                                           </p>
 
 

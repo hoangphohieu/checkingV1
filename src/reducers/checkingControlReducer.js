@@ -7,7 +7,10 @@ let DEFAULT_STATE = {
     errorMessesage: null
 }
 export default (state = DEFAULT_STATE, action) => {
+    console.log(action);
+
     switch (action.type) {
+
         // get page items
         case type.GET_CHECKING_SUCSESS:
 
@@ -27,7 +30,7 @@ export default (state = DEFAULT_STATE, action) => {
                 error: true,
                 errorMessesage: action.payload.errorMessesage
             }
-            
+
         default:
             return state;
     }

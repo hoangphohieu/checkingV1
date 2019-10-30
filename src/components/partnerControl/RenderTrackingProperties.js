@@ -134,7 +134,7 @@ class RenderTrackingProperties extends Component {
                         </div>
 
                         {/* trackingSuccess */}
-                        <div className="container mt-5">
+                        <div className="container">
                               {/* khai báo trạng thái item */}
                               <div className="row">
                                     <div className="col-12">
@@ -153,7 +153,7 @@ class RenderTrackingProperties extends Component {
                               </div>
 
                               {/* hiển thị list item khi click chuột */}
-                              <div className="row mt-5 mb-5">
+                              <div className="row">
                                     <div className="col-5">
                                           {renderStateItems}
                                     </div>

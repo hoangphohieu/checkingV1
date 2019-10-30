@@ -1,10 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import getTotalPageAPI from './../fetchAPI/GetTotalPageAPI';
-import patchPrintStatusItemAPI from './../fetchAPI/PatchPrintStatusItemAPI';
-import patchItemCheckingPropertiesAPI from './../fetchAPI/PatchItemCheckingPropertiesAPI';
-import deleteItemCheckingAPI from './../fetchAPI/DeleteItemCheckingAPI';
-import itemsPrintFalseAPI from './../fetchAPI/ItemsPrintFalseAPI';
-import * as type from './../constants';
+import getTotalPageAPI from '../fetchAPI/GetTotalPageAPI';
+import patchPrintStatusItemAPI from '../fetchAPI/PatchPrintStatusItemAPI';
+import patchItemCheckingPropertiesAPI from '../fetchAPI/PatchItemCheckingPropertiesAPI';
+import deleteItemCheckingAPI from '../fetchAPI/DeleteItemCheckingAPI';
+import itemsPrintFalseAPI from '../fetchAPI/ItemsPrintFalseAPI';
+import * as type from '../constants';
 
 function* getChecking(param) {     // lấy total page
     console.log(param);
@@ -31,7 +31,7 @@ function* patchPrintStatusItem(param) {     // lấy total page
         let res1 = yield patchPrintStatusItemAPI(param.payload); //gọi API
         yield put({
             type: type.GET_CHECKING_REQUEST, // trigger valueToGetAPIReducer , tính lại total Page
-            payload: res1.id
+            payload: res1.name
         })
     } catch (error) {
         yield put({
@@ -111,7 +111,7 @@ function* itemsPrintFalse() {     // lấy total page
     }
 
 }
-export const IteamSaga = [
+export const CheckingSaga = [
     takeEvery(type.GET_CHECKING_REQUEST, getChecking),
     takeEvery(type.CHANGE_PRINT_STATUS_REQUEST, patchPrintStatusItem),
     takeEvery(type.PATCH_ITEM_CHECKING_PROPERTIES_REQUEST, patchItemCheckingProperties),
