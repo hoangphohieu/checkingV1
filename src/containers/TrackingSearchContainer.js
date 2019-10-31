@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TrackingSearch from '../components/partnerControl/TrackingSearch';
+import TrackingSearch from '../components/home/TrackingSearch';
 import * as actions from './../actions';
 
 function mapStateToProps(state) {

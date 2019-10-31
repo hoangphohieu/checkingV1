@@ -75,11 +75,11 @@ export default class Example extends React.Component {
     handleDayClick(day) { // click khi select Date
         const range = DateUtils.addDayToRange(day, this.state);
         this.setState(range);
-        this.props.sentDayToProps(range);   //  gọi tới  component (PartnerControl)  để setState và truyền date cho toàn bộ component
+        this.props.sentDayToProps(range);   //  gọi tới  component (Home)  để setState và truyền date cho toàn bộ component
         this.getdataFromServer(); // gọi tới hàm nội bộ  (getdataFromServer) để GET   khi click select Date
     }
     handleResetClick() {
-        this.props.sentDayToProps(this.getInitialState()); // gọi tới  component (PartnerControl)  để setState và truyền date cho toàn bộ component
+        this.props.sentDayToProps(this.getInitialState()); // gọi tới  component (Home)  để setState và truyền date cho toàn bộ component
         this.setState({ from: undefined, to: undefined }); // setState lại
 
     }
@@ -88,7 +88,7 @@ export default class Example extends React.Component {
         let partnerType = this.props.partnerType; // props lấy từ  component (SelectPartnerAndDay)
         let dateFrom = null;
         let dateTo = null;
-        if (this.props.date !== null) { // tính dateFrom và dateTo là số 121212121212121, lấy từ component (PartnerControl)
+        if (this.props.date !== null) { // tính dateFrom và dateTo là số 121212121212121, lấy từ component (Home)
             dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
             dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
         }

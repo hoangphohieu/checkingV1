@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ExcelImport from '../components/excelImport/ExcelImport';
-import * as actions from './../actions';
+import Upload from '../components/upload/Upload';
+import * as actions from '../actions';
 function mapStateToProps(state) {
     return {
         itemExcelReload:state.ItemExcelPost
@@ -22,11 +22,11 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class ExcelImportContainer extends Component {
+class UploadContainer extends Component {
     render() {    
         return (
             <React.Fragment>
-                <ExcelImport {...this.props}/>
+                <Upload {...this.props}/>
             </React.Fragment>
         );
     }
@@ -34,4 +34,4 @@ class ExcelImportContainer extends Component {
 
 export default connect(
     mapStateToProps,mapDispatchToProps
-)(ExcelImportContainer);
+)(UploadContainer);

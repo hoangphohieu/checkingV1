@@ -1,12 +1,12 @@
 // file này để combine các reducer lại
 import { combineReducers } from 'redux';
-import checkingControlReducer from './checkingControlReducer';
+import ItemReducer from './ItemReducer';
 import ItemExcelPost from './ItemExcelPostReducer';
-import ItemsPartner from './PartnerControlReducer';
+import ItemsPartner from './HomeReducer';
 import TrackingReducer from './TrackingReducer';
 import UseControl from './UsesReducer';
 export default combineReducers({
-      items: checkingControlReducer,
+      items: ItemReducer,
       ItemExcelPost: ItemExcelPost,
       itemsPartner: ItemsPartner,
       TrackingReducer: TrackingReducer,

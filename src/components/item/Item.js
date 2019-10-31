@@ -3,7 +3,7 @@ import CheckingProperties from './CheckingProperties';
 import CheckingImage from './CheckingImage';
 import CheckingInput from './CheckingInput';
 import UtilitiesChecking from './UtilitiesChecking';
-class CheckingControl extends Component {
+class Item extends Component {
 
       render() {
 
@@ -58,4 +58,4 @@ class CheckingControl extends Component {
       }
 }
 
-export default CheckingControl;
+export default Item;

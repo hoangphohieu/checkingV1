@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PartnerControl from '../components/partnerControl/PartnerControl';
-import * as actions from './../actions';
+import Home from '../components/home/Home';
+import * as actions from '../actions';
 
 function mapStateToProps(state) {
     return {
@@ -18,11 +18,11 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class PartnerControlContainer extends Component {
+class HomeContainer extends Component {
     render() {
         return (
             <React.Fragment>
-                <PartnerControl {...this.props}/>
+                <Home {...this.props}/>
             </React.Fragment>
         );
     }
@@ -30,4 +30,4 @@ class PartnerControlContainer extends Component {
 
 export default connect(
     mapStateToProps,mapDispatchToProps
-)(PartnerControlContainer);
+)(HomeContainer);

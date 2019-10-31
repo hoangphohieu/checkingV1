@@ -15,7 +15,7 @@ class AllChartsPartner extends Component {
             <React.Fragment>
                 <ChartAmount styleChart="Sumlineitemquantity"  {...this.props} />
                 <ChartBaseCost styleChart="Sumbasecost" {...this.props} />
-                
+                aaaaa
             </React.Fragment>
         );
     }

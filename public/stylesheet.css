@@ -4,6 +4,32 @@
   
 }
 
+img._219ua {
+    opacity: 0.55;
+}
+
+.border-right-gray {
+    border-right: 1px solid rgb(228, 228, 228);
+    height: 100vh;
+}
+
+svg.v3ASA {
+    fill: rgb(145, 158, 171);
+}
+
+span._2-hnq {
+    height: 100%;
+    width: 1.4rem;
+    color: #fff;
+    /* background: rgb(145, 158, 171); */
+}
+
+.nav-top {
+    width: 100%;
+    height: 50px;
+    background: rgb(28, 34, 96);
+}
+
 .search-tracking {
     position: absolute;
     left: 10%;
@@ -32,10 +58,15 @@ p.value-soo {
 .title-soo {
   font-weight: 700;
 }
+html{
+  font-size: 14px !important;
+
+}
 body{
   scroll-behavior: smooth;
-  font-family: 'Quicksand', sans-serif !important;
-font-size: 1.1rem;
+  font-family: -apple-system,BlinkMacSystemFont,San Francisco,Roboto,Segoe UI,Helvetica Neue,sans-serif;
+  background: #f4f6f8;
+  height: 100vh;
 }
 
 .hover-cursor:hover {cursor: pointer;text-decoration: underline;/* box-sizing: border-box !important; */}
@@ -269,13 +300,15 @@ p.checking-item-name {
 .nav-item-h {
   font-family: 'Quicksand', sans-serif !important;
   text-align: center;
-  margin: 20px;
-  letter-spacing: 2px;
   cursor: pointer;
-  font-size: 1.3rem;
-  color: #fff;
+  font-weight: 800;
+  color: #454f5b;
   transform:rotate(0deg);
-  font-size: 1.5rem;
+  text-align: left;
+  padding: 0.4rem;
+}
+.nav-item-h:hover {
+ background: #f9fafb;
 }
 
 
@@ -303,11 +336,7 @@ background: #fff;
 transition:width 0.5s ;
 }
 
-.nav-item-h:hover {
-text-decoration: none;
-color: #fff;
-/* border-bottom:2px solid white  ; */
-}
+.nav-item-h:hover {text-decoration: none;background: #ebebeb;/* border-bottom:2px solid white  ; */}
 
 .DayPicker-Day{
   width: 24px !important;

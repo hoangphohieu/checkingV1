@@ -59,7 +59,7 @@ export function getLastItemOflistItemCountPatch(payload) {                  // g
     return ({ type: type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_REQUEST, payload })    // payload:valueToGetAPI
 }
 
-export function patchItemCheckingControlAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
+export function patchItemItemAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.PATCH_ITEM_TRACKING_CONTROL_REQUEST, payload })    // payload:valueToGetAPI
 }
 export function getItemTrackingFailAPI(payload) {                  // gọi lên itemSaga và itemsReducer 

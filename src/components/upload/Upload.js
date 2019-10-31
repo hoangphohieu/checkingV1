@@ -428,7 +428,7 @@ class InputExcel extends Component {
     }
     alertError = (param) => {
         alert(param);
-        window.location = "/excelImport";
+        window.location = "/Upload";
     }
     readSingleFile = (e) => {
         let _this = this;

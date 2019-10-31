@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from './../actions';
-import CheckingControl from '../components/checkingControl/CheckingControl';
+import * as actions from '../actions';
+import Item from '../components/item/Item';
 function mapStateToProps(state) {
       return {
             dataChecking: state.items
@@ -18,12 +18,12 @@ function mapDispatchToProps(dispatch) {
       };
 }
 
-class CheckingControlContainer extends Component {
+class ItemContainer extends Component {
       render() {
             
             return (
                   <React.Fragment>
-                        <CheckingControl {...this.props}/>
+                        <Item {...this.props}/>
                   </React.Fragment>
             );
       }
@@ -31,4 +31,4 @@ class CheckingControlContainer extends Component {
 
 export default connect(
       mapStateToProps, mapDispatchToProps
-)(CheckingControlContainer);
+)(ItemContainer);

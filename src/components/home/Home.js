@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SelectPartnerAndDay from './SelectPartnerAndDay';
 import AllChartsPartner from './AllChartsPartner';
 import TrackingSearchContainer from './../../containers/TrackingSearchContainer';
-class PartnerControl extends Component {
+class Home extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -49,4 +49,4 @@ class PartnerControl extends Component {
     }
 }
 
-export default PartnerControl;
+export default Home;
