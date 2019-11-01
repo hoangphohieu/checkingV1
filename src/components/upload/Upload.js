@@ -40,7 +40,7 @@ class InputExcel extends Component {
         }
 
 
-        this.props.ExcelGetListById("listPartner"); // lay sanh sach cac partner
+        this.props.ExcelGetListPartner("?dataType=user"); // lay sanh sach cac partner
 
 
     }
@@ -56,7 +56,7 @@ class InputExcel extends Component {
         return true;
     }
 
-
+ 
     componentDidUpdate = () => {
         this.CDU_ItemsCountProperties(); // bộ đếm itemCount khi post xong
         this.CDU_checkRequest(); // kiểm tra và thực hiện hành động khi có request trả về

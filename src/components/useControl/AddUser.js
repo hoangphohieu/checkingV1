@@ -18,14 +18,15 @@ class UserProperties extends Component {
       saveChange = (id) => {
             this.setState({ change: false });
             let obj = {
-                  id: this.refs["nameUse"].value.trim() + this.refs["passWordUse"].value.trim(),
+                  id: "user" + this.refs["nameUse"].value.trim(),
                   routerUse: this.state.RouterUse,
                   partnerTypeUse: this.state.partnerTypeUse,
-                  phoneUse: this.refs["phoneUse"].value,
-                  nameUse: this.refs["nameUse"].value,
+                  phoneUse: this.refs["phoneUse"].value.trim(),
+                  nameUse: "user" + this.refs["nameUse"].value.trim(),
                   noteUse: this.refs["noteUse"].value,
-                  passWordUse: this.refs["passWordUse"].value,
-                  dataType: "user"
+                  passWordUse: this.refs["passWordUse"].value.trim(),
+                  dataType: "user",
+                  codeUse: this.refs["code"].value.trim()
             };
 
 
@@ -43,6 +44,9 @@ class UserProperties extends Component {
             else if (this.refs["passWordUse"].value === "") {
                   alert("Không thành Công, hãy đặt mật khẩu !");
             }
+            else if (this.refs["code"].value === "") {
+                  alert("Không thành Công, hãy đặt code !");
+            }
             else {
                   let arrPTU = this.state.partnerTypeUse.map(param => param.join(""));
                   let arrPTUProps = _.toPairs(this.props.listPartner).filter(param => { return param[0] !== "id" });
@@ -51,6 +55,10 @@ class UserProperties extends Component {
                   if (differenceArr.length === 0) {
                         obj.partnerTypeUse = "all";
                   }
+
+
+                  obj.codeUse = obj.codeUse.split(",").filter(param=>param!=="");
+                  console.log(obj.codeUse);
 
                   this.props.createUser(obj);
 
@@ -113,7 +121,10 @@ class UserProperties extends Component {
                                                 <span className="checking-item-title">Chú thích:</span> <br />
                                                 <input type="text" className="form-control" placeholder="Chú thích" ref="noteUse" />
                                           </p>
-
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Code: (cách nhau bởi dấy phẩy ,)</span> <br />
+                                                <input type="text" className="form-control" placeholder="Chú thích" ref="code" />
+                                          </p>
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Chức Năng:</span>
                                                 <select className="browser-default custom-select" onChange={this.setRouterUse}>

@@ -2,10 +2,11 @@
   "items": [
     {
       "id": "adminretc_000",
+      "passWordUse": "retc_000",
       "routerUse": "retc_000",
       "partnerTypeUse": "all",
       "dataType": "user",
-      "nameUse": "admin",
+      "nameUse": "useradmin",
       "phoneUse": "11111111"
     },
     {
@@ -185,25 +186,6 @@
         "dress",
         "aluyen"
       ]
-    },
-    {
-      "id": "rr",
-      "routerUse": "CRUD",
-      "partnerTypeUse": [
-        [
-          "dress",
-          "drahieu2"
-        ],
-        [
-          "dress",
-          "drahieu"
-        ]
-      ],
-      "phoneUse": "111",
-      "nameUse": "r",
-      "noteUse": "ggg",
-      "passWordUse": "r",
-      "dataType": "user"
     },
     {
       "day": 1570813200000,
@@ -4836,6 +4818,33 @@
       "dress1570813200000": [
         "dress",
         1570813200000
+      ]
+    },
+    {
+      "id": "userr",
+      "routerUse": "CRUD",
+      "partnerTypeUse": [
+        [
+          "dress",
+          "drahieu2"
+        ],
+        [
+          "dress",
+          "drahieu"
+        ],
+        [
+          "dress",
+          "aluyen"
+        ]
+      ],
+      "phoneUse": "000",
+      "nameUse": "userr",
+      "noteUse": "rrr",
+      "passWordUse": "r",
+      "dataType": "user",
+      "codeUse": [
+        "tmt",
+        "hm"
       ]
     }
   ]

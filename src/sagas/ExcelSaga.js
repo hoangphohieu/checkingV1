@@ -5,6 +5,8 @@ import postListItemCountAPI from './../fetchAPI/PostListItemCountAPI';
 import patchListItemCountAPI from './../fetchAPI/PatchListItemCountAPI';
 import postListItemCountPatchFailAPI from "./../fetchAPI/PostListItemCountPatchFailAPI";
 import getListByIdAPI from './../fetchAPI/GetListByIdAPI';
+import getListByCustomAPI from './../fetchAPI/getListByCustomAPI';
+
 import * as type from './../constants';
 
 function* postItemExcel(param) {     // lấy total page
@@ -115,7 +117,7 @@ function* getLastItemOflistItemCountPatch(param) {     // lấy total page
 
 function* excelGetListById(param) {     // lấy total page
       try {
-            let res1 = yield getListByIdAPI(param.payload); //gọi API
+            let res1 = yield getListByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.EXCEL_GET_LIST_BY_ID_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1

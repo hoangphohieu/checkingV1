@@ -10,7 +10,7 @@ import * as type from './../constants';
 
 function* getUseInfo(param) {     // lấy total page      
       try {
-            let res1 = yield getListByIdAPI(param.payload); //gọi API
+            let res1 = yield getListByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.GET_USE_INFO_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1

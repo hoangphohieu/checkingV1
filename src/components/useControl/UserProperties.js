@@ -23,6 +23,8 @@ class UserProperties extends Component {
                   partnerTypeUse: this.state.partnerTypeUse,
                   phoneUse: this.refs["phoneUse"].value,
                   noteUse: this.refs["noteUse"].value,
+                  codeUse: this.refs["code"].value,
+                  passWordUse: this.refs["passWordUse"].value,
                   
             };
             console.log(obj);
@@ -34,6 +36,7 @@ class UserProperties extends Component {
 
             }
             else {
+                  obj.codeUse = obj.codeUse.split(",").filter(param => param !== "");
                   this.props.changeUserProperties(obj);
             }
 
@@ -67,12 +70,13 @@ class UserProperties extends Component {
                   <React.Fragment>
                         <div className="row border-item-checking">
                               <div className="col-12">
-                                    <p className="checking-item-altribute"><span className="checking-item-title">User:</span><span>{item.nameUse}</span></p>
+                                    <p className="checking-item-altribute"><span className="checking-item-title">User:</span><span>{item.nameUse.substr(4)}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">PassWord:</span><span>{item.passWordUse}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Chứ Năng:</span><span>{(item.routerUse === "R") ? "Đọc" : "Đọc, thêm, sửa, xóa"}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Đối tượng:</span><span>{(item.partnerTypeUse !== "all") ? item.partnerTypeUse.join(",") : "all"}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">SDT:</span><span>{item.phoneUse}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Chú thích:</span><span>{item.noteUse}</span></p>
+                                    <p className="checking-item-altribute"><span className="checking-item-title">Code:</span><span>{item.codeUse.join(",")}</span></p>
 
                               </div>
 
@@ -92,6 +96,24 @@ class UserProperties extends Component {
                                           <Modal.Title>Modal heading</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
+
+
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Mật khẩu:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="passWordUse" defaultValue={item.passWordUse} />
+                                          </p>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">SDT:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue={item.phoneUse} />
+                                          </p>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Chú thích:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="noteUse" defaultValue={item.noteUse} />
+                                          </p>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">Code:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="code" defaultValue={item.codeUse.join(",")} />
+                                          </p>
 
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Chức Năng:</span>
@@ -116,16 +138,6 @@ class UserProperties extends Component {
                                                       }}
                                                 />
                                           </div>
-                                          <p className="checking-item-altribute">
-                                                <span className="checking-item-title">SDT:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue={item.phoneUse} />
-                                          </p>
-                                          <p className="checking-item-altribute">
-                                                <span className="checking-item-title">Chú thích:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="noteUse" defaultValue={item.noteUse} />
-                                          </p>
-
-
 
 
                                     </Modal.Body>

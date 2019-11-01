@@ -15,7 +15,7 @@ function mapDispatchToProps(dispatch) {
         patchItemsExcelFail:(param)=>dispatch(actions.patchItemsExcelFailAPI(param)),
         postListItemCountPatchFail:(param)=>dispatch(actions.postListItemCountPatchFailAPI(param)),
         getLastItemOflistItemCountPatch:(param)=>dispatch(actions.getLastItemOflistItemCountPatch(param)),
-        ExcelGetListById:(param)=>dispatch(actions.ExcelGetListById(param)),
+        ExcelGetListPartner:(param)=>dispatch(actions.ExcelGetListPartner(param)),
         propsImportExcelToDefault:()=>dispatch(actions.stateImportExcelToDefault())
         
         
