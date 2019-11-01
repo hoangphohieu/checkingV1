@@ -16,10 +16,10 @@ class UseControl extends Component {
         let user = this.props.itemsPayload.listItem;
         if (user.length === 1) {
             let properties = [];
-            properties.push(user[0].routerUse);
-            properties.push(user[0].partnerTypeUse);
-            properties.push(user[0].nameUse);
-            properties.push(user[0].phoneUse);
+            properties.push(user[0].router);
+            properties.push(user[0].partner);
+            properties.push(user[0].name);
+            properties.push(user[0].phone);
             localStorage.setItem("UserProperties", JSON.stringify(properties));
             // this.props.setStateStoreToDefault(); 
             window.location="/useControl";

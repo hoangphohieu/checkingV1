@@ -4,6 +4,13 @@
   
 }
 
+.Polaris-Popover__Content {
+    display: block;
+    height: 100% !important;
+    max-height: 100%;
+    /* width: 100%; */
+}
+
 img._219ua {
     opacity: 0.55;
 }

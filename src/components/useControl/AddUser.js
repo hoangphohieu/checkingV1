@@ -9,8 +9,9 @@ class UserProperties extends Component {
             this.state = {
                   change: false,
                   delete: false,
-                  partnerTypeUse: [],
-                  RouterUse: null,
+                  partner: null,
+                  router: "R",
+                  name: ""
 
             }
       }
@@ -18,47 +19,40 @@ class UserProperties extends Component {
       saveChange = (id) => {
             this.setState({ change: false });
             let obj = {
-                  id: "user" + this.refs["nameUse"].value.trim(),
-                  routerUse: this.state.RouterUse,
-                  partnerTypeUse: this.state.partnerTypeUse,
-                  phoneUse: this.refs["phoneUse"].value.trim(),
-                  nameUse: "user" + this.refs["nameUse"].value.trim(),
-                  noteUse: this.refs["noteUse"].value,
-                  passWordUse: this.refs["passWordUse"].value.trim(),
+                  id: "user" + this.state.name,
+                  router: this.state.router,
+                  partner:"User"+  this.state.partner,
+                  phone: this.refs["phone"].value.trim(),
+                  name: "user" + this.state.name,
+                  note: this.refs["note"].value,
+                  pass: this.refs["pass"].value.trim(),
                   dataType: "user",
-                  codeUse: this.refs["code"].value.trim()
+                  product:[],
+                  code: this.refs["code"].value.trim(),
+     
             };
 
 
             console.log(obj);
-            if (this.state.RouterUse === null) {
+            if (this.state.router === null) {
                   alert("Không thành Công, hãy chọn chức năng !");
             }
-            else if (this.state.partnerTypeUse.length === 0) {
-                  alert("Không thành Công, hãy chọn quyền !");
-            }
-            else if (this.refs["nameUse"].value === "") {
+
+            else if (this.state.name === "") {
                   alert("Không thành Công, hãy đặt tên đăng nhập !");
             }
 
-            else if (this.refs["passWordUse"].value === "") {
+            else if (this.refs["pass"].value === "") {
                   alert("Không thành Công, hãy đặt mật khẩu !");
             }
             else if (this.refs["code"].value === "") {
                   alert("Không thành Công, hãy đặt code !");
             }
             else {
-                  let arrPTU = this.state.partnerTypeUse.map(param => param.join(""));
-                  let arrPTUProps = _.toPairs(this.props.listPartner).filter(param => { return param[0] !== "id" });
-                  arrPTUProps = arrPTUProps.map(param => param[1].join(""));
-                  let differenceArr = _.difference(arrPTUProps, arrPTU);
-                  if (differenceArr.length === 0) {
-                        obj.partnerTypeUse = "all";
-                  }
 
 
-                  obj.codeUse = obj.codeUse.split(",").filter(param=>param!=="");
-                  console.log(obj.codeUse);
+                  obj.code = obj.code.split(",").filter(param => param !== "");
+                  console.log(obj.code);
 
                   this.props.createUser(obj);
 
@@ -70,10 +64,16 @@ class UserProperties extends Component {
       deleteItemChecking = (param) => {
             this.handleDeleteClose();
       }
-      setRouterUse = (e) => {
-            this.setState({ RouterUse: e.target.value })
+      setrouter = (e) => {
+            this.setState({ router: e.target.value })
       }
+      setpartner = (e) => {
+            this.setState({ partner: e.target.value })
 
+      }
+      setname = (e) => {
+            this.setState({ name: e.target.value.trim() })
+      }
       handleClose = () => { this.setState({ change: false }) };
       handleShow = () => { this.setState({ change: true }) };
       handleDeleteClose = () => { this.setState({ delete: false }) };
@@ -106,20 +106,20 @@ class UserProperties extends Component {
                                     <Modal.Body>
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Tên:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="nameUse" placeholder="Tên đăng nhập" defaultValue="" />
+                                                <input type="text" className="form-control" placeholder="" onChange={this.setname} placeholder="Tên đăng nhập" value={this.state.name} />
                                           </p>
 
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Mật khẩu:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="passWordUse" placeholder="Mật khẩu là..." defaultValue="" />
+                                                <input type="text" className="form-control" placeholder="" ref="pass" placeholder="Mật khẩu là..." defaultValue="" />
                                           </p>
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">SDT:</span> <br />
-                                                <input type="text" className="form-control" placeholder="" ref="phoneUse" defaultValue="000" />
+                                                <input type="text" className="form-control" placeholder="" ref="phone" defaultValue="000" />
                                           </p>
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Chú thích:</span> <br />
-                                                <input type="text" className="form-control" placeholder="Chú thích" ref="noteUse" />
+                                                <input type="text" className="form-control" placeholder="Chú thích" ref="note" />
                                           </p>
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Code: (cách nhau bởi dấy phẩy ,)</span> <br />
@@ -127,26 +127,21 @@ class UserProperties extends Component {
                                           </p>
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Chức Năng:</span>
-                                                <select className="browser-default custom-select" onChange={this.setRouterUse}>
-                                                      <option selected value="NOTSELECT" className="d-none ">Chọn</option>
+                                                <select className="browser-default custom-select" onChange={this.setrouter}>
+                                                      <option selected value="R" className="d-none ">Chỉ đọc</option>
                                                       <option value="CRUD">Đọc, thêm, sửa, xóa</option>
                                                       <option value="R">Chỉ Đọc</option>
                                                 </select>
                                           </p>
                                           <div className="checking-item-altribute">
-                                                <span className="checking-item-title">Đối tượng:</span>
+                                                <span className="checking-item-title">Phân Quyền:</span>
+                                                <select className="browser-default custom-select" onChange={this.setpartner}>
+                                                      <option selected value={this.state.name} className="d-none ">{this.state.name}</option>
+                                                      <option value="userall">all</option>
+                                                      <option value={this.state.name}>{this.state.name}</option>
+                                                </select>
 
-                                                <MultiSelect
-                                                      options={options}
-                                                      selected={this.state.partnerTypeUse}
-                                                      onSelectedChanged={partnerTypeUse => this.setState({ partnerTypeUse })}
-                                                      overrideStrings={{
-                                                            selectSomeItems: "Chọn",
-                                                            allItemsAreSelected: "all",
-                                                            selectAll: "Tất cả !",
-                                                            search: "Tìm kiếm",
-                                                      }}
-                                                />
+
                                           </div>
 
 

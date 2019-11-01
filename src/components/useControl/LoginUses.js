@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-class LoginUses extends Component {
+class names extends Component {
     submit = () => {
-        let endPoint = "?nameUse_like=user"+this.refs["loginUse"].value.trim() + "&passWordUse_like="+this.refs["passwordUse"].value.trim();
+        let endPoint = "?name_like=user"+this.refs["name"].value.trim() + "&pass_like="+this.refs["pass"].value.trim();
         this.props.getUse(endPoint);
         // console.log(endPoint);
 
@@ -17,8 +17,8 @@ class LoginUses extends Component {
 
                         {/* Login Form */}
                         <form>
-                            <input type="text" id="login" className="fadeIn second" name="login" placeholder="login" ref="loginUse" />
-                            <input type="text" id="password" className="fadeIn third" name="login" placeholder="password" ref="passwordUse" />
+                            <input type="text" id="login" className="fadeIn second" name="login" placeholder="login" ref="name" />
+                            <input type="text" id="password" className="fadeIn third" name="login" placeholder="password" ref="pass" />
                             <br />
                             <button type="button" className="btn btn-info" onClick={this.submit}>Submit</button>
                         </form>
@@ -33,4 +33,4 @@ class LoginUses extends Component {
     }
 }
 
-export default LoginUses;
+export default names;
