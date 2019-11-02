@@ -213,7 +213,7 @@ export default PopoverWithActionListExample;
 //     }
 //     getdataFromServer = () => {
 //         let partnerSelect = this.props.partnerSelect; // props lấy từ  component (SelectPartnerAndDay)
-//         let partnerType = this.props.partnerType; // props lấy từ  component (SelectPartnerAndDay)
+//         let product = this.props.product; // props lấy từ  component (SelectPartnerAndDay)
 //         let dateFrom = null;
 //         let dateTo = null;
 //         if (this.props.date !== null) { // tính dateFrom và dateTo là số 121212121212121, lấy từ component (Home)
@@ -222,19 +222,19 @@ export default PopoverWithActionListExample;
 //         }
 //         let endPoint = null;
 
-//         if (partnerType !== null) {  // tính endPoint ứng với partnerSelect và date select
-//             endPoint = this.getEndPoint(partnerSelect, partnerType, dateFrom, dateTo);
+//         if (product !== null) {  // tính endPoint ứng với partnerSelect và date select
+//             endPoint = this.getEndPoint(partnerSelect, product, dateFrom, dateTo);
 //         }
-//         else if (partnerType === null) {
-//             endPoint = this.getEndPoint("allPartner", partnerType, dateFrom, dateTo);
+//         else if (product === null) {
+//             endPoint = this.getEndPoint("allPartner", product, dateFrom, dateTo);
 //         }
 //         this.props.getListByCustom(endPoint); // GET API
 //     }
-//     getEndPoint = (partnerSelect, partnerType, dateFrom, dateTo) => {
+//     getEndPoint = (partnerSelect, product, dateFrom, dateTo) => {
 //         let timeNow = new Date();
 //         let monthNow = timeNow.getMonth() + 1;
 //         let endPoint = null;
-//         partnerSelect = (partnerSelect !== "allPartner" && partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?namePartner=allPartner" + ((partnerType !== null) ? ("&Sumpartnertype=" + partnerType) : ""));
+//         partnerSelect = (partnerSelect !== "allPartner" && partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumproduct=" + product) : ("?namePartner=allPartner" + ((product !== null) ? ("&Sumproduct=" + product) : ""));
 
 //         if (dateFrom === null && dateTo === null) {
 //             endPoint = partnerSelect
@@ -277,7 +277,7 @@ export default PopoverWithActionListExample;
 //     render() {
 
 
-//         let listDay = (this.props.partnerType !== null) ? this.state.listDay.filter(param => { return param[0] === this.props.partnerType }) : this.state.listDay.filter(param => { return param[0] !== "id" });
+//         let listDay = (this.props.product !== null) ? this.state.listDay.filter(param => { return param[0] === this.props.product }) : this.state.listDay.filter(param => { return param[0] !== "id" });
 //         listDay = listDay.map(param => { return (new Date(param[1])) })
 //         // listDay =.map(param => param[1]).map(param => { return (new Date(param)) });
 

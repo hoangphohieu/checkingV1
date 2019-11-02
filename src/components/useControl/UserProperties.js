@@ -11,7 +11,6 @@ class UserProperties extends Component {
                   delete: false,
                   partner:  this.props.userProperties.partner,
                   router:  this.props.userProperties.router,
-                  product:[]
 
             }
       }
@@ -26,7 +25,7 @@ class UserProperties extends Component {
                   note: this.refs["note"].value,
                   code: this.refs["code"].value,
                   pass: this.refs["pass"].value,
-                  product: this.state.router
+                  // product: this.refs["product"].value
                   
             };
             console.log(obj);
@@ -38,6 +37,7 @@ class UserProperties extends Component {
 
             }
             else {
+                  // obj.product = obj.product.split(",").filter(param => param !== "");
                   obj.code = obj.code.split(",").filter(param => param !== "");
                   this.props.changeUserProperties(obj);
             }
@@ -72,7 +72,7 @@ class UserProperties extends Component {
                               <div className="col-12">
                                     <p className="checking-item-altribute"><span className="checking-item-title">User:</span><span>{item.name.substr(4)}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">PassWord:</span><span>{item.pass}</span></p>
-                                    <p className="checking-item-altribute"><span className="checking-item-title">Sản phẩm:</span><span>{item.product}</span></p>
+                                    <p className="checking-item-altribute"><span className="checking-item-title">Sản phẩm:</span><span>{item.product.join(",")}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Chứ Năng:</span><span>{(item.router === "R") ? "Đọc" : "Đọc, thêm, sửa, xóa"}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Phân quyền:</span><span>{item.partner.substr(4)}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">SDT:</span><span>{item.phone}</span></p>
@@ -103,6 +103,7 @@ class UserProperties extends Component {
                                                 <span className="checking-item-title">Mật khẩu:</span> <br />
                                                 <input type="text" className="form-control" placeholder="" ref="pass" defaultValue={item.pass} />
                                           </p>
+                                          
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">SDT:</span> <br />
                                                 <input type="text" className="form-control" placeholder="" ref="phone" defaultValue={item.phone} />

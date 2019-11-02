@@ -10,31 +10,32 @@
       "phone": "11111111"
     },
     {
-      "id": "userrr",
-      "router": "CRUD",
-      "partner": "userrr",
-      "phone": "000",
-      "name": "userrr",
-      "note": "rr",
-      "pass": "rr",
-      "dataType": "user",
-      "product": "CRUD",
-      "code": [
-        "aa"
-      ]
-    },
-    {
-      "id": "userqq",
+      "id": "useratuan",
       "router": "R",
-      "partner": "Userqq",
+      "partner": "Usernull",
       "phone": "000",
-      "name": "userqq",
-      "note": "",
-      "pass": "qq",
+      "name": "useratuan",
+      "note": "atuan",
+      "pass": "atuan",
       "dataType": "user",
       "product": [],
       "code": [
-        "ff"
+        "#TMT",
+        "#mj"
+      ]
+    },
+    {
+      "id": "userhm",
+      "router": "R",
+      "partner": "Usernull",
+      "phone": "000",
+      "name": "userhm",
+      "note": "",
+      "pass": "hm",
+      "dataType": "user",
+      "product": [],
+      "code": [
+        "#hm"
       ]
     }
   ]

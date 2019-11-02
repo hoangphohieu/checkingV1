@@ -6,7 +6,7 @@ class Home extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            partnerType: null,
+            product: null,
             date: {
                 from: undefined,
                 to: undefined
@@ -18,8 +18,8 @@ class Home extends Component {
         this.setState({ date: param })
 
     }
-    setPartnerType = (param) => {
-        this.setState({ partnerType: param })
+    setproduct = (param) => {
+        this.setState({ product: param })
     }
     render() {
 
@@ -29,11 +29,11 @@ class Home extends Component {
                     <div className="row">
                         <div className="col-4">
                             <p>select col-4</p>
-                            <SelectPartnerAndDay sentDayToProps={this.setDaySelect} date={this.state.date} partnerType={this.state.partnerType} setpartnerType={this.setPartnerType} {...this.props} />
+                            <SelectPartnerAndDay sentDayToProps={this.setDaySelect} date={this.state.date} product={this.state.product} setproduct={this.setproduct} {...this.props} />
                         </div>
                         <div className="col-8 d-flex-column align-item-center over-flow-control">
                             <p>Biểu đồ col-8</p>
-                            <AllChartsPartner date={this.state.date} partnerType={this.state.partnerType} {...this.props} />
+                            <AllChartsPartner date={this.state.date} product={this.state.product} {...this.props} />
                         </div>
 
                         <div className="col-12 mt-3">

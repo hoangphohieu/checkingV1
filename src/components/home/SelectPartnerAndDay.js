@@ -41,7 +41,7 @@ class SelectPartnerAndDay extends Component {
     CDU_setStateListDay = () => {
         if (this.props.items.type === "getListDayById") { // nếu type = getListDayById
 
-            if ((this.props.date.from === undefined && this.props.date.to === undefined) && this.props.partnerType === null) {  // khi chưa  select Date thì GET (getListByCustom) với endpoint với 7 ngày gần nhaatys ứng với (partnerSelect)
+            if ((this.props.date.from === undefined && this.props.date.to === undefined) && this.props.product === null) {  // khi chưa  select Date thì GET (getListByCustom) với endpoint với 7 ngày gần nhaatys ứng với (partnerSelect)
                 let UserProperties = JSON.parse(localStorage.UserProperties);
                 let endPoint;
                 let now = new Date();
@@ -63,7 +63,7 @@ class SelectPartnerAndDay extends Component {
                     dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
                     dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
                 }
-                let endPoint = this.getEndPoint(this.state.partnerSelect, this.props.partnerType, dateFrom, dateTo); // gọi hàm tạo endpoint ứng với date đã select
+                let endPoint = this.getEndPoint(this.state.partnerSelect, this.props.product, dateFrom, dateTo); // gọi hàm tạo endpoint ứng với date đã select
                 this.props.getListByCustom(endPoint); // GET (getListByCustom) với endpoint ở trên
             }
 
@@ -80,16 +80,16 @@ class SelectPartnerAndDay extends Component {
 
     }
 
-    getEndPoint = (partnerSelect, partnerType, dateFrom, dateTo) => {  // hàm để tạo endpoint
+    getEndPoint = (partnerSelect, product, dateFrom, dateTo) => {  // hàm để tạo endpoint
         let timeNow = new Date();
         let monthNow = timeNow.getMonth() + 1;
         let endPoint = null;
         let UserProperties = JSON.parse(localStorage.UserProperties)[1];
         if (UserProperties === "all") {
-            partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?namePartner=allPartner" + "&Sumpartnertype=" + partnerType);
+            partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumproduct=" + product) : ("?namePartner=allPartner" + "&Sumproduct=" + product);
         }
         else {
-            partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumpartnertype=" + partnerType) : ("?" + UserProperties.map(param => "namePartner=" + param[1]).join("&") + "&Sumpartnertype=" + partnerType);
+            partnerSelect = (partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumproduct=" + product) : ("?" + UserProperties.map(param => "namePartner=" + param[1]).join("&") + "&Sumproduct=" + product);
         }
         if (dateFrom === null && dateTo === null) { // khi chưa chọn gì , From và To = null thì  endpoint bằng 2 tháng gần nhất
             endPoint = partnerSelect
@@ -129,7 +129,7 @@ class SelectPartnerAndDay extends Component {
         }
         return endPoint;
     }
-    changePartnerType(param) {
+    changeproduct(param) {
         // console.log(param);
 
         let dateFrom = null;
@@ -138,8 +138,8 @@ class SelectPartnerAndDay extends Component {
             dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
             dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
         }
-        // this.setState({ partnerType: param });
-        this.props.setpartnerType(param);
+        // this.setState({ product: param });
+        this.props.setproduct(param);
         let endPoint = this.getEndPoint(null, param, dateFrom, dateTo);
         this.props.getListByCustom(endPoint);
         this.setState({ partnerSelect: null });
@@ -160,24 +160,24 @@ class SelectPartnerAndDay extends Component {
         console.log();
         // console.log(this.state.listDay);
 
-        let renderListPartner, renderlistPartnerType;
+        let renderListPartner, renderlistproduct;
         if (listPartner !== null) { // chuyển listPartner=[] thành các DOM <p/> để render ra màn hình
             listPartner = _.toPairs(listPartner[0]).filter(param => { return param[0] !== "id" }).map(param => param[1]);
-            let listPartnerType = _.uniq(listPartner.map(param => param[0]));
+            let listproduct = _.uniq(listPartner.map(param => param[0]));
 
-            let listPartnerTypeLS = JSON.parse(localStorage.UserProperties);
-            listPartnerTypeLS = listPartnerTypeLS[1];
-            if (listPartnerTypeLS !== "all") {
-                listPartnerTypeLS = listPartnerTypeLS.map(param => param[0]);
-                listPartnerType = _.uniq(listPartnerTypeLS);
+            let listproductLS = JSON.parse(localStorage.UserProperties);
+            listproductLS = listproductLS[1];
+            if (listproductLS !== "all") {
+                listproductLS = listproductLS.map(param => param[0]);
+                listproduct = _.uniq(listproductLS);
             }
-            renderlistPartnerType = listPartnerType.map((param, id) => {
-                return <button type="button" className={"btn btn-" + (this.props.partnerType === param ? "primary" : "info")} key={id} onClick={() => this.changePartnerType(param)}>{param}</button>
+            renderlistproduct = listproduct.map((param, id) => {
+                return <button type="button" className={"btn btn-" + (this.props.product === param ? "primary" : "info")} key={id} onClick={() => this.changeproduct(param)}>{param}</button>
             });
 
-            let listPartnerLS = listPartner.filter(param => { return param[0] === this.props.partnerType });
-            if (listPartnerTypeLS !== "all") {
-                listPartnerLS = JSON.parse(localStorage.UserProperties)[1].filter(param => { return param[0] === this.props.partnerType });
+            let listPartnerLS = listPartner.filter(param => { return param[0] === this.props.product });
+            if (listproductLS !== "all") {
+                listPartnerLS = JSON.parse(localStorage.UserProperties)[1].filter(param => { return param[0] === this.props.product });
 
             }
 
@@ -189,9 +189,9 @@ class SelectPartnerAndDay extends Component {
         return (
             <React.Fragment>
                 
-                {renderlistPartnerType}
+                {renderlistproduct}
                 {renderListPartner}
-                <SelectDate partnerSelect={this.state.partnerSelect} partnerType={this.props.partnerType} {...this.props} /> {/* component để select Date*/}
+                <SelectDate partnerSelect={this.state.partnerSelect} product={this.props.product} {...this.props} /> {/* component để select Date*/}
             </React.Fragment>
         );
     }

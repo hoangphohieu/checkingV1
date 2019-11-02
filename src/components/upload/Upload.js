@@ -1,3 +1,8 @@
+// thêm phần khi upload sẽ update thêm product
+// product đã thêm vào this.state.userchange 
+
+
+
 import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import _ from 'lodash';
@@ -13,7 +18,8 @@ class InputExcel extends Component {
             reRender: 0,
             firstPostListItemCount: 0,
             firstPatchListItemCount: 0,
-            partnerTypeAndName: []
+            user: [],
+            userChange: []
 
         }
     }
@@ -56,7 +62,7 @@ class InputExcel extends Component {
         return true;
     }
 
- 
+
     componentDidUpdate = () => {
         this.CDU_ItemsCountProperties(); // bộ đếm itemCount khi post xong
         this.CDU_checkRequest(); // kiểm tra và thực hiện hành động khi có request trả về
@@ -80,19 +86,19 @@ class InputExcel extends Component {
             console.log(ItemsExcelSuccess);
 
             // danh sach so partner
-            let listPartner = _.uniq(ItemsExcelSuccess.map(param => [param.partnertype + param.partner, [param.partnertype, param.partner]]));  // lọc số partner vaf lọc trùng;
+            let listPartner = _.uniq(ItemsExcelSuccess.map(param => [param.product + param.partner, [param.product, param.partner]]));  // lọc số partner vaf lọc trùng;
             listPartner = _.fromPairs(listPartner);
             listPartner = { ...listPartner, id: "listPartner" };
             listItemCountPatch.push(listPartner);
 
             // danh sach so ngay all partner
-            let listDay = _.uniq(ItemsExcelSuccess.map(param => [param.partnertype + param.day, [param.partnertype, param.day]]));  // lọc số partner vaf lọc trùng;
+            let listDay = _.uniq(ItemsExcelSuccess.map(param => [param.product + param.day, [param.product, param.day]]));  // lọc số partner vaf lọc trùng;
             listDay = _.fromPairs(listDay);
             listDay = { ...listDay, id: "listdaylistPartner" };
             listItemCountPatch.push(listDay);
 
             // danh sach  partner voi so ngay tuong ung
-            let listPartnerAndDay = ItemsExcelSuccess.map(param => { return [param.partnertype, param.day, param.partner] });
+            let listPartnerAndDay = ItemsExcelSuccess.map(param => { return [param.product, param.day, param.partner] });
             listPartnerAndDay = _.uniqWith(listPartnerAndDay, _.isEqual);
             let arrListPartner = _.toPairs(listPartner).filter(param => { return param[1] !== "listPartner" });
             let listPartnerAndDay2 = [];
@@ -115,16 +121,16 @@ class InputExcel extends Component {
                     let item2 = ItemsExcelSuccess.filter(param => { return param.partner === arrListPartner[i][1][1] });
                     item["Sumlineitemquantity"] = 0;
                     item["Sumbasecost"] = 0;
-                    item["Sumpartnertype"] = arrListPartner[i][1][0];
+                    item["Sumproduct"] = arrListPartner[i][1][0];
                     item["Sumus"] = 0;
                     item["Sumorder"] = [];
-                    if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
+                    if (ItemsExcelSuccess[0].product.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
                     let month = (new Date(PartnerAndDay[j][1])).getMonth() + 1;
                     let year = (new Date(PartnerAndDay[j][1])).getFullYear();
                     item["monthNumber"] = month;
                     item["yearNumber"] = year;
                     item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sumus = item.Sumus + param.lineitemquantity });
-                    if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
+                    if (ItemsExcelSuccess[0].product.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === PartnerAndDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
                     item2.filter(param => { return param.day === PartnerAndDay[j][1] }).forEach(param => {
                         item.Sumlineitemquantity = (item.Sumlineitemquantity + param.lineitemquantity);
                         item.Sumorder.push(param.name);
@@ -141,16 +147,16 @@ class InputExcel extends Component {
                 let item2 = ItemsExcelSuccess;
                 item["Sumlineitemquantity"] = 0;
                 item["Sumbasecost"] = 0;
-                item["Sumpartnertype"] = listDay[j][0];
+                item["Sumproduct"] = listDay[j][0];
                 item["Sumus"] = 0;
-                if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
+                if (ItemsExcelSuccess[0].product.trim().toLowerCase() === "phonecase") item["Sumluminous"] = 0;
                 item["Sumorder"] = [];
                 let month = (new Date(listDay[j][1])).getMonth() + 1;
                 let year = (new Date(listDay[j][1])).getFullYear();
                 item["monthNumber"] = month;
                 item["yearNumber"] = year;
                 item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.shippingcountry.trim().toLowerCase() === "us" }).forEach(param => { item.Sumus = item.Sumus + param.lineitemquantity });
-                if (ItemsExcelSuccess[0].partnertype.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
+                if (ItemsExcelSuccess[0].product.trim().toLowerCase() === "phonecase") item2.filter(param => { return param.day === listDay[j][1] }).filter(param => { return param.phonecasetype.trim().toLowerCase() === "luminous" }).forEach(param => { item.Sumluminous = item.Sumluminous + param.lineitemquantity });
                 item2.filter(param => { return param.day === listDay[j][1] }).forEach(param => {
                     item.Sumlineitemquantity = (item.Sumlineitemquantity + param.lineitemquantity);
                     item.Sumorder.push(param.name);
@@ -182,8 +188,8 @@ class InputExcel extends Component {
     }
     getListByIdSucsess = () => {
         let item = this.props.itemExcelReload.listItem;
-        item = _.toPairs(item[0]).filter(param => param[0] !== "id").map(param => param[1]);
-        this.setState({ partnerTypeAndName: item });
+        console.log(item);
+        this.setState({ user: item });
         this.props.propsImportExcelToDefault();
     }
     CDU_postListItemCount = () => {
@@ -346,6 +352,8 @@ class InputExcel extends Component {
 
         let dataObj = data.map(param => { return _.zipObject(data[0], param) });  // [{},{}...{}]
         dataObj.shift();
+        console.log(dataObj);
+
         dataObj.map(param => { // lọc day, shippingcountry , và id
             let dateConvert = ((param.day - 25569) * 24 * 60 * 60 * 1000);
             dateConvert = Date.parse(new Date(new Date(dateConvert).toDateString()));   // parse date sang number cho chinh xac  
@@ -356,13 +364,14 @@ class InputExcel extends Component {
             else { param.shippingcountry = "US" } // lọc và định dạnh lại shipping country
             let id = _.kebabCase(param.name).split("-").join("") + _.kebabCase(param.lineitemname).split("-").join("") + _.kebabCase(param.lineitemsku).split("-").join("");
             param["id"] = id;// tạo id
-            param["printStatus"] =false;// tạo printStatus
+            param["printStatus"] = false;// tạo printStatus
             param.name = param.name.trim();
-            param.partnertype = param.partnertype.trim().toLowerCase();
+            param.product = param.product.trim().toLowerCase();
             return param;
         });
         // console.log(dataObj);
-        this.checkDataFailImport(dataObj)
+        dataObj = this.checkDataFailImport([...dataObj])
+        // console.log(dataObj);
 
         // dua du lieu arr[] vao local storage
         localStorage.setItem("ItemsExcel", JSON.stringify(dataObj));
@@ -374,9 +383,15 @@ class InputExcel extends Component {
         let basecost = data.map(param => param.basecost);
         let lineitemquantity = data.map(param => param.lineitemquantity);
         let name = data.map(param => param.name);
-        let partnertype = data.map(param => param.partnertype);
+        let product = data.map(param => param.product);
         let phonecasetype = data.map(param => param.phonecasetype);
-        let partner = data.map(param => param.partner);
+
+
+        let user = this.state.user;
+
+
+
+
 
         day.forEach(param => {
             if (isNaN(param) !== false) { this.alertError("Có 'day' không đúng, bạn vui lòng xem lại :("); }
@@ -393,28 +408,8 @@ class InputExcel extends Component {
                 this.alertError("Có 'name' chứa ký tực đặc biệt   " + param.match(/[!@$%^&*(),.?":{}|<>]/g) + "     bạn vui lòng kiểm tra lại :(");
             }
         })
-        if (_.uniq(partnertype).length > 1) {
-            this.alertError("Mỗi bảng Excel chúng ta chỉ nên có duy nhất một 'partner Type', bạn vui lòng tách ra nhé :(  ");
-        }
-        else {
-            let partnerTypeState = this.state.partnerTypeAndName.map(param => param[0]);
-            partnerTypeState = _.uniq(partnerTypeState);
-            let differencePartnerType = _.difference(_.uniq(partnertype), partnerTypeState);
-            if (differencePartnerType.length > 0) {
-                alert("Có 'partnerType' mới: " + differencePartnerType);
-            }
-            else {
-                partner = _.uniq(partner);
-                console.log(this.state.partnerTypeAndName);
 
-                let partnerState = this.state.partnerTypeAndName.filter(param => param[0] == partnertype[0]).map(param => param[1]);
-                let differencePartner = _.difference(partner, partnerState);
-                if (differencePartner.length > 0) {
-                    alert("Có 'partner' mới: " + differencePartner);
-                }
-            }
-        }
-        if (_.uniq(partnertype)[0] === "phonecase") {
+        if (_.uniq(product)[0] === "phonecase") {
             phonecasetype.forEach(param => {
                 if (param !== "glass" && param !== "luminous") {
                     this.alertError("Có 'phonecasetype' không phải là glass hoặc không phải là luminous  , bạn vui lòng xem lại nhé :( ");
@@ -423,7 +418,56 @@ class InputExcel extends Component {
             })
         }
 
+        // check code 
+        data.map(param => {
+            let userTrue = user.filter(user1 => {
+                let userTrue2 = user1.code.filter(param2 => {
+                    return param.name.toLowerCase().startsWith(param2.toLowerCase());
+                })
+                if (userTrue2.length !== 0) { return true }
+                return false;
+            });
+            console.log(userTrue);
+            if (userTrue.length !== 0) { param["partner"] = userTrue[0].name; }
+            else { param["partner"] = null }
+            return param;
+        })
+        let ItemsNotParner = data.filter(param => param.partner === null).map(param => param.name);
+        if (ItemsNotParner.length !== 0) {
+            this.alertError("Có order chưa thêm code nhận diện đối tác: " + ItemsNotParner.join(","));
+        }
 
+        // end check code 
+
+
+        // check product
+        let dataproduct = data.map(param => { return { partner: param.partner, product: param.product } });
+        dataproduct = _.uniqWith(dataproduct, _.isEqual);
+        console.log(dataproduct);
+        // console.log(data);
+
+        dataproduct.map(param => {
+            let userTrue = user.filter(param2 => { return param2.name === param.partner });
+
+            console.log(userTrue);
+            let dff = _.difference([param.product], userTrue[0].product);
+            if (dff.length !== 0) {
+                alert("có product mới:" + dff);
+                userTrue = userTrue[0];
+                userTrue.product.push(param.product);
+                this.setState({ userChange: [...this.state.userChange,userTrue]});
+                console.log(userTrue);
+
+            }
+            // console.log(dff);
+
+        })
+
+
+
+        //  ed check product
+
+        return data;
 
     }
     alertError = (param) => {
@@ -465,6 +509,7 @@ class InputExcel extends Component {
     }
 
     render() {
+        console.log(this.state.userChange);
 
 
         let ItemsExcel = JSON.stringify(this.state.dataExcel);

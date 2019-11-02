@@ -46,7 +46,7 @@ export default class Example extends PureComponent {
         if (userProperties[1] !== "all") {
           userProperties = userProperties[1].map(param => param[0]);
           dataChart = dataChart.map(param => {
-            if (userProperties.some(param2 => param2 === param.Sumpartnertype)) { return param }
+            if (userProperties.some(param2 => param2 === param.Sumproduct)) { return param }
             else { return undefined }
           });
         }
@@ -277,7 +277,7 @@ export default class Example extends PureComponent {
     // console.log(this.props.items.listItem);
 
     if (this.props.items.type === "getListByCustom") { // nêu GET (getListByCustom), gọi hàm  nội bộ (Math_dataChartAll) dể tính và xuất ra  data của biểu đồ
-      if (this.props.partnerType === "phoneCase") {
+      if (this.props.product === "phoneCase") {
         dataChart = this.Math_dataChartPhoneCase(JSON.parse(JSON.stringify(this.props.items.listItem)), rangeDay);
         dataChart = dataChart.map(param => {
           let obj = {};
@@ -306,7 +306,7 @@ export default class Example extends PureComponent {
 
     let payload = [{ value: 'Số lượng', type: 'line' }];
     let writeChart = null;
-    if (this.props.partnerType === "phoneCase") {
+    if (this.props.product === "phoneCase") {
       writeChart = <BarChart
         width={(dataChart.length > 5) ? dataChart.length * 100 : 500}
         height={300}
