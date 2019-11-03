@@ -12,7 +12,7 @@ class UserCRUD extends Component {
 
     componentDidMount() {
         this.props.userGetListById("listPartner"); // lay sanh sach cac partner
-        this.props.getListUser("?dataType=user"); // laydanh sach cac user
+        this.props.getListUser("?datatype=user"); // laydanh sach cac user
     }
 
     componentDidUpdate() {
@@ -32,10 +32,10 @@ class UserCRUD extends Component {
 
     }
     deleteUserSucsess = () => {
-        this.props.getListUser("?dataType=user"); // laydanh sach cac user
+        this.props.getListUser("?datatype=user"); // laydanh sach cac user
     }
     createUserSucsess = () => {
-        this.props.getListUser("?dataType=user"); // laydanh sach cac user
+        this.props.getListUser("?datatype=user"); // laydanh sach cac user
     }
     createUserFail = () => {
         alert("Tài khoản đã tồn tại, hoặc kiểm tra lại đường truyền mạng!");
@@ -43,7 +43,7 @@ class UserCRUD extends Component {
 
     }
     changeUserPropertiesSucsess = () => {
-        this.props.getListUser("?dataType=user"); // laydanh sach cac user
+        this.props.getListUser("?datatype=user"); // laydanh sach cac user
     }
     getListPartnerSucsess = () => {
         let listPartner = this.props.itemsPayload.listItem;

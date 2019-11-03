@@ -104,6 +104,8 @@ class TrackingSearch extends Component {
     searchTracking = () => {
         let numberPerTrack = 40;
         let listOrder = [];
+        console.log(this.props.item.listItem);
+        
         this.props.items.listItem.forEach(param => { listOrder.push(param.Sumorder) });
         listOrder = _.flattenDeep(listOrder);
         let listOrderGet = [...listOrder];

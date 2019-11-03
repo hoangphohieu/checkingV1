@@ -72,6 +72,9 @@ export function postListTrackingCountAPI(payload) {                  // gọi l�
 export function getTrackingAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.GET_TRACKING_REQUEST, payload })    // payload:valueToGetAPI
 }
+export function getTrackingMore(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_TRACKING_MORE_REQUEST, payload })    // payload:valueToGetAPI
+}
 
 export function setStateStoreToDefault() {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.SET_STATE_STORE_TO_DEFAULT })    // payload:valueToGetAPI
@@ -111,4 +114,13 @@ export function deleteUser(payload) {                  // gọi lên itemSaga v�
 export function ExcelGetListPartner(payload) {                  // gọi lên itemSaga và itemsReducer 
     return ({ type: type.EXCEL_GET_LIST_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
 }
+
+
+export function getOrderByDay(payload) {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.GET_ORDER_BY_DAY_REQUEST, payload })    // payload:valueToGetAPI
+}
+export function StateStoreTrackingToDefault() {                  // gọi lên itemSaga và itemsReducer 
+    return ({ type: type.STATE_STORE_TRACKING_TO_DEFAULT  })    // payload:valueToGetAPI
+}
+
 
