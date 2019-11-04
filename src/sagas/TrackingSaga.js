@@ -1,20 +1,21 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import getTrackingAPI from './../fetchAPI/GetTrackingAPI';
+import getListByCustomAPI from '../fetchAPI/getByCustomAPI';
+import GetTrackingAPI from './../fetchAPI/GetTrackingAPI';
 import * as type from './../constants';
 
 
 
 
-function* getTracking(param) {     // lấy total page
+function* getOrderByDay(param) {     // lấy total page
       try {
-            let res1 = yield getTrackingAPI(param.payload); //gọi API
+            let res1 = yield getListByCustomAPI(param.payload); //gọi API
             yield put({
-                  type: type.GET_TRACKING_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+                  type: type.GET_ORDER_BY_DAY_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
             })
       } catch (error) {
             yield put({
-                  type: type.GET_TRACKING_RFAILURE, // trigger itemsReducer
+                  type: type.GET_RFAILURE, // trigger itemsReducer
                   payload: {
                         errorMessage: error
                   }
@@ -23,26 +24,31 @@ function* getTracking(param) {     // lấy total page
 }
 
 
-function* getOneTracking(param) {     // lấy total page
+function* getTrackingMore(param) {     // lấy total page
       try {
-            let res1 = yield getTrackingAPI(param.payload); //gọi API
+            let res1 = yield GetTrackingAPI(param.payload); //gọi API
             yield put({
-                  type: type.GET_ONE_TRACKING_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
+                  type: type.GET_TRACKING_MORE_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
             })
       } catch (error) {
             yield put({
-                  type: type.GET_ONE_TRACKING_RFAILURE, // trigger itemsReducer
+                  type: type.GET_RFAILURE, // trigger itemsReducer
                   payload: {
                         errorMessage: error
                   }
             })
       }
 }
+
+
+
 
 export const TrackingSaga = [
-      takeEvery(type.GET_TRACKING_REQUEST, getTracking),
-      takeEvery(type.GET_ONE_TRACKING_REQUEST, getOneTracking),
+      takeEvery(type.GET_ORDER_BY_DAY_REQUEST, getOrderByDay),
+      takeEvery(type.GET_TRACKING_MORE_REQUEST, getTrackingMore),
+      
+
 
 
 

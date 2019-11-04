@@ -1,12 +1,10 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import getListByIdAPI from './../fetchAPI/GetListByIdAPI';
-import getListDayByIdAPI from './../fetchAPI/GetListDayByIdAPI';
-import getListByCustomAPI from './../fetchAPI/getListByCustomAPI';
+import getByCustomAPI from './../fetchAPI/getByCustomAPI';
 import * as type from './../constants';
 
 function* getListById(param) {     // lấy total page
       try {
-            let res1 = yield getListByIdAPI(param.payload); //gọi API
+            let res1 = yield getByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.GET_LIST_BY_ID_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
@@ -23,7 +21,7 @@ function* getListById(param) {     // lấy total page
 
 function* getListDayById(param) {     // lấy total page
       try {
-            let res1 = yield getListByCustomAPI(param.payload); //gọi API
+            let res1 = yield getByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.GET_LIST_DAY_BY_ID_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
@@ -41,7 +39,7 @@ function* getListDayById(param) {     // lấy total page
 
 function* getListByCustom(param) {     // lấy total page
       try {
-            let res1 = yield getListByCustomAPI(param.payload); //gọi API
+            let res1 = yield getByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.GET_LIST_BY_CUSTOM_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1

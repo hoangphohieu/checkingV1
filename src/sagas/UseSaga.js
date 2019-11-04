@@ -1,16 +1,15 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import getListByIdAPI from './../fetchAPI/GetListByIdAPI';
-import getListByCustomAPI from './../fetchAPI/getListByCustomAPI';
-import PatchListItemCountAPI from './../fetchAPI/PatchListItemCountAPI';
-import PostListItemCountAPI from './../fetchAPI/PostListItemCountAPI';
-import DeleteItemCheckingAPI from './../fetchAPI/DeleteItemCheckingAPI';
+import getByCustomAPI from './../fetchAPI/getByCustomAPI';
+import PutItemAPI from './../fetchAPI/PutItemAPI';
+import PostItemAPI from './../fetchAPI/PostItemAPI';
+import DeleteItemAPI from '../fetchAPI/DeleteItemAPI';
 
 
 import * as type from './../constants';
 
 function* getUseInfo(param) {     // lấy total page      
       try {
-            let res1 = yield getListByCustomAPI(param.payload); //gọi API
+            let res1 = yield getByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.GET_USE_INFO_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
@@ -27,7 +26,7 @@ function* getUseInfo(param) {     // lấy total page
 
 function* getListUser(param) {     // lấy total page      
       try {
-            let res1 = yield getListByCustomAPI(param.payload); //gọi API
+            let res1 = yield getByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.GET_LIST_USER_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
@@ -44,7 +43,7 @@ function* getListUser(param) {     // lấy total page
 
 function* userGetListById(param) {     // lấy total page      
       try {
-            let res1 = yield getListByIdAPI(param.payload); //gọi API
+            let res1 = yield getByCustomAPI(param.payload); //gọi API
             yield put({
                   type: type.USER_GET_LIST_BY_ID_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
@@ -62,7 +61,7 @@ function* userGetListById(param) {     // lấy total page
 
 function* changeUserProperties(param) {     // lấy total page      
       try {
-            let res1 = yield PatchListItemCountAPI(param.payload); //gọi API
+            let res1 = yield PutItemAPI(param.payload); //gọi API
             yield put({
                   type: type.CHANGE_USE_PROPERTIES_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
@@ -80,7 +79,7 @@ function* changeUserProperties(param) {     // lấy total page
 
 function* createUser(param) {     // lấy total page      
       try {
-            let res1 = yield PostListItemCountAPI(param.payload); //gọi API
+            let res1 = yield PostItemAPI(param.payload); //gọi API
             yield put({
                   type: type.CREATE_USER_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1
@@ -97,7 +96,7 @@ function* createUser(param) {     // lấy total page
 
 function* deleteUser(param) {     // lấy total page      
       try {
-            let res1 = yield DeleteItemCheckingAPI(param.payload); //gọi API
+            let res1 = yield DeleteItemAPI(param.payload); //gọi API
             yield put({
                   type: type.DELETE_USER_SUCSESS, // trigger valueToGetAPIReducer , tính lại total Page
                   payload: res1

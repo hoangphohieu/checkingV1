@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SelectPartnerAndDay from './SelectPartnerAndDay';
 import AllChartsPartner from './AllChartsPartner';
-import TrackingSearchContainer from './../../containers/TrackingSearchContainer';
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
@@ -35,11 +34,6 @@ class Home extends Component {
                             <p>Biểu đồ col-8</p>
                             <AllChartsPartner date={this.state.date} product={this.state.product} {...this.props} />
                         </div>
-
-                        <div className="col-12 mt-3">
-                            <TrackingSearchContainer {...this.props} />
-                        </div>
-
                     </div>
                 </div>
             </div>

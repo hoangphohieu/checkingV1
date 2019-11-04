@@ -3,12 +3,11 @@
 import { all } from 'redux-saga/effects';
 import { CheckingSaga } from './CheckingSaga';
 import { PartnerSaga } from './PartnerSaga';
-import { ExcelSaga } from './ExcelSaga';
+import { UploadSaga } from './UploadSaga';
 import { TrackingSaga } from './TrackingSaga';
-import { TrackingMoreSaga } from './TrackingMoreSaga';
 import { UseSaga } from './UseSaga';
 
 function* rootsaga() {
-    yield all([...CheckingSaga, ...PartnerSaga, ...ExcelSaga, ...TrackingSaga, ...UseSaga, ...TrackingMoreSaga])
+    yield all([...CheckingSaga, ...PartnerSaga, ...UploadSaga, ...TrackingSaga, ...UseSaga])
 }
 export default rootsaga;

@@ -37,10 +37,10 @@ class TrackingSearch extends Component {
             let day = Date.parse(new Date().toDateString());
             let user = JSON.parse(localStorage.UserProperties);
             if (user[1] === "all") {
-                  this.props.getOrderByDay("?namePartner=allPartner" & "dayNumber=" + day);
+                  this.props.getOrderByDay("?namePartner=allPartner" + "&dayNumber=" + day);  // sửa API theo server mới
             }
             else {
-                  this.props.getOrderByDay("?namePartner=" + user[1] + "&dayNumber=" + day);
+                  this.props.getOrderByDay("?namePartner=" + user[1] + "&dayNumber=" + day);// sửa API theo server mới 
             }
 
       }
@@ -60,6 +60,8 @@ class TrackingSearch extends Component {
       }
       getOrderByDaySucsess = () => {
             if (this.props.itemsPayload.listItem.length !== 0) {
+                  console.log(this.props.itemsPayload);
+
                   this.setState({ listOrder: this.props.itemsPayload.listItem[0].Sumorder });
                   this.props.StateStoreTrackingToDefault();
             }
@@ -118,6 +120,7 @@ class TrackingSearch extends Component {
       }
       searchTracking = () => {
             let numberPerTrack = 40;
+            console.log(this.state.listOrder);
 
             let listOrderGet = [...this.state.listOrder];
             localStorage.setItem("listNameForTracking", JSON.stringify(_.chunk(listOrderGet, numberPerTrack)));
@@ -137,17 +140,12 @@ class TrackingSearch extends Component {
             console.log(this.props.itemsPayload);
             // console.log(this.state);
             // console.log(JSON.parse(localStorage.listNameTrackingSuccess));
-            let renderTracking = "";
-            if (JSON.parse(localStorage.listNameTrackingSuccess).length !== 0)
-                  renderTracking = <RenderTrackingProperties />;
-
 
             // console.log(listOrder);
 
             return (<React.Fragment>
                   <div className="relative">
                         <button type="button" className="btn btn-info " onClick={this.searchTracking}>Search Tracking</button>
-                        {renderTracking}
                   </div>
 
             </React.Fragment>

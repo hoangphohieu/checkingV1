@@ -50,10 +50,10 @@ class UserProperties extends Component {
             this.props.deleteUser(param);
       }
       setrouter = (e) => {
-            this.setState({ router: e.target.value })
+            this.setState({ router: e.target.value });
       }
       setPartner=(e)=>{
-            this.setState({partner: e.target.value})
+            this.setState({partner: e.target.value});
       }
       handleClose = () => { this.setState({ change: false }) };
       handleShow = () => { this.setState({ change: true }) };

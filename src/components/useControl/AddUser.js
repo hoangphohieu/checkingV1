@@ -26,7 +26,7 @@ class UserProperties extends Component {
                   name: "user" + this.state.name,
                   note: this.refs["note"].value,
                   pass: this.refs["pass"].value.trim(),
-                  dataType: "user",
+                  datatype: "user",
                   product:[],
                   code: this.refs["code"].value.trim(),
      

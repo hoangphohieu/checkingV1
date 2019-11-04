@@ -1,126 +1,126 @@
 import * as type from './../constants';
 
-export function getCheckingAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_CHECKING_REQUEST, payload })    // payload:valueToGetAPI
+export function getCheckingAPI(payload) {
+    return ({ type: type.GET_CHECKING_REQUEST, payload })
 }
 
-export function postItemAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.POST_ITEM_EXCEL_REQUEST, payload })    // payload:valueToGetAPI
+export function postItemAPI(payload) {
+    return ({ type: type.POST_ITEM_EXCEL_REQUEST, payload })
 }
 
-export function patchItemsExcelFailAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.PATCH_ITEM_EXCEL_FAIL_REQUEST, payload })    // payload:valueToGetAPI
+export function patchItemsExcelFailAPI(payload) {
+    return ({ type: type.PATCH_ITEM_EXCEL_FAIL_REQUEST, payload })
 }
 
-export function changePrintStatusAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.CHANGE_PRINT_STATUS_REQUEST, payload })    // payload:valueToGetAPI
+export function changePrintStatusAPI(payload) {
+    return ({ type: type.CHANGE_PRINT_STATUS_REQUEST, payload })
 }
 
-export function patchItemCheckingProperties(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.PATCH_ITEM_CHECKING_PROPERTIES_REQUEST, payload })    // payload:valueToGetAPI
+export function patchItemCheckingProperties(payload) {
+    return ({ type: type.PATCH_ITEM_CHECKING_PROPERTIES_REQUEST, payload })
 }
 
-export function deleteItemChecking(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.DELETE_ITEM_CHECKING_REQUEST, payload })    // payload:valueToGetAPI
+export function deleteItemChecking(payload) {
+    return ({ type: type.DELETE_ITEM_CHECKING_REQUEST, payload })
 }
 
-export function itemsPrintFalse(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.ITEMS_PRINT_FALSE_REQUEST, payload })    // payload:valueToGetAPI
+export function itemsPrintFalse(payload) {
+    return ({ type: type.ITEMS_PRINT_FALSE_REQUEST, payload })
 }
 
-export function getListById(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_LIST_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
+export function getListById(payload) {
+    return ({ type: type.GET_LIST_BY_ID_REQUEST, payload })
 }
 
-export function getListDayById(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_LIST_DAY_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
+export function getListDayById(payload) {
+    return ({ type: type.GET_LIST_DAY_BY_ID_REQUEST, payload })
 }
 
 export function stateImportExcelToDefault() {
-    // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.STATE_POST_TO_DEFAULT })    // payload:valueToGetAPI
+
+    return ({ type: type.STATE_POST_TO_DEFAULT })
 }
-export function getListByCustom(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_LIST_BY_CUSTOM_REQUEST, payload })    // payload:valueToGetAPI
+export function getListByCustom(payload) {
+    return ({ type: type.GET_LIST_BY_CUSTOM_REQUEST, payload })
 }
 
-export function postListItemCountAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.POST_LIST_ITEM_COUNT_REQUEST, payload })    // payload:valueToGetAPI
+export function postListItemCountAPI(payload) {
+    return ({ type: type.POST_LIST_ITEM_COUNT_REQUEST, payload })
 }
 
-export function patchListItemCountAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.PATCH_LIST_ITEM_COUNT_REQUEST, payload })    // payload:valueToGetAPI
+export function patchListItemCountAPI(payload) {
+    return ({ type: type.PATCH_LIST_ITEM_COUNT_REQUEST, payload })
 }
 
-export function postListItemCountPatchFailAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.POST_LIST_ITEM_COUNT_PATCH_FAIL_REQUEST, payload })    // payload:valueToGetAPI
+export function postListItemCountPatchFailAPI(payload) {
+    return ({ type: type.POST_LIST_ITEM_COUNT_PATCH_FAIL_REQUEST, payload })
 }
-export function getLastItemOflistItemCountPatch(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_REQUEST, payload })    // payload:valueToGetAPI
-}
-
-export function patchItemItemAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.PATCH_ITEM_TRACKING_CONTROL_REQUEST, payload })    // payload:valueToGetAPI
-}
-export function getItemTrackingFailAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_ITEM_TRACKING_FAIL_REQUEST, payload })    // payload:valueToGetAPI
+export function getLastItemOflistItemCountPatch(payload) {
+    return ({ type: type.GET_LAST_ITEM_OF_LIST_ITEM_COUNT_REQUEST, payload })
 }
 
-export function postListTrackingCountAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.POST_LIST_TRACKING_COUNT_REQUEST, payload })    // payload:valueToGetAPI
+export function patchItemItemAPI(payload) {
+    return ({ type: type.PATCH_ITEM_TRACKING_CONTROL_REQUEST, payload })
 }
-export function getTrackingAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_TRACKING_REQUEST, payload })    // payload:valueToGetAPI
-}
-export function getTrackingMore(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_TRACKING_MORE_REQUEST, payload })    // payload:valueToGetAPI
+export function getItemTrackingFailAPI(payload) {
+    return ({ type: type.GET_ITEM_TRACKING_FAIL_REQUEST, payload })
 }
 
-export function setStateStoreToDefault() {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.SET_STATE_STORE_TO_DEFAULT })    // payload:valueToGetAPI
+export function postListTrackingCountAPI(payload) {
+    return ({ type: type.POST_LIST_TRACKING_COUNT_REQUEST, payload })
+}
+export function getTrackingAPI(payload) {
+    return ({ type: type.GET_TRACKING_REQUEST, payload })
+}
+export function getTrackingMore(payload) {
+    return ({ type: type.GET_TRACKING_MORE_REQUEST, payload })
 }
 
-export function SearchOneTrackingAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_ONE_TRACKING_REQUEST, payload })    // payload:valueToGetAPI
+export function setStateStoreToDefault() {
+    return ({ type: type.SET_STATE_STORE_TO_DEFAULT })
 }
 
-export function getUseAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_USE_INFO_REQUEST, payload })    // payload:valueToGetAPI
+export function SearchOneTrackingAPI(payload) {
+    return ({ type: type.GET_ONE_TRACKING_REQUEST, payload })
 }
 
-export function setStateUserToDefault(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.STATE_USER_TO_DEFAULT, payload })    // payload:valueToGetAPI
+export function getUseAPI(payload) {
+    return ({ type: type.GET_USE_INFO_REQUEST, payload })
 }
 
-export function getListUserAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_LIST_USER_REQUEST, payload })    // payload:valueToGetAPI
+export function setStateUserToDefault(payload) {
+    return ({ type: type.STATE_USER_TO_DEFAULT, payload })
 }
 
-export function userGetListById(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.USER_GET_LIST_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
+export function getListUserAPI(payload) {
+    return ({ type: type.GET_LIST_USER_REQUEST, payload })
 }
 
-export function changeUserPropertiesAPI(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.CHANGE_USE_PROPERTIES_REQUEST, payload })    // payload:valueToGetAPI
+export function userGetListById(payload) {
+    return ({ type: type.USER_GET_LIST_BY_ID_REQUEST, payload })
 }
 
-export function createUser(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.CREATE_USER_REQUEST, payload })    // payload:valueToGetAPI
+export function changeUserPropertiesAPI(payload) {
+    return ({ type: type.CHANGE_USE_PROPERTIES_REQUEST, payload })
 }
 
-export function deleteUser(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.DELETE_USER_REQUEST, payload })    // payload:valueToGetAPI
+export function createUser(payload) {
+    return ({ type: type.CREATE_USER_REQUEST, payload })
 }
-export function ExcelGetListPartner(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.EXCEL_GET_LIST_BY_ID_REQUEST, payload })    // payload:valueToGetAPI
+
+export function deleteUser(payload) {
+    return ({ type: type.DELETE_USER_REQUEST, payload })
+}
+export function ExcelGetListPartner(payload) {
+    return ({ type: type.EXCEL_GET_LIST_BY_ID_REQUEST, payload })
 }
 
 
-export function getOrderByDay(payload) {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.GET_ORDER_BY_DAY_REQUEST, payload })    // payload:valueToGetAPI
+export function getOrderByDay(payload) {
+    return ({ type: type.GET_ORDER_BY_DAY_REQUEST, payload })
 }
-export function StateStoreTrackingToDefault() {                  // gọi lên itemSaga và itemsReducer 
-    return ({ type: type.STATE_STORE_TRACKING_TO_DEFAULT  })    // payload:valueToGetAPI
+export function StateStoreTrackingToDefault() {
+    return ({ type: type.STATE_STORE_TRACKING_TO_DEFAULT })
 }
 
 

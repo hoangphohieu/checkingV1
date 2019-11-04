@@ -18,17 +18,7 @@ export default (state = DEFAULT_STATE, action) => {
                         isFetching: false,
                         dataFetched: true,
                         error: false,
-                        type: "getListById",
-                        errorMessesage: null,
-                        listItem: action.payload
-                  }
-            case type.GET_LIST_DAY_BY_ID_SUCSESS:
-                  return {
-                        ...state,
-                        isFetching: false,
-                        dataFetched: true,
-                        error: false,
-                        type: "getListDayById",
+                        type: "",
                         errorMessesage: null,
                         listItem: action.payload
                   }
