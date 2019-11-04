@@ -3,7 +3,7 @@ export default function callAPi(param) {
 
     return new Promise((resolve, reject) => {
         let url = type.FETCH_URL_ITEMS + param;
-console.log(url);
+        console.log("Get",url);
 
         fetch(url, { method: "GET" })
             .then(response => response.json())

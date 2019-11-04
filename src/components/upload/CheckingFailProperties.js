@@ -11,15 +11,7 @@ class CheckingProperties extends Component {
       }
 
       postItemsExcelFail = (param, id) => {
-            console.log(param, id);
-            if (param.id.slice(0, 7) === "listday" || param.id === "listPartner") {
-                  this.props.patchItemsExcelCountFail(param, id);
-            }
-            else {
                   this.props.postItemsExcelFail(param, id);
-            }
-
-
       }
       saveChange = (param, id) => {
             this.setState({ change: false });
@@ -53,13 +45,13 @@ class CheckingProperties extends Component {
             const uuidv1 = require('uuid/v1');
             let id = uuidv1();
 
-            let item = { ...this.props.proppertiesitem };
+            let item = JSON.parse(this.props.proppertiesitem) ;
             if (item.day !== undefined) {
                   item.day = (new Date(item.day)).toLocaleDateString();
                   item.id = id;
             }
 
-            let itemObj = { ...this.props.proppertiesitem };
+            let itemObj = JSON.parse(this.props.proppertiesitem);
             if (itemObj.day !== undefined) {
                   itemObj.id = id;
             }

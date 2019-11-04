@@ -16,15 +16,6 @@ class SelectPartnerAndDay extends Component {
         this.props.getListById("listPartner"); // lấy danh sách các tên đối tác
 
         let UserProperties = JSON.parse(localStorage.UserProperties);
-        // if (UserProperties[1] === "all") { this.props.getListDayById("?id=listdaylistPartner"); } // lấy danh sách các ngày của tổng  các Partner (listPartner) 
-        // else {
-        //     let name = UserProperties[1].map(param => param[1]);
-        //     let endPoint = name.map(param => { let str = "id=listday" + param; return str });
-        //     this.props.getListDayById("?" + endPoint.join("&"));
-        // }
-
-
-
     }
 
     componentDidUpdate() {

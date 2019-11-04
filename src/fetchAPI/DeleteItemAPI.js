@@ -1,10 +1,10 @@
 import * as type from "./../constants";
 
 export default function deleteItemProperties(param) {  
-    return new Promise((resolve, reject) => {
-        console.log(param);
-        
+    return new Promise((resolve, reject) => {        
         let url =type.FETCH_URL_ITEMS+"/" +param.id;
+        console.log("Delete",url);
+
        fetch(url, {
            method: "DELETE"
        })

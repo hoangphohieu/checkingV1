@@ -1,6 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import getByCustomAPI from './../fetchAPI/getByCustomAPI';
-import * as type from './../constants';
+import getByCustomAPI from '../fetchAPI/getByCustomAPI';
+import * as type from '../constants';
 
 function* getListById(param) {     // lấy total page
       try {
@@ -54,7 +54,7 @@ function* getListByCustom(param) {     // lấy total page
       }
 }
 
-export const PartnerSaga = [
+export const HomeSaga = [
       takeEvery(type.GET_LIST_BY_ID_REQUEST, getListById),
       takeEvery(type.GET_LIST_DAY_BY_ID_REQUEST, getListDayById),
       takeEvery(type.GET_LIST_BY_CUSTOM_REQUEST, getListByCustom),

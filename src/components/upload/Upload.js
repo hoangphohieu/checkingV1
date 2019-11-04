@@ -14,7 +14,6 @@ class InputExcel extends Component {
         this.state = {
             items: null,
             dataExcel: null,
-            changeItemsExcelFail: 0,
             reRender: 0,
             user: [],
             userChange: []
@@ -25,15 +24,12 @@ class InputExcel extends Component {
         if (JSON.parse(localStorage.getItem("ItemsExcelFail")) === null) {
             localStorage.setItem("ItemsExcelFail", JSON.stringify([]));
         }
-        if (JSON.parse(localStorage.getItem("ItemsExcelSuccess")) === null) {
-            localStorage.setItem("ItemsExcelSuccess", JSON.stringify([]));
-        }
-
         if (JSON.parse(localStorage.getItem("ItemsExcel")) === null) {
             localStorage.setItem("ItemsExcel", JSON.stringify([]));
         }
+        localStorage.setItem("numberSucsess", JSON.stringify(0));
 
-        this.props.ExcelGetListPartner("?dataType=user"); // lay sanh sach cac partner
+        this.props.ExcelGetListPartner("?datatype=user"); // lay sanh sach cac partner
 
     }
     componentDidMount() {
@@ -46,9 +42,25 @@ class InputExcel extends Component {
     componentDidUpdate = () => {
         this.CDU_checkRequest(); // kiểm tra và thực hiện hành động khi có request trả về
         this.CDU_reRenderWhenItemsExcelZero(); // rerender khi post het list items from excel
+        if (this.props.itemExcelReload.type === "STATE_POST_TO_DEFAULT" || this.props.itemExcelReload.type === null) { this.CDU_putUser() };
+
 
     }
+    CDU_putUser = () => {
+        console.log("CDU_putUser............................");
+        console.log(localStorage.ItemsExcel, localStorage.ItemsExcelFail);
 
+        if (JSON.parse(localStorage.ItemsExcel).length === 0 && JSON.parse(localStorage.ItemsExcelFail).length === 0) {
+  
+
+            let userChange = this.state.userChange;
+            console.log(userChange);
+
+            if (userChange.length > 0) {
+                this.props.putUser(userChange[userChange.length - 1]);
+            }
+        }
+    }
 
 
     CDU_checkRequest() {
@@ -56,75 +68,56 @@ class InputExcel extends Component {
         if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_SUCSESS") { this.doingWhenPostItemSucsess() }
         else if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_RFAILURE") { this.doingWhenPostItemFail() }
         else if (this.props.itemExcelReload.type === "EXCEL_GET_LIST_BY_ID_SUCSESS") { this.getListByIdSucsess() }
+        else if (this.props.itemExcelReload.type === "GET_RFAILURE") { this.getRfailure() }
+        else if (this.props.itemExcelReload.type === "PUT_USER_SUCSESS") { this.putUserSucsess() }
+        else if (this.props.itemExcelReload.type === "PUT_USER_RFAILURE") { this.putUserFail() }
         else if (this.props.itemExcelReload.type === "STATE_POST_TO_DEFAULT") { }
     }
+    putUserSucsess = () => {
+        let userChange = [...this.state.userChange];
+        if (userChange.length > 0) {
+            userChange.pop();
+            if (userChange.length > 0) {
+                this.props.putUser(userChange[userChange.length - 1]);
+            }
+            this.setState({ userChange: userChange })
+        }
+    }
+    putUserFail = () => {
+        alert("vui lòng kiểm tra đường truyền !");
+    }
+
+
+
+
     getListByIdSucsess = () => {
         let item = this.props.itemExcelReload.listItem;
-        console.log(item);
         this.setState({ user: item });
         this.props.propsImportExcelToDefault();
     }
 
-
+    getRfailure = () => {
+        alert("GET fail")
+    }
     CDU_reRenderWhenItemsExcelZero() {
 
 
         let payload = this.props.itemExcelReload;
-        if ((payload.dataFetched === true || payload.error === true) && (JSON.parse(localStorage.getItem("ItemsExcel")).length === 0)) {
-            console.log(this.state.dataExcel);
-            if (this.state.dataExcel !== null) { this.setState({ dataExcel: null }); };
+        if ((payload.type === "POST_ITEM_EXCEL_SUCSESS" || payload.type === "POST_ITEM_EXCEL_RFAILURE") && (JSON.parse(localStorage.getItem("ItemsExcel")).length === 0)) {
+            this.setState({ dataExcel: null });
+            this.props.propsImportExcelToDefault();
+
         }
     }
-
-    // postAndPatchItemExcelCountPatch(listItemCount) {
-    //     let item = this.props.itemExcelReload.listItem;
-    //     if (item.length === 0) {
-    //         this.props.postListItemCountPatchFail(listItemCount[listItemCount.length - 1]);
-    //     }
-    //     else if (item.length > 0) {
-    //         this.props.patchListItemCount(listItemCount[listItemCount.length - 1]);
-    //     }
-
-    // }
-    // getLastItemOfListItemCountFail() {
-    //     alert("Kiểm tra đường truyền mạng và F5 lại trang !! (1) ");
-    // }
-
-    // doingWhenPatchListItemCountSucsess = (listItemCount) => {// doingWhenPatchListItemCountSucsess
-    //     let item = this.props.itemExcelReload.listItem;
-    //     item = _.toPairs(item);
-    //     if (item.length > 0) {
-    //         if (listItemCount.length > 0) {
-    //             listItemCount.pop();
-    //             localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
-    //             if (listItemCount.length > 0) { this.props.getLastItemOflistItemCountPatch(listItemCount[listItemCount.length - 1]); }
-    //         }
-    //     }
-    //     else {// doingWhenPatchListItemCountFail
-    //         alert("Kiểm tra đường truyền mạng và F5 lại trang !! (2) ");
-    //     }
-    // }
-    // doingWhenPostListItemCountPatchFailSucsess(listItemCount) {
-    //     if (listItemCount.length > 0) {
-    //         listItemCount.pop();
-    //         localStorage.setItem("listItemCountPatch", JSON.stringify(listItemCount));
-    //         if (listItemCount.length > 0) { this.props.getLastItemOflistItemCountPatch(listItemCount[listItemCount.length - 1]); }
-    //     }
-    // }
-    // doingWhenPostListItemCountPatchFailFail() {
-    //     alert("Kiểm tra đường truyền mạng và F5 lại trang !! (3) ");
-    // }
-
-
-
 
     doingWhenPostItemSucsess = () => { //TRUE: ItemsExcel -1 và ItemsExcelSuccess+1, sau đó post ItemsExcel, vòng lặp đến khi nào ItemsExcel=0
         let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
         if (ItemsExcel.length > 0) {
-            localStorage.setItem("ItemsExcelSuccess", JSON.stringify([...JSON.parse(localStorage.getItem("ItemsExcelSuccess")), ItemsExcel[ItemsExcel.length - 1]]));
             ItemsExcel.pop();
             localStorage.setItem("ItemsExcel", JSON.stringify(ItemsExcel));
             this.postToServer(JSON.parse(localStorage.getItem("ItemsExcel")));
+
+            localStorage.numberSucsess = JSON.stringify(JSON.parse(localStorage.numberSucsess) + 1);
         }
     }
     doingWhenPostItemFail = () => { // FAIL: ItemsExcel-1  và ItemsExcelFail +1; sau đó post ItemsExcel, vòng lặp đến khi nào ItemsExcel=0
@@ -140,24 +133,30 @@ class InputExcel extends Component {
     }
     postToServer = (ItemsExcel) => {
         if (ItemsExcel.length > 0) {
-            this.props.postItem(ItemsExcel[ItemsExcel.length - 1]);
+            let itemPost = ItemsExcel[ItemsExcel.length - 1];
+            itemPost = _.mapValues(itemPost, function (o) { return String(o) });
+            this.props.postItem(itemPost);
 
         }
     }
+    clickPostToServer = (ItemsExcel) => {
+        this.postToServer(ItemsExcel);
+        localStorage.numberSucsess = JSON.stringify(0);
 
+    }
 
     changeItemsExcelFail = (param, id) => {
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
         ItemsExcelFail[id] = param;
         localStorage.setItem("ItemsExcelFail", JSON.stringify(ItemsExcelFail)); // luu itemFail vao storage
-        this.setState({ changeItemsExcelFail: Math.random() })
+        this.setState({ reRender: Math.random() })
     }
     postItemsExcelFail = (param, id) => {
         this.deleteItemsExcelFail(id);
         let ItemsExcel = JSON.parse(localStorage.getItem("ItemsExcel"));
         ItemsExcel.push(param);
         localStorage.setItem("ItemsExcel", JSON.stringify(ItemsExcel));
-        this.props.postItem(param);
+        this.postToServer(ItemsExcel);
     }
     deleteItemsExcelFail = (id) => {
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
@@ -185,8 +184,6 @@ class InputExcel extends Component {
 
         let dataObj = data.map(param => { return _.zipObject(data[0], param) });  // [{},{}...{}]
         dataObj.shift();
-        console.log(dataObj);
-
         dataObj.map(param => { // lọc day, shippingcountry , và id
             let dateConvert = ((param.day - 25569) * 24 * 60 * 60 * 1000);
             dateConvert = Date.parse(new Date(new Date(dateConvert).toDateString()));   // parse date sang number cho chinh xac  
@@ -197,18 +194,18 @@ class InputExcel extends Component {
             else { param.shippingcountry = "US" } // lọc và định dạnh lại shipping country
             let id = _.kebabCase(param.name).split("-").join("") + _.kebabCase(param.lineitemname).split("-").join("") + _.kebabCase(param.lineitemsku).split("-").join("");
             param["id"] = id;// tạo id
-            param["printStatus"] = false;// tạo printStatus
+            param["printStatus"] = false;
+            param["datatype"] = "item";
+            param["month"] = new Date(dateConvert).getMonth() + 1;
+            param["year"] = new Date(dateConvert).getFullYear();
+            param["datatype"] = "item";
             param.name = param.name.trim();
             param.product = param.product.trim().toLowerCase();
             return param;
         });
-        // console.log(dataObj);
-        dataObj = this.checkDataFailImport([...dataObj])
-        // console.log(dataObj);
-
-        // dua du lieu arr[] vao local storage
+        dataObj = this.checkDataFailImport([...dataObj]);
         localStorage.setItem("ItemsExcel", JSON.stringify(dataObj));
-        this.setState({ dataExcel: JSON.parse(localStorage.getItem("ItemsExcel")) });
+        this.setState({ dataExcel: dataObj });
 
     };
     checkDataFailImport = (data) => {
@@ -221,11 +218,6 @@ class InputExcel extends Component {
 
 
         let user = this.state.user;
-
-
-
-
-
         day.forEach(param => {
             if (isNaN(param) !== false) { this.alertError("Có 'day' không đúng, bạn vui lòng xem lại :("); }
             else if (param < 1262278800000 && param > 1893430800000) { this.alertError("Có ngày tháng không đúng, bạn vui lòng xem lại :("); }
@@ -246,14 +238,15 @@ class InputExcel extends Component {
             phonecasetype.forEach(param => {
                 if (param !== "glass" && param !== "luminous") {
                     this.alertError("Có 'phonecasetype' không phải là glass hoặc không phải là luminous  , bạn vui lòng xem lại nhé :( ");
-
                 }
             })
         }
 
-        // check code 
+        user = user.filter(param => param.id !== "adminretc_000");
         data.map(param => {
             let userTrue = user.filter(user1 => {
+                console.log(user1);
+
                 let userTrue2 = user1.code.filter(param2 => {
                     return param.name.toLowerCase().startsWith(param2.toLowerCase());
                 })
@@ -276,30 +269,18 @@ class InputExcel extends Component {
         // check product
         let dataproduct = data.map(param => { return { partner: param.partner, product: param.product } });
         dataproduct = _.uniqWith(dataproduct, _.isEqual);
-        console.log(dataproduct);
-        // console.log(data);
-
         dataproduct.map(param => {
             let userTrue = user.filter(param2 => { return param2.name === param.partner });
-
-            console.log(userTrue);
             let dff = _.difference([param.product], userTrue[0].product);
             if (dff.length !== 0) {
-                alert("có product mới:" + dff);
+
                 userTrue = userTrue[0];
                 userTrue.product.push(param.product);
                 this.setState({ userChange: [...this.state.userChange, userTrue] });
-                console.log(userTrue);
+                alert(userTrue.name + " có product mới:" + dff);
 
             }
-            // console.log(dff);
-
         })
-
-
-
-        //  ed check product
-
         return data;
 
     }
@@ -343,18 +324,22 @@ class InputExcel extends Component {
 
     render() {
         console.log(this.state.userChange);
+        console.log(this.props.itemExcelReload);
+        if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_SUCSESS") {
+            alert(JSON.parse(localStorage.numberSucsess) + 1);
+        }
 
 
         let ItemsExcel = JSON.stringify(this.state.dataExcel);
         let ItemsExcelFail = JSON.parse(localStorage.getItem("ItemsExcelFail"));
-
         if (ItemsExcelFail.length !== 0) {
             ItemsExcelFail = ItemsExcelFail.map((param, id) => {
                 return <CheckingFailProperties {...this.props}
-                    proppertiesitem={param} key={id}
+                    proppertiesitem={JSON.stringify(param)} key={id}
                     sttItemsExcelFail={id}
                     changeItemsExcelFail={this.changeItemsExcelFail}
                     deleteItemsExcelFail={this.deleteItemsExcelFail}
+                    postItemsExcelFail={this.postItemsExcelFail}
                 />
             })
         }
@@ -363,10 +348,10 @@ class InputExcel extends Component {
         return (
             <div className="App mt-4">
 
-                {(JSON.parse(localStorage.getItem("ItemsExcelFail")).length === 0 ) ?
+                {(JSON.parse(localStorage.getItem("ItemsExcelFail")).length === 0) ?
                     <>
                         <input type="file" id="fileinput" className="" onChange={this.readSingleFile} />
-                        <button type="button" className="btn btn-success" onClick={() => this.postToServer(this.state.dataExcel)}>Post to Server</button>
+                        <button type="button" className="btn btn-success" onClick={() => this.clickPostToServer(this.state.dataExcel)}>Post to Server</button>
                     </> :
                     <div className="alert alert-warning" role="alert">Có lỗi xảy ra !!!</div>
                 }

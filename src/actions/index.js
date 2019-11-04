@@ -123,4 +123,6 @@ export function StateStoreTrackingToDefault() {
     return ({ type: type.STATE_STORE_TRACKING_TO_DEFAULT })
 }
 
-
+export function putUser(payload) {
+    return ({ type: type.PUT_USER_REQUEST, payload })
+}
