@@ -16,20 +16,20 @@ class UserProperties extends Component {
             }
       }
 
-      saveChange = (id) => {
+      saveChange = () => {
             this.setState({ change: false });
             let obj = {
                   id: "user" + this.state.name,
                   router: this.state.router,
-                  partner:"User"+  this.state.partner,
+                  partner: "user" +  ((this.state.name!=="")?this.state.name:"all"),
                   phone: this.refs["phone"].value.trim(),
                   name: "user" + this.state.name,
                   note: this.refs["note"].value,
                   pass: this.refs["pass"].value.trim(),
                   datatype: "user",
-                  product:[],
+                  product: [],
                   code: this.refs["code"].value.trim(),
-     
+
             };
 
 
@@ -53,7 +53,6 @@ class UserProperties extends Component {
 
                   obj.code = obj.code.split(",").filter(param => param !== "");
                   console.log(obj.code);
-
                   this.props.createUser(obj);
 
             }
@@ -68,6 +67,8 @@ class UserProperties extends Component {
             this.setState({ router: e.target.value })
       }
       setpartner = (e) => {
+            console.log(e.target.value);
+            
             this.setState({ partner: e.target.value })
 
       }
@@ -78,13 +79,8 @@ class UserProperties extends Component {
       handleShow = () => { this.setState({ change: true }) };
       handleDeleteClose = () => { this.setState({ delete: false }) };
       render() {
-            let listPartner = { ... this.props.listPartner };
-            listPartner = _.toPairs(listPartner).filter(param => { return param[0] !== "id" }).map(param => param[1]);
 
-            const options = listPartner.map(param => { return { label: param[0] + ": " + param[1], value: param } })
-
-
-            console.log(this.props.listPartner);
+            console.log(this.state.partner);
 
             return (
                   <React.Fragment>

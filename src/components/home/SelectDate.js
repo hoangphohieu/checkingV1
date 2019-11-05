@@ -23,17 +23,59 @@ class PopoverWithActionListExample extends Component {
     togglePopoverActive = () => {
         this.setState({ popoverActive: !this.state.popoverActive })
     }
-    handleMonthChange = (month, year) => { this.setState({ month: month, year: year }) }
+    handleMonthChange = (month, year) => { this.setState({ month: month, year: year }) };
+
     setSelectedDates = (param) => {
-        this.setState({ selectedDates: param })
+        this.setState({ selectedDates: param });
+        let user = JSON.parse(localStorage.UserProperties)[1];
+        user = user.substr(4);
+        if (user === "all") {
+            this.props.getSumItem(this.getEndPoint("", param.start, param.end));
+        }
+        else {
+            this.props.getSumItem(this.getEndPoint("?partner=" + user, param.start, param.end));
+
+        }
+        console.log(user);
+
+
     }
-    checkYesterday=()=>{
+    checkYesterday = () => {
         console.log("checkYesterday");
-        
+
     }
-    checkOnWeak=()=>{
+    checkOnWeak = () => {
         console.log("checkOnWeak");
-        
+
+    }
+    // partnerSelect= ?partner=atuan  
+
+
+    getEndPoint = (partner, start, end) => {
+        let endPoint = "sumitem/?datatype=item";
+        let monthStart = new Date(start).getMonth() + 1;
+        let monthEnd = new Date(end).getMonth() + 1;
+        if (monthStart === monthEnd) {
+            endPoint += partner
+                + "&month=" + monthEnd
+                + "&month=" + ((monthEnd === 1) ? "12" : (monthEnd - 1));
+        }
+        else if (monthStart < monthEnd) {
+            endPoint += partner;
+            for (let i = monthStart; i <= monthEnd; i++) {
+                endPoint += endPoint + "&month=" + i
+            }
+        }
+        else if (monthStart > monthEnd) {
+            endPoint += partner;
+            for (let i = monthStart; i <= 12; i++) {
+                endPoint += endPoint + "&month=" + i
+            }
+            for (let i = 1; i <= monthEnd; i++) {
+                endPoint += endPoint + "&month=" + i
+            }
+        }
+        return endPoint;
     }
     render() {
         console.log(this.state.selectedDates);
@@ -43,7 +85,7 @@ class PopoverWithActionListExample extends Component {
             <AppProvider i18n={enTranslations}>
                 <div style={{ width: "300px" }}>
                     <Popover active={this.state.popoverActive} activator={activator} onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
-                        <ActionList items={[{ content: 'Ngày hôm qua', onAction: this.checkYesterday }, { content: 'Trong tuần',onAction: this.checkOnWeak }]} />
+                        <ActionList items={[{ content: 'Ngày hôm qua', onAction: this.checkYesterday }, { content: 'Trong tuần', onAction: this.checkOnWeak }]} />
                         <DatePicker month={this.state.month} year={this.state.year} onChange={this.setSelectedDates} onMonthChange={this.handleMonthChange} selected={this.state.selectedDates} allowRange={true} />
                     </Popover>
 
@@ -57,40 +99,6 @@ class PopoverWithActionListExample extends Component {
 export default PopoverWithActionListExample;
 
 
-
-
-
-
-
-// class SelectDate extends Component {
-//                 constructor(props, context) {
-//                 super(props, context);
-//         this.state = {
-//                 month: new Date().getMonth(),
-//             year: new Date().getFullYear(),
-//             selectedDates: {
-//                 start: new Date(),
-//             end: new Date()
-//         }
-
-//     }
-// }
-//     handleMonthChange = (month, year) => {this.setState({ month: month, year: year })}
-//             setSelectedDates = (param) => {
-//                 this.setState({ selectedDates: param })
-//             }
-//             render() {
-//                 console.log(this.state.selectedDates);
-
-//             return (
-//             <AppProvider i18n={enTranslations}>
-//                 <DatePicker month={this.state.month} year={this.state.year} onChange={this.setSelectedDates} onMonthChange={this.handleMonthChange} selected={this.state.selectedDates} allowRange={true} />
-//             </AppProvider>
-//             );
-//         }
-//     }
-
-//     export default SelectDate;
 
 
 
@@ -214,65 +222,65 @@ export default PopoverWithActionListExample;
 //     getdataFromServer = () => {
 //         let partnerSelect = this.props.partnerSelect; // props lấy từ  component (SelectPartnerAndDay)
 //         let product = this.props.product; // props lấy từ  component (SelectPartnerAndDay)
-//         let dateFrom = null;
-//         let dateTo = null;
-//         if (this.props.date !== null) { // tính dateFrom và dateTo là số 121212121212121, lấy từ component (Home)
-//             dateFrom = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
-//             dateTo = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
+//         let start = null;
+//         let end = null;
+//         if (this.props.date !== null) { // tính start và end là số 121212121212121, lấy từ component (Home)
+//             start = (this.props.date.from !== undefined) ? Date.parse(this.props.date.from) : null;
+//             end = (this.props.date.to !== undefined) ? Date.parse(this.props.date.to) : null;
 //         }
-//         let endPoint = null;
+//         let endPoint += null;
 
 //         if (product !== null) {  // tính endPoint ứng với partnerSelect và date select
-//             endPoint = this.getEndPoint(partnerSelect, product, dateFrom, dateTo);
+//             endPoint += this.getEndPoint(partnerSelect, product, start, end);
 //         }
 //         else if (product === null) {
-//             endPoint = this.getEndPoint("allPartner", product, dateFrom, dateTo);
+//             endPoint += this.getEndPoint("allPartner", product, start, end);
 //         }
 //         this.props.getListByCustom(endPoint); // GET API
 //     }
-//     getEndPoint = (partnerSelect, product, dateFrom, dateTo) => {
-//         let timeNow = new Date();
-//         let monthNow = timeNow.getMonth() + 1;
-//         let endPoint = null;
-//         partnerSelect = (partnerSelect !== "allPartner" && partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumproduct=" + product) : ("?namePartner=allPartner" + ((product !== null) ? ("&Sumproduct=" + product) : ""));
+    // getendPoint += (partnerSelect, product, start, end) => {
+    //     let timeNow = new Date();
+    //     let monthNow = timeNow.getMonth() + 1;
+    //     let endPoint += null;
+    //     partnerSelect = (partnerSelect !== "allPartner" && partnerSelect !== null) ? ("?namePartner=" + partnerSelect + "&Sumproduct=" + product) : ("?namePartner=allPartner" + ((product !== null) ? ("&Sumproduct=" + product) : ""));
 
-//         if (dateFrom === null && dateTo === null) {
-//             endPoint = partnerSelect
-//                 + "&monthNumber=" + monthNow
-//                 + "&monthNumber=" + ((monthNow === 1) ? "12" : (monthNow - 1));
-//         }
-//         else if (dateFrom !== null && dateTo !== null) {
-//             let monthDateFrom = new Date(dateFrom).getMonth() + 1;
-//             let monthdateTo = new Date(dateTo).getMonth() + 1;
-//             if (monthDateFrom === monthdateTo) {
-//                 endPoint = partnerSelect
-//                     + "&monthNumber=" + monthdateTo
-//                     + "&monthNumber=" + ((monthdateTo === 1) ? "12" : (monthdateTo - 1));
-//             }
-//             else if (monthDateFrom < monthdateTo) {
-//                 endPoint = partnerSelect;
-//                 for (let i = monthDateFrom; i <= monthdateTo; i++) {
-//                     endPoint = endPoint + "&monthNumber=" + i
-//                 }
-//             }
-//             else if (monthDateFrom > monthdateTo) {
-//                 endPoint = partnerSelect;
-//                 for (let i = monthDateFrom; i <= 12; i++) {
-//                     endPoint = endPoint + "&monthNumber=" + i
-//                 }
-//                 for (let i = 1; i <= monthdateTo; i++) {
-//                     endPoint = endPoint + "&monthNumber=" + i
-//                 }
-//             }
-//         }
-//         else if (dateFrom !== null || dateTo !== null) {
-//             let monthNowSelect = new Date(((dateFrom !== null) ? dateFrom : dateTo)).getMonth() + 1;
-//             endPoint = partnerSelect
-//                 + "&monthNumber=" + monthNowSelect
-//                 + "&monthNumber=" + ((monthNowSelect === 1) ? "12" : (monthNowSelect - 1));
-//         }
-//         return endPoint;
-//     }
+    //     if (start === null && end === null) {
+    //         endPoint += partnerSelect
+    //             + "&month=" + monthNow
+    //             + "&month=" + ((monthNow === 1) ? "12" : (monthNow - 1));
+    //     }
+    //     else if (start !== null && end !== null) {
+    //         let monthStart = new Date(start).getMonth() + 1;
+    //         let monthEnd = new Date(end).getMonth() + 1;
+    //         if (monthStart === monthEnd) {
+    //             endPoint += partnerSelect
+    //                 + "&month=" + monthEnd
+    //                 + "&month=" + ((monthEnd === 1) ? "12" : (monthEnd - 1));
+    //         }
+    //         else if (monthStart < monthEnd) {
+    //             endPoint += partnerSelect;
+    //             for (let i = monthStart; i <= monthEnd; i++) {
+    //                 endPoint += endPoint + "&month=" + i
+    //             }
+    //         }
+    //         else if (monthStart > monthEnd) {
+    //             endPoint += partnerSelect;
+    //             for (let i = monthStart; i <= 12; i++) {
+    //                 endPoint += endPoint + "&month=" + i
+    //             }
+    //             for (let i = 1; i <= monthEnd; i++) {
+    //                 endPoint += endPoint + "&month=" + i
+    //             }
+    //         }
+    //     }
+    //     else if (start !== null || end !== null) {
+    //         let monthNowSelect = new Date(((start !== null) ? start : end)).getMonth() + 1;
+    //         endPoint += partnerSelect
+    //             + "&month=" + monthNowSelect
+    //             + "&month=" + ((monthNowSelect === 1) ? "12" : (monthNowSelect - 1));
+    //     }
+    //     return endPoint;
+    // }
 
 //     render() {
 

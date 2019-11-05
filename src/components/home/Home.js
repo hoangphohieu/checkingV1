@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SelectPartnerAndDay from './SelectPartnerAndDay';
+import SelectDate from './SelectDate';
 import AllChartsPartner from './AllChartsPartner';
 class Home extends Component {
     constructor(props, context) {
@@ -28,7 +28,7 @@ class Home extends Component {
                     <div className="row">
                         <div className="col-4">
                             <p>select col-4</p>
-                            <SelectPartnerAndDay sentDayToProps={this.setDaySelect} date={this.state.date} product={this.state.product} setproduct={this.setproduct} {...this.props} />
+                            <SelectDate  {...this.props} />
                         </div>
                         <div className="col-8 d-flex-column align-item-center over-flow-control">
                             <p>Biểu đồ col-8</p>

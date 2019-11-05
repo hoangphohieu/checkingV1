@@ -12,37 +12,29 @@ export default (state = DEFAULT_STATE, action) => {
 
       switch (action.type) {
 
-            case type.GET_LIST_BY_ID_SUCSESS:
+            case type.GET_SUM_ITEM_SUCSESS:
                   return {
                         ...state,
                         isFetching: false,
                         dataFetched: true,
                         error: false,
-                        type: "",
+                        type: "GET_SUM_ITEM_SUCSESS",
                         errorMessesage: null,
                         listItem: action.payload
                   }
 
-            case type.GET_LIST_BY_CUSTOM_SUCSESS:
+            case type.GET_HOME_RFAILURE:
                   return {
                         ...state,
                         isFetching: false,
                         dataFetched: true,
                         error: false,
-                        type: "getListByCustom",
+                        type: "GET_HOME_RFAILURE",
                         errorMessesage: null,
                         listItem: action.payload
                   }
 
-            case type.GET_LIST_RFAILURE:
-                  return {
-                        ...state,
-                        isFetching: false,
-                        error: true,
-                        type: null,
-                        errorMessesage: action.payload.errorMessesage
-                  }
-
+     
 
             default:
                   return state;

@@ -9,8 +9,8 @@ class UserProperties extends Component {
             this.state = {
                   change: false,
                   delete: false,
-                  partner:  this.props.userProperties.partner,
-                  router:  this.props.userProperties.router,
+                  partner: this.props.userProperties.item_post.partner,
+                  router: this.props.userProperties.item_post.router,
 
             }
       }
@@ -26,7 +26,7 @@ class UserProperties extends Component {
                   code: this.refs["code"].value,
                   pass: this.refs["pass"].value,
                   // product: this.refs["product"].value
-                  
+
             };
             console.log(obj);
             if (this.state.router === null) {
@@ -39,28 +39,30 @@ class UserProperties extends Component {
             else {
                   // obj.product = obj.product.split(",").filter(param => param !== "");
                   obj.code = obj.code.split(",").filter(param => param !== "");
+                  obj = { ...this.props.userProperties, item_post: obj };
                   this.props.changeUserProperties(obj);
             }
 
 
 
       }
-      deleteItemChecking = (param) => {
+      deleteItemChecking = (item) => {
             this.handleDeleteClose();
-            this.props.deleteUser(param);
+            item = { ...this.props.userProperties, item_post: item };
+            this.props.deleteUser(item);
       }
       setrouter = (e) => {
             this.setState({ router: e.target.value });
       }
-      setPartner=(e)=>{
-            this.setState({partner: e.target.value});
+      setPartner = (e) => {
+            this.setState({ partner: e.target.value });
       }
       handleClose = () => { this.setState({ change: false }) };
       handleShow = () => { this.setState({ change: true }) };
       handleDeleteClose = () => { this.setState({ delete: false }) };
       handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
-            let item = this.props.userProperties;
+            let item = this.props.userProperties.item_post;
 
 
             console.log(item);
@@ -103,7 +105,7 @@ class UserProperties extends Component {
                                                 <span className="checking-item-title">Mật khẩu:</span> <br />
                                                 <input type="text" className="form-control" placeholder="" ref="pass" defaultValue={item.pass} />
                                           </p>
-                                          
+
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">SDT:</span> <br />
                                                 <input type="text" className="form-control" placeholder="" ref="phone" defaultValue={item.phone} />
@@ -120,7 +122,7 @@ class UserProperties extends Component {
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Chức Năng:</span>
                                                 <select className="browser-default custom-select" onChange={this.setrouter}>
-                                                      <option selected value={item.router} className="d-none ">{(item.router==="R")?"Chỉ Đọc":"Đọc, thêm, sửa,xóa"}</option>
+                                                      <option selected value={item.router} className="d-none ">{(item.router === "R") ? "Chỉ Đọc" : "Đọc, thêm, sửa,xóa"}</option>
                                                       <option value="CRUD">Đọc, thêm, sửa, xóa</option>
                                                       <option value="R">Chỉ Đọc</option>
                                                 </select>
@@ -129,7 +131,7 @@ class UserProperties extends Component {
                                                 <span className="checking-item-title">Phân quyền:</span>
                                                 <select className="browser-default custom-select" onChange={this.setPartner}>
                                                       <option selected value={item.partner} className="d-none ">{item.partner.substr(4)}</option>
-                                                      <option value="userall">Đọc, thêm, sửa, xóa</option>
+                                                      <option value="userall">all</option>
                                                       <option value={item.name}>{item.name.substr(4)}</option>
                                                 </select>
 

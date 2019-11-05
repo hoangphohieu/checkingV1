@@ -1,4 +1,4 @@
-export const FETCH_URL_ITEMS = "http://localhost:3001/items";
+export const FETCH_URL_ITEMS = "https://serversmartphonehieu.herokuapp.com/";
 export const CLOUDINARY_URL_CDN = "https://res.cloudinary.com/hieudz/image/upload/v1566581774/demo%20tool/";
 export const TRACKINGMORE_KEY = "febd481b-51b5-4387-96a2-aa1c865e96d4";
 export const GET_TRACKINGMORE_API = "https://cors-anywhere.herokuapp.com/http://api.trackingmore.com/v2/trackings/get";
@@ -38,12 +38,6 @@ export const ITEMS_PRINT_FALSE_RFAILURE = "ITEMS_PRINT_FALSE_RFAILURE";
 
 export const GET_LIST_BY_ID_REQUEST = "GET_LIST_BY_ID_REQUEST";
 export const GET_LIST_BY_ID_SUCSESS = "GET_LIST_BY_ID_SUCSESS";
-
-export const GET_LIST_DAY_BY_ID_REQUEST = "GET_LIST_DAY_BY_ID_REQUEST";
-export const GET_LIST_DAY_BY_ID_SUCSESS = "GET_LIST_DAY_BY_ID_SUCSESS";
-
-export const GET_LIST_BY_CUSTOM_REQUEST = "GET_LIST_BY_CUSTOM_REQUEST";
-export const GET_LIST_BY_CUSTOM_SUCSESS = "GET_LIST_BY_CUSTOM_SUCSESS";
 
 export const GET_LIST_RFAILURE = "GET_LIST_RFAILURE";
 
@@ -131,5 +125,11 @@ export const STATE_STORE_TRACKING_TO_DEFAULT = "STATE_STORE_TRACKING_TO_DEFAULT"
 export const PUT_USER_REQUEST = "PUT_USER_REQUEST";
 export const PUT_USER_SUCSESS = "PUT_USER_SUCSESS";
 export const PUT_USER_RFAILURE = "PUT_USER_RFAILURE";
+
+
+export const GET_SUM_ITEM_REQUEST = "GET_SUM_ITEM_REQUEST";
+export const GET_SUM_ITEM_SUCSESS = "GET_SUM_ITEM_SUCSESS";
+export const GET_HOME_RFAILURE = "GET_HOME_RFAILURE";
+
 
 

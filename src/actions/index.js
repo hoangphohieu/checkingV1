@@ -32,16 +32,10 @@ export function getListById(payload) {
     return ({ type: type.GET_LIST_BY_ID_REQUEST, payload })
 }
 
-export function getListDayById(payload) {
-    return ({ type: type.GET_LIST_DAY_BY_ID_REQUEST, payload })
-}
 
 export function stateImportExcelToDefault() {
 
     return ({ type: type.STATE_POST_TO_DEFAULT })
-}
-export function getListByCustom(payload) {
-    return ({ type: type.GET_LIST_BY_CUSTOM_REQUEST, payload })
 }
 
 export function postListItemCountAPI(payload) {
@@ -126,3 +120,9 @@ export function StateStoreTrackingToDefault() {
 export function putUser(payload) {
     return ({ type: type.PUT_USER_REQUEST, payload })
 }
+
+
+export function getSumItem(payload) {
+    return ({ type: type.GET_SUM_ITEM_REQUEST, payload })
+}
+

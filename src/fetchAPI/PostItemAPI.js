@@ -12,7 +12,8 @@ export default function postItemExcel(param) {
               headers: {
                   'Content-Type': 'application/json'
               },
-              body: JSON.stringify(param)
+            body: JSON.stringify({ "item_post": param })
+
           })
               .then(response => response.json())
               .then(res => {

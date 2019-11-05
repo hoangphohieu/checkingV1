@@ -14,12 +14,15 @@ class UseControl extends Component {
     }
     getUserInfoSucsess = () => {
         let user = this.props.itemsPayload.listItem;
-        if (user.length === 1) {
+        console.log(this.props.itemsPayload);
+
+        if (user.length === 2) {
             let properties = [];
-            properties.push(user[0].router);
-            properties.push(user[0].partner);
-            properties.push(user[0].name);
-            properties.push(user[0].phone);
+            user=user[0].item_post;
+            properties.push(user.router);
+            properties.push(user.partner);
+            properties.push(user.name);
+            properties.push(user.phone);
             localStorage.setItem("UserProperties", JSON.stringify(properties));
             // this.props.setStateStoreToDefault(); 
             window.location="/useControl";
@@ -49,3 +52,4 @@ class UseControl extends Component {
 }
 
 export default UseControl;
+

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class names extends Component {
     submit = () => {
-        let endPoint = "?name_like=user"+this.refs["name"].value.trim() + "&pass_like="+this.refs["pass"].value.trim();
+        let endPoint = "?name=user"+this.refs["name"].value.trim() + "&pass="+this.refs["pass"].value.trim();
         this.props.getUse(endPoint);
         // console.log(endPoint);
 

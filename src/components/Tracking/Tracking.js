@@ -144,6 +144,24 @@ class TrackingSearch extends Component {
             // console.log(listOrder);
 
             return (<React.Fragment>
+
+                  <div className="row">
+                        <div className="col-2">
+                              <div className="tracking-count">all</div>
+                              <div className="tracking-count">Transit</div>
+                              <div className="tracking-count">Delivered</div>
+                              <div className="tracking-count">Out for Delivery</div>
+                              <div className="tracking-count">Exception</div>
+                              <div className="tracking-count">Expired</div>
+                              <div className="tracking-count">Not Found</div>
+                              <div className="tracking-count">Failed Attempt</div>
+                              <div className="tracking-count">Pending</div>
+                        </div>
+                        <div className="col-10">
+
+                        </div>
+                  </div>
+
                   <div className="relative">
                         <button type="button" className="btn btn-info " onClick={this.searchTracking}>Search Tracking</button>
                   </div>
@@ -184,7 +202,7 @@ export default TrackingSearch;
 
 
 
-// import React, { Component } from 'react';
+// import React, {Component} from 'react';
 
 // class Tracking extends Component {
 //       constructor(props, context) {

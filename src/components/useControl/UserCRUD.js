@@ -5,13 +5,13 @@ class UserCRUD extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            listPartner: null,
+            // listPartner: null,
             listUser: []
         }
     }
 
     componentDidMount() {
-        this.props.userGetListById("listPartner"); // lay sanh sach cac partner
+        // this.props.userGetListById("listPartner"); // lay sanh sach cac partner
         this.props.getListUser("?datatype=user"); // laydanh sach cac user
     }
 
@@ -19,8 +19,9 @@ class UserCRUD extends Component {
         this.CDU_checkRequest();
     }
     CDU_checkRequest = () => {
-        if (this.props.itemsPayload.type === "USER_GET_LIST_BY_ID_SUCSESS") { this.getListPartnerSucsess() }
-        else if (this.props.itemsPayload.type === "GET_LIST_USER_SUCSESS") { this.getListUserSucsess() }
+        // if (this.props.itemsPayload.type === "USER_GET_LIST_BY_ID_SUCSESS") { this.getListPartnerSucsess() }
+        // else
+        if (this.props.itemsPayload.type === "GET_LIST_USER_SUCSESS") { this.getListUserSucsess() }
         else if (this.props.itemsPayload.type === "CHANGE_USE_PROPERTIES_SUCSESS") { this.changeUserPropertiesSucsess() }
         else if (this.props.itemsPayload.type === "CREATE_USER_SUCSESS") { this.createUserSucsess() }
         else if (this.props.itemsPayload.type === "DELETE_USER_SUCSESS") { this.deleteUserSucsess() }
@@ -45,19 +46,20 @@ class UserCRUD extends Component {
     changeUserPropertiesSucsess = () => {
         this.props.getListUser("?datatype=user"); // laydanh sach cac user
     }
-    getListPartnerSucsess = () => {
-        let listPartner = this.props.itemsPayload.listItem;
-        if (listPartner.length === 1) {
-            this.setState({ listPartner: listPartner[0] });
-            this.props.setStateStoreToDefault();
+    // getListPartnerSucsess = () => {
+    //     let listPartner = this.props.itemsPayload.listItem;
+    //     if (listPartner.length === 1) {
+    //         this.setState({ listPartner: listPartner[0] });
+    //         this.props.setStateStoreToDefault();
 
-        }
-    }
+    //     }
+    // }
 
     getListUserSucsess = () => {
         let listUser = this.props.itemsPayload.listItem;
-        if (listUser.length !== 0) {
-            this.setState({ listUser: listUser });
+        if (listUser.length > 1) {
+            listUser.pop();
+            this.setState({    listUser : listUser });
             this.props.setStateStoreToDefault();
         }
 
@@ -71,13 +73,13 @@ class UserCRUD extends Component {
         console.log(listUser);
 
         if (listUser !== []) {
-            listUser = listUser.filter(param => param.id !== "adminretc_000");
-            listUser = listUser.map((param, id) => { return <UserProperties {...this.props} userProperties={param} key={id} listPartner={this.state.listPartner} /> })
+            listUser = listUser.filter(param => param.item_post.id !== "adminretc_000");
+            listUser = listUser.map((param, id) => { return <UserProperties {...this.props} userProperties={param} key={id}  /> })
         }
 
         return (
             <div>
-                <AddUser {...this.props} listPartner={this.state.listPartner} />
+                <AddUser {...this.props} />
                 {listUser}
 
             </div>

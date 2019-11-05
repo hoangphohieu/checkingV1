@@ -47,14 +47,14 @@ class InputExcel extends Component {
 
     }
     CDU_putUser = () => {
-        console.log("CDU_putUser............................");
-        console.log(localStorage.ItemsExcel, localStorage.ItemsExcelFail);
+        // console.log("CDU_putUser............................");
+        // console.log(localStorage.ItemsExcel, localStorage.ItemsExcelFail);
 
         if (JSON.parse(localStorage.ItemsExcel).length === 0 && JSON.parse(localStorage.ItemsExcelFail).length === 0) {
-  
+
 
             let userChange = this.state.userChange;
-            console.log(userChange);
+            // console.log(userChange);
 
             if (userChange.length > 0) {
                 this.props.putUser(userChange[userChange.length - 1]);
@@ -92,6 +92,10 @@ class InputExcel extends Component {
 
     getListByIdSucsess = () => {
         let item = this.props.itemExcelReload.listItem;
+        item.pop();
+
+        // console.log(item);
+
         this.setState({ user: item });
         this.props.propsImportExcelToDefault();
     }
@@ -217,7 +221,6 @@ class InputExcel extends Component {
         let phonecasetype = data.map(param => param.phonecasetype);
 
 
-        let user = this.state.user;
         day.forEach(param => {
             if (isNaN(param) !== false) { this.alertError("Có 'day' không đúng, bạn vui lòng xem lại :("); }
             else if (param < 1262278800000 && param > 1893430800000) { this.alertError("Có ngày tháng không đúng, bạn vui lòng xem lại :("); }
@@ -234,27 +237,29 @@ class InputExcel extends Component {
             }
         })
 
-        if (_.uniq(product)[0] === "phonecase") {
-            phonecasetype.forEach(param => {
-                if (param !== "glass" && param !== "luminous") {
-                    this.alertError("Có 'phonecasetype' không phải là glass hoặc không phải là luminous  , bạn vui lòng xem lại nhé :( ");
-                }
-            })
-        }
+        // if (_.uniq(product)[0] === "phonecase") {
+        //     phonecasetype.forEach(param => {
+        //         if (param !== "glass" && param !== "luminous") {
+        //             this.alertError("Có 'phonecasetype' không phải là glass hoặc không phải là luminous  , bạn vui lòng xem lại nhé :( ");
+        //         }
+        //     })
+        // }
 
-        user = user.filter(param => param.id !== "adminretc_000");
+        let user = this.state.user;
+
+        user = user.filter(param => param.item_post.id !== "adminretc_000");
         data.map(param => {
             let userTrue = user.filter(user1 => {
-                console.log(user1);
+                // console.log(user1);
 
-                let userTrue2 = user1.code.filter(param2 => {
+                let userTrue2 = user1.item_post.code.filter(param2 => {
                     return param.name.toLowerCase().startsWith(param2.toLowerCase());
                 })
                 if (userTrue2.length !== 0) { return true }
                 return false;
             });
-            console.log(userTrue);
-            if (userTrue.length !== 0) { param["partner"] = userTrue[0].name; }
+            // console.log(userTrue);
+            if (userTrue.length !== 0) { param["partner"] = userTrue[0].item_post.name; }
             else { param["partner"] = null }
             return param;
         })
@@ -270,14 +275,19 @@ class InputExcel extends Component {
         let dataproduct = data.map(param => { return { partner: param.partner, product: param.product } });
         dataproduct = _.uniqWith(dataproduct, _.isEqual);
         dataproduct.map(param => {
-            let userTrue = user.filter(param2 => { return param2.name === param.partner });
-            let dff = _.difference([param.product], userTrue[0].product);
+            let userTrue = user.filter(param2 => { return param2.item_post.name === param.partner });
+            let dff = _.difference([param.product], userTrue[0].item_post.product);
+            // console.log(dff);
+
             if (dff.length !== 0) {
+                // console.log(userTrue);
 
                 userTrue = userTrue[0];
-                userTrue.product.push(param.product);
+                userTrue.item_post.product.push(param.product);
                 this.setState({ userChange: [...this.state.userChange, userTrue] });
-                alert(userTrue.name + " có product mới:" + dff);
+                // console.log(this.state.userChange);
+
+                alert(userTrue.item_post.name + " có product mới:" + dff);
 
             }
         })
@@ -287,6 +297,7 @@ class InputExcel extends Component {
     alertError = (param) => {
         alert(param);
         window.location = "/Upload";
+        
     }
     readSingleFile = (e) => {
         let _this = this;
@@ -323,8 +334,9 @@ class InputExcel extends Component {
     }
 
     render() {
-        console.log(this.state.userChange);
-        console.log(this.props.itemExcelReload);
+        // console.log(this.state.userChange);
+        console.log(localStorage.ItemsExcel);
+        // console.log(this.props.itemExcelReload);
         if (this.props.itemExcelReload.type === "POST_ITEM_EXCEL_SUCSESS") {
             alert(JSON.parse(localStorage.numberSucsess) + 1);
         }
