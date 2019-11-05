@@ -5,12 +5,13 @@ import ChartBaseCost from './ChartBaseCost';
 import _ from 'lodash';
 
 class AllChartsPartner extends Component {
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     if (this.props.date !== nextProps.date) { return false }
-    //     return true
-    // }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.date !== nextProps.date) { return false }
+        return true
+    }
     render() {
-console.log(this.props);
+console.log(this.props.date);
+console.log(this.props.items.listItem);
 
         return (
             <React.Fragment>

@@ -22,15 +22,11 @@ class PopoverWithActionListExample extends Component {
     }
 
     componentWillMount() {
-        let user = JSON.parse(localStorage.UserProperties)[1];
-        user = user.substr(4);
-        if (user === "all") {
-            this.props.getSumItem(this.getEndPoint("", this.state.selectedDates.start, this.state.selectedDates.end));
-        }
-        else {
-            this.props.getSumItem(this.getEndPoint("?partner=" + user, this.state.selectedDates.start, this.state.selectedDates.end));
+        let user = JSON.parse(localStorage.UserProperties)[1].substr(4);
+        let daySelect = Date.parse(this.state.selectedDates.start.toDateString());
 
-        }
+        if (user === "all") { this.props.getOrderByDay("sumitem/?datatype=item&day=" + daySelect); }
+        else { this.props.getOrderByDay("sumitem/?datatype=item&partner=" + user + "day=" + daySelect); }
     }
 
     togglePopoverActive = () => {
@@ -40,68 +36,33 @@ class PopoverWithActionListExample extends Component {
 
     setSelectedDates = (param) => {
         this.setState({ selectedDates: param });
-        let user = JSON.parse(localStorage.UserProperties)[1];
-        user = user.substr(4);
-        if (user === "all") {
-            this.props.getSumItem(this.getEndPoint("", param.start, param.end));
-        }
-        else {
-            this.props.getSumItem(this.getEndPoint("?partner=" + user, param.start, param.end));
+        let user = JSON.parse(localStorage.UserProperties)[1].substr(4);
+        let daySelect = Date.parse(param.start.toDateString());
 
-        }
-        console.log(user);
+        if (user === "all") { this.props.getOrderByDay("sumitem/?datatype=item&day=" + daySelect); }
+        else { this.props.getOrderByDay("sumitem/?datatype=item&partner=" + user + "day=" + daySelect); }
+        console.log(param);
 
 
     }
-    checkYesterday = () => {
-        console.log("checkYesterday");
-
-    }
-    checkOnWeak = () => {
-        console.log("checkOnWeak");
-
-    }
-    // partnerSelect= ?partner=atuan  
 
 
-    getEndPoint = (partner, start, end) => {
-        let endPoint = "sumitem/?datatype=item";
-        let monthStart = new Date(start).getMonth() + 1;
-        let monthEnd = new Date(end).getMonth() + 1;
-        if (monthStart === monthEnd) {
-            endPoint += partner
-                + "&month=" + monthEnd
-                + "&month=" + ((monthEnd === 1) ? "12" : (monthEnd - 1));
-        }
-        else if (monthStart < monthEnd) {
-            endPoint += partner;
-            for (let i = monthStart; i <= monthEnd; i++) {
-                endPoint += endPoint + "&month=" + i
-            }
-        }
-        else if (monthStart > monthEnd) {
-            endPoint += partner;
-            for (let i = monthStart; i <= 12; i++) {
-                endPoint += endPoint + "&month=" + i
-            }
-            for (let i = 1; i <= monthEnd; i++) {
-                endPoint += endPoint + "&month=" + i
-            }
-        }
-        return endPoint;
-    }
+
     render() {
         const activator = <Button onClick={this.togglePopoverActive} disclosure >More actions</Button>;
 
         return (
             <AppProvider i18n={enTranslations}>
-                <div style={{ width: "300px" }}>
-                    <Popover active={this.state.popoverActive} activator={activator} onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
-                        <ActionList items={[{ content: 'Ngày hôm qua', onAction: this.checkYesterday }, { content: 'Trong tuần', onAction: this.checkOnWeak }]} />
-                        <DatePicker month={this.state.month} year={this.state.year} onChange={this.setSelectedDates} onMonthChange={this.handleMonthChange} selected={this.state.selectedDates} allowRange={true} />
-                    </Popover>
+                <Popover active={this.state.popoverActive} activator={activator} onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
 
-                </div>
+                    <DatePicker
+                        month={this.state.month}
+                        year={this.state.year}
+                        onChange={this.setSelectedDates}
+                        onMonthChange={this.handleMonthChange}
+                        selected={this.state.selectedDates}
+                    />
+                </Popover>
             </AppProvider>
 
         );

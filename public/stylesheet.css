@@ -4,6 +4,35 @@
   
 }
 
+.titletracking-properties {
+    text-align: left;
+}
+
+
+
+.more-tracking-info {
+    margin: 0;
+    text-align: left;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.left-tracking-properties {
+    height: 100vh;
+    border-right: 1px solid rgb(228, 228, 228);
+}
+
+.tracking-count {
+    display: flex;
+    padding: 0.3rem 1.5rem;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.tracking-count:hover {
+    background: #f66;
+}
+
 .Polaris-Popover__Content {
     display: block;
     height: 100% !important;

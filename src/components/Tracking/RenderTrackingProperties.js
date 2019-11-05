@@ -1,72 +1,61 @@
 import React, { Component } from 'react';
 
 class RenderTrackingProperties extends Component {
+      constructor(props, context) {
+            super(props, context);
+            this.state = { show: false }
+      }
+      showProperties = () => {
+            this.setState({ show: !this.state.show })
+      }
       render() {
-            // console.log(JSON.parse(localStorage.listNameTrackingSuccess));
-            let trackings = JSON.parse(localStorage.listNameTrackingSuccess)[0];
 
-            console.log(trackings);
+            let dataTracking = this.props.dataTracking;
+            console.log(dataTracking);
 
 
             return (
-                  <div>
-                        haha
-                        <div className="container-fluid bg-toWhite">
-                              <div className="row">
-                                    <div className="col-2">
-                                          Tracking No
-                                     </div>
-                                    <div className="col-2">
-                                          Order No
-                                    </div>
-                                    <div className="col-6">
-                                          Parcel Status
-                                     </div>
-                                    <div className="col-2">
-                                          Transit Time
-                                     </div>
-                              </div>
-
-                              {/* properties */}
-                              <div className="row">
-                                    <div className="col-2">
-                                          {trackings.tracking_number}
-
-                                    </div>
-                                    <div className="col-2">
-                                          {trackings.order_id}
-                                    </div>
-                                    <div className="col-6">
-                                          <span class={"border-" + trackings.status}>{trackings.status}</span>
-                                          <span >{trackings.lastEvent}</span>
-                                    </div>
-                                    <div className="col-2">
-                                          {trackings.itemTimeLength}
-
-                                    </div>
-                              </div>
-                              {/* properties */}
-
-                              {/* more */}
-                              <div className="row">
-                                    <div className="col-12">
-                                          <h5>Other Information</h5>
-                                          <span class="more-tracking-info">Courier:{trackings.carrier_code}</span>
-                                          <span class="more-tracking-info">Goods Title:{trackings.title}</span>
-                                          <span class="more-tracking-info">Customer Name:{trackings.customer_name}</span>
-                                          <h5>Destination Country - {trackings.destination_country}:</h5>
-                                          {trackings.destination_info.trackinfo.map(param => <p class="more-tracking-info">{param.Date},{param.StatusDescription},{param.Details}</p>)}
-                                          <h5>Origin Country - {trackings.original_country}:</h5>
-                                          {trackings.origin_info.trackinfo.map(param => <p class="more-tracking-info">{param.Date},{param.StatusDescription},{param.Details}</p>)}
+                  <React.Fragment>
 
 
 
-                                    </div>
+                        {/* properties */}
+                        <div className="row p-1 hover-pointer" onClick={this.showProperties}>
+                              <div className="col-2">
+                                    {dataTracking.tracking_number}
 
                               </div>
-                              {/* more */}
+                              <div className="col-2">
+                                    {dataTracking.order_id}
+                              </div>
+                              <div className="col-6 d-flex align-items-center">
+                                    <span class={"mr-1 border-" + dataTracking.status}>{dataTracking.status}</span>
+                                    <span >{dataTracking.lastEvent}</span>
+                              </div>
+                              <div className="col-2">
+                                    {dataTracking.itemTimeLength}
+
+                              </div>
                         </div>
-                  </div>
+                        {/* properties */}
+
+                        {/* more */}
+                        {(this.state.show === true) ? <div className="row mb-1">
+                              <div className="col-12">
+                                    <h6 className="titletracking-properties">Other Information</h6>
+                                    <p class="more-tracking-info">Courier:{dataTracking.carrier_code}</p>
+                                    <p class="more-tracking-info">Goods Title:{dataTracking.title}</p>
+                                    <p class="more-tracking-info">Customer Name:{dataTracking.customer_name}</p>
+                                    <h6 className="titletracking-properties">Destination Country - {dataTracking.destination_country}:</h6>
+                                    {(dataTracking.destination_info.trackinfo !== null) ? dataTracking.destination_info.trackinfo.map(param => <p class="more-tracking-info">{param.Date},{param.StatusDescription},{param.Details}</p>) : ""}
+                                    <h6 className="titletracking-properties">Origin Country - {dataTracking.original_country}:</h6>
+                                    {(dataTracking.origin_info.trackinfo !== null) ? dataTracking.origin_info.trackinfo.map(param => <p class="more-tracking-info">{param.Date},{param.StatusDescription},{param.Details}</p>) : ""}
+                              </div>
+                        </div> : ""}
+                        {/* more */}
+
+                  </React.Fragment>
+
             );
       }
 }

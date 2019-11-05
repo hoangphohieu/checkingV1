@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import RenderTrackingProperties from './RenderTrackingProperties';
+import SelectDate from './SelectDate';
+
 
 class TrackingSearch extends Component {
       constructor(props, context) {
@@ -13,36 +15,10 @@ class TrackingSearch extends Component {
             }
       }
 
-      componentDidMount() {
-            if (JSON.parse(localStorage.getItem("listNameForTracking")) === null) {  // listNameForTracking
-                  localStorage.setItem("listNameForTracking", JSON.stringify([]));
-            }
-            else { localStorage.setItem("listNameForTracking", JSON.stringify([])); }
-
-            if (JSON.parse(localStorage.getItem("listNameForTrackingFail")) === null) { // listNameForTrackingFail
-                  localStorage.setItem("listNameForTrackingFail", JSON.stringify([]));
-            }
-            else { localStorage.setItem("listNameForTrackingFail", JSON.stringify([])); }
-
-            if (JSON.parse(localStorage.getItem("listNameTrackingSuccess")) === null) { // listNameTrackingSuccess
-                  localStorage.setItem("listNameTrackingSuccess", JSON.stringify([]));
-            }
-            else { localStorage.setItem("listNameTrackingSuccess", JSON.stringify([])); }
-      }
-
       componentWillMount() {
-            this.CWM_getOrderToday();
-      }
-      CWM_getOrderToday = () => {
-            let day = Date.parse(new Date().toDateString());
-            let user = JSON.parse(localStorage.UserProperties);
-            if (user[1] === "all") {
-                  this.props.getOrderByDay("?namePartner=allPartner" + "&dayNumber=" + day);  // sửa API theo server mới
-            }
-            else {
-                  this.props.getOrderByDay("?namePartner=" + user[1] + "&dayNumber=" + day);// sửa API theo server mới 
-            }
-
+            localStorage.setItem("listNameForTracking", JSON.stringify([]));
+            localStorage.setItem("listNameForTrackingFail", JSON.stringify([]));
+            localStorage.setItem("listTrackingSucsess", JSON.stringify([]));
       }
 
 
@@ -51,35 +27,35 @@ class TrackingSearch extends Component {
       }
       CDU_checkRequest = () => {
 
-            if (this.props.itemsPayload.type === "GET_TRACKING_MORE_SUCSESS") { this.WhenGetTrackingSuccess() }
-            else if (this.props.itemsPayload.type === "GET_RFAILURE") { this.WhenGetTrackingFail() }
-
-            if (this.props.itemsPayload.type === "GET_ORDER_BY_DAY_SUCSESS") { this.getOrderByDaySucsess() }
-            else if (this.props.itemsPayload.type === "GET_RFAILURE") { this.getRefailure() }
+            if (this.props.itemsPayload.type === "GET_TRACKING_MORE_SUCSESS") { this.GetTrackingSuccess() }
+            else if (this.props.itemsPayload.type === "GET_ORDER_BY_DAY_SUCSESS") { this.getOrderByDaySucsess() }
+            else if (this.props.itemsPayload.type === "GET_RFAILURE") { this.GetFail() }
 
       }
       getOrderByDaySucsess = () => {
-            if (this.props.itemsPayload.listItem.length !== 0) {
+            if (_.toPairs(this.props.itemsPayload.listItem).length !== 0) {
                   console.log(this.props.itemsPayload);
-
-                  this.setState({ listOrder: this.props.itemsPayload.listItem[0].Sumorder });
+                  let listOrder = [];
+                  let data = _.mapValues(this.props.itemsPayload.listItem, function (o) { return o[0].name; });
+                  _.toPairs(data).forEach(param => {
+                        listOrder.push(param[1]);
+                  });
+                  listOrder = _.uniq(_.flattenDeep(listOrder));
+                  console.log(listOrder);
+                  this.searchTracking(listOrder);
                   this.props.StateStoreTrackingToDefault();
+                  this.setState({ listOrder: listOrder });
             }
-            console.log(this.props.itemsPayload);
-
       }
 
 
-      WhenGetTrackingSuccess = () => {
-            // console.log("haha");
+      GetTrackingSuccess = () => {
+
             let _this = this;
             let items = this.props.itemsPayload.listItem;
             if (items.meta.code === 200) {
                   let listNameForTracking = JSON.parse(localStorage.listNameForTracking);
-                  let listNameTrackingSuccess = JSON.parse(localStorage.listNameTrackingSuccess);
-
-
-                  // console.log(listNameForTracking);
+                  let listTrackingSucsess = JSON.parse(localStorage.listTrackingSucsess);
 
                   if (listNameForTracking.length > 0) {
                         items = [...items.data.items];
@@ -88,8 +64,8 @@ class TrackingSearch extends Component {
                         let listNameForTrackingFail = JSON.parse(localStorage.listNameForTrackingFail);
                         listTrackingFail.forEach(param => { listNameForTrackingFail.push(param) })
                         localStorage.setItem("listNameForTrackingFail", JSON.stringify(listNameForTrackingFail));// lưu những item fail vào localstorage
-                        listNameTrackingSuccess = [...listNameTrackingSuccess, ...items];
-                        localStorage.setItem("listNameTrackingSuccess", JSON.stringify(listNameTrackingSuccess));// lưu những item success vào localstorage
+                        listTrackingSucsess = [...listTrackingSucsess, ...items];
+                        localStorage.setItem("listTrackingSucsess", JSON.stringify(listTrackingSucsess));// lưu những item success vào localstorage
 
                         listNameForTracking.pop();
                         localStorage.setItem("listNameForTracking", JSON.stringify(listNameForTracking));
@@ -114,57 +90,78 @@ class TrackingSearch extends Component {
                   alert("Có lỗi xảy ra, vui lòng F5 lại trang và thực hiện lại");
             }
       }
-      WhenGetTrackingFail = () => {
+      GetFail = () => {
             alert("Lỗi internet, vui lòng kiểm tra đường truyền, F5 lại trang và thực hiện lại");
-
       }
-      searchTracking = () => {
-            let numberPerTrack = 40;
-            console.log(this.state.listOrder);
+      searchTracking = (listOrderGet) => {
+            console.log(listOrderGet);
 
-            let listOrderGet = [...this.state.listOrder];
+            let numberPerTrack = 40;
             localStorage.setItem("listNameForTracking", JSON.stringify(_.chunk(listOrderGet, numberPerTrack)));
             listOrderGet = listOrderGet.map(param => { return _.replace(param, '#', '%23') });
             listOrderGet = listOrderGet.map(param => { return _.replace(param, ' ', '%20') });
             listOrderGet = _.chunk(listOrderGet, numberPerTrack);
             let listName = listOrderGet[listOrderGet.length - 1];
+
             listName = [...listName].join(",")
             let endPoint = "?orders=" + listName + "&limit=500";
             this.props.getTrackingMore(endPoint);
-            localStorage.setItem("listNameTrackingSuccess", JSON.stringify([]));// lưu những item success vào localstorage
+            localStorage.setItem("listTrackingSucsess", JSON.stringify([]));
 
-            // console.log(endPoint);
 
       }
       render() {
-            console.log(this.props.itemsPayload);
-            // console.log(this.state);
-            // console.log(JSON.parse(localStorage.listNameTrackingSuccess));
+            let listTrackingSucsess = JSON.parse(localStorage.listTrackingSucsess);
+            let listNameTrackingSucsess = listTrackingSucsess.map(param => param.order_id);
+            let pending = [], notfound = [], transit = [], pickup = [], delivered = [], undelivered = [], exception = [], expired = [], wrongName = [];
+            if (listTrackingSucsess.length > 0) {
+                  transit = listTrackingSucsess.filter(param => param.status === "transit");
+                  delivered = listTrackingSucsess.filter(param => param.status === "delivered");
+                  pickup = listTrackingSucsess.filter(param => param.status === "pickup"); // Out For Delivery
+                  exception = listTrackingSucsess.filter(param => param.status === "exception");
+                  expired = listTrackingSucsess.filter(param => param.status === "expired");
+                  notfound = listTrackingSucsess.filter(param => param.status === "notfound");
+                  undelivered = listTrackingSucsess.filter(param => param.status === "undelivered"); //Failed Attempt
+                  pending = listTrackingSucsess.filter(param => param.status === "pending");
+                  wrongName = _.difference(this.state.listOrder, listNameTrackingSucsess);
+            }
 
-            // console.log(listOrder);
-
+            let RenderoneTracking = listTrackingSucsess.map((param, id) => <RenderTrackingProperties key={id} dataTracking={param} />);
             return (<React.Fragment>
 
                   <div className="row">
-                        <div className="col-2">
-                              <div className="tracking-count">all</div>
-                              <div className="tracking-count">Transit</div>
-                              <div className="tracking-count">Delivered</div>
-                              <div className="tracking-count">Out for Delivery</div>
-                              <div className="tracking-count">Exception</div>
-                              <div className="tracking-count">Expired</div>
-                              <div className="tracking-count">Not Found</div>
-                              <div className="tracking-count">Failed Attempt</div>
-                              <div className="tracking-count">Pending</div>
+                        <div className="col-2 left-tracking-properties p-0">
+                              <SelectDate {...this.props} />
+                              <div className="tracking-count"><span>All</span><span>{this.state.listOrder.length}</span></div>
+                              <div className="tracking-count"><span>Transit</span><span>{transit.length}</span></div>
+                              <div className="tracking-count"><span>Delivered</span><span>{delivered.length}</span></div>
+                              <div className="tracking-count"><span>Out for Delivery</span><span>{pickup.length}</span></div>
+                              <div className="tracking-count"><span>Exception</span><span>{exception.length}</span></div>
+                              <div className="tracking-count"><span>Expired</span><span>{expired.length}</span></div>
+                              <div className="tracking-count"><span>Not Found</span><span>{notfound.length}</span></div>
+                              <div className="tracking-count"><span>Failed Attempt</span><span>{undelivered.length}</span></div>
+                              <div className="tracking-count"><span>Pending</span><span>{pending.length}</span></div>
+                              <div className="tracking-count"><span>Wrong Name</span><span>{wrongName.length}</span></div>
                         </div>
                         <div className="col-10">
-
+                              <div className="row">
+                                    <div className="col-2">
+                                          Tracking No
+                                     </div>
+                                    <div className="col-2">
+                                          Order No
+                                    </div>
+                                    <div className="col-6">
+                                          Parcel Status
+                                     </div>
+                                    <div className="col-2">
+                                          Transit Time
+                                     </div>
+                              </div>
+                              {RenderoneTracking}
                         </div>
                   </div>
 
-                  <div className="relative">
-                        <button type="button" className="btn btn-info " onClick={this.searchTracking}>Search Tracking</button>
-                  </div>
 
             </React.Fragment>
             );
@@ -174,89 +171,3 @@ class TrackingSearch extends Component {
 export default TrackingSearch;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, {Component} from 'react';
-
-// class Tracking extends Component {
-//       constructor(props, context) {
-//             super(props, context);
-//             this.state = {
-//                   listOrder: []
-//             }
-//       }
-
-//       componentWillMount() {
-//             this.CWM_getOrderToday();
-//       }
-//       CWM_getOrderToday = () => {
-//             let day = Date.parse(new Date().toDateString());
-//             let user = JSON.parse(localStorage.UserProperties);
-//             if (user[1] === "all") {
-//                   this.props.getOrderByDay("?namePartner=allPartner" & "dayNumber=" + day);
-//             }
-//             else {
-//                   this.props.getOrderByDay("?namePartner=" + user[1] + "&dayNumber=" + day);
-//             }
-
-//       }
-
-
-
-
-
-//       componentDidUpdate() {
-//             this.CDU_checkRequest();
-//       }
-
-//       CDU_checkRequest = () => {
-//             if (this.props.itemsPayload.type === "GET_ORDER_BY_DAY_SUCSESS") { this.getOrderByDaySucsess() }
-//             else if (this.props.itemsPayload.type === "GET_RFAILURE") { this.getRefailure() }
-//       }
-//       getOrderByDaySucsess = () => {
-//             if (this.props.itemsPayload.listItem.length !== 0) {
-//                   this.setState({ listOrder: this.props.itemsPayload.listItem[0].Sumorder });
-//                   this.props.StateStoreTrackingToDefault();
-//             }
-//             console.log(this.props.itemsPayload);
-
-//       }
-
-//       render() {
-//             console.log(this.state.listOrder);
-
-//             return (
-//                   <div>
-//                         tracking
-//                   </div>
-//             );
-//       }
-// }
-
-// export default Tracking;

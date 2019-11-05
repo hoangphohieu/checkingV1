@@ -29,15 +29,15 @@ class App extends Component {
       <React.Fragment>
         <div className="container-fluid">
           <div className="row">
-            <div className="nav-top"></div>
-
+            <div className="nav-top">
+              nav
+            </div>
           </div>
         </div>
-        <div className="App">
-          <div className="container-fluid ">
-            <div>
-              <div className="row">
 
+        <div className="App h-100">
+          <div className="container-fluid h-100 ">
+              <div className="row h-100">
                 <div className="col-2 border-right-gray ">
                   <div className="row flex-column ">
                     {(partnerTypeUser === undefined) ? ""
@@ -143,7 +143,6 @@ class App extends Component {
                 </div>
 
               </div>
-            </div>
           </div>
 
 
