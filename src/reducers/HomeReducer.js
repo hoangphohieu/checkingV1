@@ -33,9 +33,18 @@ export default (state = DEFAULT_STATE, action) => {
                         errorMessesage: null,
                         listItem: action.payload
                   }
-
+                  case type.STATE_STORE_HOME_TO_DEFAULT:
+                        return {
+                              listItem: [],
+                              dataFetched: false,
+                              isFetching: false,
+                              error: false,
+                              type: "STATE_STORE_HOME_TO_DEFAULT",
+                              errorMessesage: null
+                        }
+      
      
-
+                  
             default:
                   return state;
       }

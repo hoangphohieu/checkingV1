@@ -123,6 +123,10 @@ export function putUser(payload) {
 
 
 export function getSumItem(payload) {
+    // console.log(payload);
+    
     return ({ type: type.GET_SUM_ITEM_REQUEST, payload })
 }
-
+export function stateStoreHomeToDefault() {
+    return ({ type: type.STATE_STORE_HOME_TO_DEFAULT })
+}

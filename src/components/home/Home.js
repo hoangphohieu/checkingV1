@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-// import SelectDate from './SelectDate';
 import AllChartsPartner from './AllChartsPartner';
 import { DatePicker, AppProvider, Button, ActionList, Popover } from '@shopify/polaris';
-
 import enTranslations from '@shopify/polaris/locales/en.json';
-
+import _ from "lodash";
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
@@ -13,21 +11,21 @@ class Home extends Component {
             month: new Date().getMonth(),
             year: new Date().getFullYear(),
             selectedDates: {
-                start: new Date(),
+                start: new Date(Date.parse(new Date()) - new Date().getDay() * 24 * 60 * 60 * 1000),
                 end: new Date()
             }
         }
     }
     componentWillMount() {
+        localStorage.setItem("SumOrderHome", JSON.stringify([]));
+
         let user = JSON.parse(localStorage.UserProperties)[1];
         user = user.substr(4);
-        if (user === "all") {
-            this.props.getSumItem(this.getEndPoint("", this.state.selectedDates.start, this.state.selectedDates.end));
-        }
-        else {
-            this.props.getSumItem(this.getEndPoint("?partner=" + user, this.state.selectedDates.start, this.state.selectedDates.end));
+        if (user === "all") { this.props.getSumItem("sumitem/?datatype=item") }
+        else { this.props.getSumItem("sumitem/?datatype=item&partner=" + user) }
 
-        }
+        // if (user === "all") {  this.props.getSumItem(this.getEndPoint("", this.state.selectedDates.start, this.state.selectedDates.end));}
+        // else { this.props.getSumItem(this.getEndPoint("?partner=" + user, this.state.selectedDates.start, this.state.selectedDates.end));}
     }
     togglePopoverActive = () => {
         this.setState({ popoverActive: !this.state.popoverActive })
@@ -38,8 +36,8 @@ class Home extends Component {
         this.setState({ selectedDates: param });
         let user = JSON.parse(localStorage.UserProperties)[1];
         user = user.substr(4);
-        if (user === "all") { this.props.getSumItem(this.getEndPoint("", param.start, param.end)); }
-        else { this.props.getSumItem(this.getEndPoint("?partner=" + user, param.start, param.end)); }
+        // if (user === "all") { this.props.getSumItem(this.getEndPoint("", param.start, param.end)); }
+        // else { this.props.getSumItem(this.getEndPoint("?partner=" + user, param.start, param.end)); }
         console.log(user);
 
 
@@ -52,43 +50,62 @@ class Home extends Component {
         console.log("checkOnWeak");
 
     }
-
-
-    getEndPoint = (partner, start, end) => {
-        let endPoint = "sumitem/?datatype=item";
-        let monthStart = new Date(start).getMonth() + 1;
-        let monthEnd = new Date(end).getMonth() + 1;
-        if (monthStart === monthEnd) {
-            endPoint += partner
-                + "&month=" + monthEnd
-                + "&month=" + ((monthEnd === 1) ? "12" : (monthEnd - 1));
-        }
-        else if (monthStart < monthEnd) {
-            endPoint += partner;
-            for (let i = monthStart; i <= monthEnd; i++) {
-                endPoint += endPoint + "&month=" + i
-            }
-        }
-        else if (monthStart > monthEnd) {
-            endPoint += partner;
-            for (let i = monthStart; i <= 12; i++) {
-                endPoint += endPoint + "&month=" + i
-            }
-            for (let i = 1; i <= monthEnd; i++) {
-                endPoint += endPoint + "&month=" + i
-            }
-        }
-        return endPoint;
+    componentDidUpdate() {
+        this.CDU_checkRequest();
     }
+    CDU_checkRequest = () => {
+        if (this.props.items.type === "GET_SUM_ITEM_SUCSESS") { this.getSumItemSucsess() }
+        else if (this.props.items.type === "GET_HOME_RFAILURE") { this.getFail() }
+    }
+
+    getSumItemSucsess = () => {
+        localStorage.setItem("SumOrderHome", JSON.stringify(_.toPairs(this.props.items.listItem)));
+        this.props.stateStoreHomeToDefault();
+
+        // console.log(this.props.items.listItem);
+
+    }
+    getFail = () => {
+        alert("Vui lòng kiểm tra đường truyền internet !")
+    }
+
+
+    // getEndPoint = (partner, start, end) => {
+    //     let endPoint = "sumitem/?datatype=item";
+    //     let monthStart = new Date(start).getMonth() + 1;
+    //     let monthEnd = new Date(end).getMonth() + 1;
+    //     if (monthStart === monthEnd) {
+    //         endPoint += partner
+    //             + "&month=" + monthEnd
+    //             + "&month=" + ((monthEnd === 1) ? "12" : (monthEnd - 1));
+    //     }
+    //     else if (monthStart < monthEnd) {
+    //         endPoint += partner;
+    //         for (let i = monthStart; i <= monthEnd; i++) {
+    //             endPoint += endPoint + "&month=" + i
+    //         }
+    //     }
+    //     else if (monthStart > monthEnd) {
+    //         endPoint += partner;
+    //         for (let i = monthStart; i <= 12; i++) {
+    //             endPoint += endPoint + "&month=" + i
+    //         }
+    //         for (let i = 1; i <= monthEnd; i++) {
+    //             endPoint += endPoint + "&month=" + i
+    //         }
+    //     }
+    //     return endPoint;
+    // }
+
     render() {
         const activator = <Button onClick={this.togglePopoverActive} disclosure >More actions</Button>;
+        console.log(this.state.selectedDates);
 
         return (
             <div className="container-fluid">
                 <div className="container">
                     <div className="row">
-                        <div className="col-4">
-                            <p>select col-4</p>
+                        <div className="col-12">
                             <AppProvider i18n={enTranslations}>
                                 <div style={{ width: "300px" }}>
                                     <Popover active={this.state.popoverActive} activator={activator} onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
@@ -99,10 +116,12 @@ class Home extends Component {
                                 </div>
                             </AppProvider>
                         </div>
-                        <div className="col-8 d-flex-column align-item-center over-flow-control">
-                            <p>Biểu đồ col-8</p>
-                            <AllChartsPartner date={this.state.selectedDates}  {...this.props} />
+                    </div>
+                    <div className="row">
+                        <div className="col-12">
+                            <AllChartsPartner date={this.state.selectedDates} product="all" />
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -11,6 +11,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         getSumItem:(param)=>dispatch(actions.getSumItem(param)),
+        stateStoreHomeToDefault:()=>dispatch(actions.stateStoreHomeToDefault()),
         
         
     };
