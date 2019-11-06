@@ -4,8 +4,12 @@
   
 }
 
+.Parcel-Status {flex-direction: column;align-items: start;text-align: left;}
+
 .titletracking-properties {
     text-align: left;
+    color: #000;
+    font-weight: 700;
 }
 
 
@@ -13,13 +17,14 @@
 .more-tracking-info {
     margin: 0;
     text-align: left;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.5px;
 }
 
 .left-tracking-properties {
     height: 100vh;
     border-right: 1px solid rgb(228, 228, 228);
+    background: #333744;
 }
 
 .tracking-count {
@@ -27,10 +32,11 @@
     padding: 0.3rem 1.5rem;
     justify-content: space-between;
     cursor: pointer;
+    color: #fff;
 }
 
 .tracking-count:hover {
-    background: #f66;
+    background: rgba(255, 255, 255, 0.52);
 }
 
 .Polaris-Popover__Content {
@@ -335,13 +341,13 @@ p.checking-item-name {
 
 .nav-item-h {
   font-family: 'Quicksand', sans-serif !important;
-  text-align: center;
+  font-size: 1.5rem;
   cursor: pointer;
   font-weight: 800;
   color: #454f5b;
   transform:rotate(0deg);
   text-align: left;
-  padding: 0.4rem;
+  padding: 1rem;
 }
 .nav-item-h:hover {
  background: #f9fafb;
@@ -607,7 +613,9 @@ input[type=text]:placeholder {
   width: 100%;
 }
 
-
+.one-properties-tracking:nth-child(even) {
+  background: #dedede;
+}
 
 /* OTHERS */
 

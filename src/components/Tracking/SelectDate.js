@@ -49,20 +49,27 @@ class PopoverWithActionListExample extends Component {
 
 
     render() {
-        const activator = <Button onClick={this.togglePopoverActive} disclosure >More actions</Button>;
+        const activator = <Button onClick={this.togglePopoverActive} disclosure className="bt-selectdate" >More actions</Button>;
 
         return (
             <AppProvider i18n={enTranslations}>
-                <Popover active={this.state.popoverActive} activator={activator} onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
+                {/* <div style={{ height: '250px' }}> */}
 
-                    <DatePicker
-                        month={this.state.month}
-                        year={this.state.year}
-                        onChange={this.setSelectedDates}
-                        onMonthChange={this.handleMonthChange}
-                        selected={this.state.selectedDates}
-                    />
-                </Popover>
+                    <Popover active={this.state.popoverActive}
+                        activator={activator}
+                        onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
+                        <DatePicker
+                            month={this.state.month}
+                            year={this.state.year}
+                            onChange={this.setSelectedDates}
+                            onMonthChange={this.handleMonthChange}
+                            selected={this.state.selectedDates}
+                            disableDatesAfter={new Date()}
+                        />
+
+                    </Popover>
+                {/* </div> */}
+
             </AppProvider>
 
         );
