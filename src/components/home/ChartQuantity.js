@@ -48,7 +48,9 @@ export default class Example extends Component {
         dataChart = dataChart.map(param => { // đổi sang dữ liệu biểu đồ
           return {
             day: (new Date(param.day)).getDate() + "/" + ((new Date(param.day)).getMonth() + 1),
-            basecost: param.basecost
+            quantity: param.quantity,
+            us: param.shipping_us,
+            ww : param.quantity - param.shipping_us
 
           }
         })
@@ -66,9 +68,11 @@ export default class Example extends Component {
           })
           dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual); // đồng thời (dataChart) xóa những cái vừa lọc ở trên đi 
           let datePrint = (((new Date(rangeDayParam)).getDate()) + "/" + ((new Date(rangeDayParam)).getMonth() + 1));
-          let sumData = { day: datePrint, basecost: 0 };
+          let sumData = { day: datePrint, quantity: 0, us: 0, ww: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {
-            sumData.basecost += dataChartSelect[i].basecost;
+            sumData.quantity += dataChartSelect[i].quantity;
+            sumData.us += dataChartSelect[i].shipping_us;
+            sumData.ww = sumData.quantity - sumData.us
           }
           return sumData;
         })
@@ -98,9 +102,11 @@ export default class Example extends Component {
           else {
             datePrint = (new Date(startDayParam)).getDate() + "/" + ((new Date(startDayParam)).getMonth() + 1) + "-" + (new Date(endDayParam)).getDate() + "/" + ((new Date(endDayParam)).getMonth() + 1)
           }
-          let sumData = { day: datePrint, basecost: 0 };
+          let sumData = { day: datePrint, quantity: 0, us: 0, ww: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {
-            sumData.basecost += dataChartSelect[i].basecost;
+            sumData.quantity += dataChartSelect[i].quantity;
+            sumData.us += dataChartSelect[i].shipping_us;
+            sumData.ww = sumData.quantity - sumData.us
           }
           return sumData;
 
@@ -127,9 +133,11 @@ export default class Example extends Component {
           dataChart = _.pullAllWith(dataChart, dataChartSelect, _.isEqual);
           let startDayParam = rangeDayParam[0];
           let datePrint = (((new Date(startDayParam)).getMonth() + 1) + "/" + ((new Date(startDayParam)).getFullYear()));
-          let sumData = { day: datePrint, basecost: 0 };
+          let sumData = { day: datePrint, quantity: 0, us: 0, ww: 0 };
           for (let i = 0; i <= dataChartSelect.length - 1; i++) {
-            sumData.basecost += dataChartSelect[i].basecost;
+            sumData.quantity += dataChartSelect[i].quantity;
+            sumData.us += dataChartSelect[i].shipping_us;
+            sumData.ww = sumData.quantity - sumData.us
           }
           return sumData;
         })
@@ -146,7 +154,8 @@ export default class Example extends Component {
     let rangeDay = this.Math_rangeDay();
     let dataChart = [];
     if (this.props.product === "all") {
-      let data = JSON.parse(localStorage.SumOrderHome);
+      let data = JSON.parse(this.props.data);
+
       data.forEach(param1 => {
         param1[1].forEach(param2 => {
           dataChart.push(param2)
@@ -163,8 +172,8 @@ export default class Example extends Component {
     let writeChart = null;
 
     writeChart = <BarChart
-      width={(dataChart.length > 5) ? dataChart.length * 100 : 500}
-      height={300}
+      width={(dataChart.length > 5) ? dataChart.length * 80 : 400}
+      height={250}
       data={dataChart}
       margin={{
         top: 20, right: 30, left: 20, bottom: 5,
@@ -175,8 +184,10 @@ export default class Example extends Component {
       <YAxis />
       <Tooltip />
       <Legend />
+      <Bar dataKey="ww" stackId="a" barSize={15} fill="#034f84" ></Bar>
+      <Bar dataKey="us" stackId="a" barSize={15} fill="#eea29a" ></Bar>
 
-      <Bar dataKey="basecost" barSize={20} fill="#ffc658" ><LabelList dataKey="basecost" position="top" /></Bar>
+      <Bar dataKey="quantity" barSize={15} fill="#ffc658" ><LabelList dataKey="quantity" position="top" /></Bar>
     </BarChart>
 
 

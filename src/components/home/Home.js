@@ -3,11 +3,13 @@ import AllChartsPartner from './AllChartsPartner';
 import { DatePicker, AppProvider, Button, ActionList, Popover } from '@shopify/polaris';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import _ from "lodash";
+import { Dropdown } from 'react-bootstrap';
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             popoverActive: false,
+            dataChart: [],
             month: new Date().getMonth(),
             year: new Date().getFullYear(),
             selectedDates: {
@@ -17,12 +19,14 @@ class Home extends Component {
         }
     }
     componentWillMount() {
+        console.log("jkgskjsddsf");
+
         localStorage.setItem("SumOrderHome", JSON.stringify([]));
 
         let user = JSON.parse(localStorage.UserProperties)[1];
         user = user.substr(4);
         if (user === "all") { this.props.getSumItem("sumitem/?datatype=item") }
-        else { this.props.getSumItem("sumitem/?datatype=item&partner=" + user) }
+        else { this.props.getSumItem("sumitem/?datatype=item&partner=user" + user) }
 
         // if (user === "all") {  this.props.getSumItem(this.getEndPoint("", this.state.selectedDates.start, this.state.selectedDates.end));}
         // else { this.props.getSumItem(this.getEndPoint("?partner=" + user, this.state.selectedDates.start, this.state.selectedDates.end));}
@@ -61,7 +65,7 @@ class Home extends Component {
     getSumItemSucsess = () => {
         localStorage.setItem("SumOrderHome", JSON.stringify(_.toPairs(this.props.items.listItem)));
         this.props.stateStoreHomeToDefault();
-
+        this.setState({ dataChart: _.toPairs(this.props.items.listItem) })
         // console.log(this.props.items.listItem);
 
     }
@@ -96,11 +100,14 @@ class Home extends Component {
     //     }
     //     return endPoint;
     // }
+    setproduct = (e) => {
+        console.log(e.target.value);
 
+    }
     render() {
         const activator = <Button onClick={this.togglePopoverActive} disclosure >More actions</Button>;
-        console.log(this.state.selectedDates);
-
+        console.log(JSON.parse(localStorage.SumOrderHome));
+        let data = this.state.dataChart;
         return (
             <div className="container-fluid">
                 <div className="container">
@@ -115,13 +122,24 @@ class Home extends Component {
 
                                 </div>
                             </AppProvider>
+
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    Dropdown Button
+                             </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={() => this.setState({ dataChart: JSON.parse(localStorage.SumOrderHome) })}>All Product</Dropdown.Item>
+                                    {JSON.parse(localStorage.SumOrderHome).map((param, id) => <Dropdown.Item key={id} onClick={() => this.setState({ dataChart: [param] })}>{param[0]} </Dropdown.Item>)}
+
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <AllChartsPartner date={this.state.selectedDates} product="all" />
+                            <AllChartsPartner date={this.state.selectedDates} data={JSON.stringify(data)} product="all" />
                         </div>
-
                     </div>
                 </div>
             </div>

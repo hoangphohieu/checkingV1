@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ChartAmount from './ChartAmount';
+import ChartQuantity from './ChartQuantity';
 import ChartBaseCost from './ChartBaseCost';
 
 import _ from 'lodash';
@@ -7,17 +7,15 @@ import _ from 'lodash';
 class AllChartsPartner extends Component {
 
     render() {
-        console.log(JSON.parse(localStorage.SumOrderHome));
-
         return (
             <React.Fragment>
                 <div className="row">
-                    <div className="col-5 one-chart">
-                        <ChartAmount styleChart="Sumlineitemquantity"  {...this.props} />
+                    <div className="col-6 one-chart">
+                        <ChartBaseCost styleChart="Sumbasecost" {...this.props} />
 
                     </div>
-                    <div className="col-5 one-chart">
-                        <ChartBaseCost styleChart="Sumbasecost" {...this.props} />
+                    <div className="col-6 one-chart ">
+                        <ChartQuantity styleChart="Sumlineitemquantity"  {...this.props} />
 
                     </div>
                 </div>

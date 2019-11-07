@@ -143,7 +143,6 @@ class TrackingSearch extends Component {
 
                   <div className="row">
                         <div className="col-2 left-tracking-properties p-0">
-                              <SelectDate {...this.props} />
                               <div className="tracking-count" onClick={() => this.setDataRenderTracking(listTrackingSucsess)}><span>All</span><span>{listTrackingSucsess.length}</span></div>
                               <div className="tracking-count" onClick={() => this.setDataRenderTracking(transit)}><span>Transit</span><span>{transit.length}</span></div>
                               <div className="tracking-count" onClick={() => this.setDataRenderTracking(delivered)}><span>Delivered</span><span>{delivered.length}</span></div>
@@ -153,7 +152,10 @@ class TrackingSearch extends Component {
                               <div className="tracking-count" onClick={() => this.setDataRenderTracking(notfound)}><span>Not Found</span><span>{notfound.length}</span></div>
                               <div className="tracking-count" onClick={() => this.setDataRenderTracking(undelivered)}><span>Failed Attempt</span><span>{undelivered.length}</span></div>
                               <div className="tracking-count" onClick={() => this.setDataRenderTracking(pending)}><span>Pending</span><span>{pending.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(wrongName)}><span>Wrong Name</span><span>{wrongName.length}</span></div>
+                              <div className="tracking-count mb-5" onClick={() => this.setDataRenderTracking(wrongName)}><span>Wrong Name</span><span>{wrongName.length}</span></div>
+
+                              <SelectDate {...this.props} />
+
                         </div>
                         <div className="col-10">
                               <div className="row p-2">

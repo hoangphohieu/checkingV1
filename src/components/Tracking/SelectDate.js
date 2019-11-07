@@ -26,7 +26,7 @@ class PopoverWithActionListExample extends Component {
         let daySelect = Date.parse(this.state.selectedDates.start.toDateString());
 
         if (user === "all") { this.props.getOrderByDay("sumitem/?datatype=item&day=" + daySelect); }
-        else { this.props.getOrderByDay("sumitem/?datatype=item&partner=" + user + "day=" + daySelect); }
+        else { this.props.getOrderByDay("sumitem/?datatype=item&partner=user" + user + "&day=" + daySelect); }
     }
 
     togglePopoverActive = () => {
@@ -40,7 +40,7 @@ class PopoverWithActionListExample extends Component {
         let daySelect = Date.parse(param.start.toDateString());
 
         if (user === "all") { this.props.getOrderByDay("sumitem/?datatype=item&day=" + daySelect); }
-        else { this.props.getOrderByDay("sumitem/?datatype=item&partner=" + user + "day=" + daySelect); }
+        else { this.props.getOrderByDay("sumitem/?datatype=item&partner=user" + user + "&day=" + daySelect); }
         console.log(param);
 
 
@@ -53,12 +53,7 @@ class PopoverWithActionListExample extends Component {
 
         return (
             <AppProvider i18n={enTranslations}>
-                {/* <div style={{ height: '250px' }}> */}
-
-                    <Popover active={this.state.popoverActive}
-                        activator={activator}
-                        onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
-                        <DatePicker
+                <DatePicker
                             month={this.state.month}
                             year={this.state.year}
                             onChange={this.setSelectedDates}
@@ -66,9 +61,6 @@ class PopoverWithActionListExample extends Component {
                             selected={this.state.selectedDates}
                             disableDatesAfter={new Date()}
                         />
-
-                    </Popover>
-                {/* </div> */}
 
             </AppProvider>
 

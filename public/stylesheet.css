@@ -4,6 +4,132 @@
   
 }
 
+span.Polaris-Button__Content {
+    font-size: 1.5rem;
+    font-weight: var(--p-button-font-weight,400);
+    line-height: 1.6rem;
+    text-transform: none;
+    letter-spacing: normal;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+.Polaris-Icon {
+    display: block;
+    height: 1.5rem;
+    width: 1.5rem;
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+}
+
+svg.Polaris-Icon__Svg {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    fill: #fff;
+}
+
+.Polaris-DatePicker__Title {
+    color: #fff;
+}
+
+
+button.Polaris-Button {
+    background: rgba(85, 85, 85, 0);
+    border: 0;
+}
+
+.Polaris-DatePicker__Day {
+    display: block;
+    flex: 1 0 0%;
+    width: 14.28571%;
+    margin: 0;
+    /* padding: .8rem; */
+    background: transparent;
+    border: .1rem solid #dfe3e8;
+    border-radius: 0;
+    outline: none;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.Polaris-DatePicker__EmptyDay {
+    display: block;
+    flex: 1 0 0%;
+    width: 14.28571%;
+    margin: 0;
+    /* padding: .8rem; */
+    border: .1rem solid #dfe3e8;
+}
+
+.Polaris-DatePicker__Week {
+    display: flex;
+}
+
+.Polaris-DatePicker__Weekday {
+    display: block;
+    flex: 1 0 0%;
+    /* padding: .8rem; */
+    background: transparent;
+    /* font-size: 1.2rem; */
+    color: #ffffff;
+    text-align: center;
+}
+
+.Polaris-DatePicker__WeekHeadings {
+    display: flex;
+    width: 100%;
+    /* width: calc(100% - 1.6rem); */
+}
+
+.Polaris-DatePicker__Title {
+    flex: 1 1 auto;
+    margin-top: .2rem;
+    padding-bottom: .4rem;
+    text-align: center;
+}
+
+.Polaris-DatePicker__Month {
+    flex: 1 1 auto;
+    margin-top: 1.6rem;
+    margin-left: 1.6rem;
+    width: calc(100% - 1.6rem);
+    /* min-width: 23rem; */
+}
+
+.Polaris-DatePicker__MonthContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -1.6rem;
+    margin-left: -1.6rem;
+}
+
+.Polaris-DatePicker {
+    position: relative;
+}
+
+.Polaris-DatePicker__Header {
+    position: absolute;
+    top: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* color: #fff; */
+}
+
+.one-chart {
+    overflow-x: scroll;
+}
+
 .Parcel-Status {flex-direction: column;align-items: start;text-align: left;}
 
 .titletracking-properties {
@@ -341,13 +467,13 @@ p.checking-item-name {
 
 .nav-item-h {
   font-family: 'Quicksand', sans-serif !important;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
   font-weight: 800;
   color: #454f5b;
   transform:rotate(0deg);
   text-align: left;
-  padding: 1rem;
+  padding: 0.4rem;
 }
 .nav-item-h:hover {
  background: #f9fafb;
@@ -608,7 +734,12 @@ input[type=text]:placeholder {
 .underlineHover:hover {
   color: #0d0d0d;
 }
-
+.Polaris-DatePicker__Day--selected {
+  z-index: 30;
+  background: #5c6ac4;
+  border: .1rem solid #5c6ac4;
+  color: #fff;
+}
 .underlineHover:hover:after{
   width: 100%;
 }
@@ -616,7 +747,9 @@ input[type=text]:placeholder {
 .one-properties-tracking:nth-child(even) {
   background: #dedede;
 }
-
+.Polaris-DatePicker__Day:hover {
+  background: #757575;
+}
 /* OTHERS */
 
 *:focus {
