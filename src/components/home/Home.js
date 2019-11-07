@@ -3,13 +3,13 @@ import AllChartsPartner from './AllChartsPartner';
 import { DatePicker, AppProvider, Button, ActionList, Popover } from '@shopify/polaris';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import _ from "lodash";
-import { Dropdown } from 'react-bootstrap';
 class Home extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             popoverActive: false,
             dataChart: [],
+            selectProduct: "all",
             month: new Date().getMonth(),
             year: new Date().getFullYear(),
             selectedDates: {
@@ -109,40 +109,32 @@ class Home extends Component {
         console.log(JSON.parse(localStorage.SumOrderHome));
         let data = this.state.dataChart;
         return (
-            <div className="container-fluid">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <AppProvider i18n={enTranslations}>
-                                <div style={{ width: "300px" }}>
-                                    <Popover active={this.state.popoverActive} activator={activator} onClose={this.togglePopoverActive} fixed={false} fullWidth={false} preferredPosition="mostSpace" preventAutofocus={true}>
-                                        <ActionList items={[{ content: 'Ngày hôm qua', onAction: this.checkYesterday }, { content: 'Trong tuần', onAction: this.checkOnWeak }]} />
-                                        <DatePicker month={this.state.month} year={this.state.year} onChange={this.setSelectedDates} onMonthChange={this.handleMonthChange} selected={this.state.selectedDates} allowRange={true} />
-                                    </Popover>
 
-                                </div>
-                            </AppProvider>
+            <div className="row">
+                <div className="col-2 left-tracking-properties p-0">
+                    <div className={"Home-select-product" + ((this.state.selectProduct === "all") ? " select-product" : "")} onClick={() => this.setState({ dataChart: JSON.parse(localStorage.SumOrderHome), selectProduct: "all" })}>All</div>
+                    {JSON.parse(localStorage.SumOrderHome).map((param, id) => <div className={"Home-select-product" + ((this.state.selectProduct === param[0]) ? " select-product" : "")} key={id} onClick={() => this.setState({ dataChart: [param],selectProduct:param[0] })}>{param[0]} </div>)}
 
-                            <Dropdown>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Dropdown Button
-                             </Dropdown.Toggle>
 
-                                <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => this.setState({ dataChart: JSON.parse(localStorage.SumOrderHome) })}>All Product</Dropdown.Item>
-                                    {JSON.parse(localStorage.SumOrderHome).map((param, id) => <Dropdown.Item key={id} onClick={() => this.setState({ dataChart: [param] })}>{param[0]} </Dropdown.Item>)}
-
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <AllChartsPartner date={this.state.selectedDates} data={JSON.stringify(data)} product="all" />
-                        </div>
+                    <div className="p-1 mt-5">
+                        <AppProvider i18n={enTranslations}>
+                            <DatePicker month={this.state.month}
+                                year={this.state.year}
+                                onChange={this.setSelectedDates}
+                                onMonthChange={this.handleMonthChange}
+                                selected={this.state.selectedDates}
+                                allowRange={true}
+                                disableDatesAfter={new Date()}
+                            />
+                        </AppProvider>
                     </div>
                 </div>
+                <div className="col-10">
+                    <AllChartsPartner date={this.state.selectedDates} data={JSON.stringify(data)} product="all" />
+
+                </div>
             </div>
+
 
 
         );

@@ -4,6 +4,22 @@
   
 }
 
+.select-product {
+    background: rgba(255, 255, 255, 0.52);
+}
+
+.Home-select-product {
+    /* display: flex; */
+    padding: 0.4rem 1.5rem;
+    justify-content: space-between;
+    cursor: pointer;
+    color: #fff;
+}
+
+.Home-select-product:hover {
+    background: rgba(255, 255, 255, 0.52);
+}
+
 span.Polaris-Button__Content {
     font-size: 1.5rem;
     font-weight: var(--p-button-font-weight,400);
@@ -148,14 +164,14 @@ button.Polaris-Button {
 }
 
 .left-tracking-properties {
-    height: 100vh;
+    height: 95vh;
     border-right: 1px solid rgb(228, 228, 228);
     background: #333744;
 }
 
 .tracking-count {
     display: flex;
-    padding: 0.3rem 1.5rem;
+    padding: 0.4rem 1.5rem;
     justify-content: space-between;
     cursor: pointer;
     color: #fff;
@@ -178,7 +194,7 @@ img._219ua {
 
 .border-right-gray {
     border-right: 1px solid rgb(228, 228, 228);
-    height: 100vh;
+    height: 95vh;
 }
 
 svg.v3ASA {
@@ -194,7 +210,7 @@ span._2-hnq {
 
 .nav-top {
     width: 100%;
-    height: 50px;
+    height: 5vh;
     background: rgb(28, 34, 96);
 }
 
@@ -737,7 +753,7 @@ input[type=text]:placeholder {
 .Polaris-DatePicker__Day--selected {
   z-index: 30;
   background: #5c6ac4;
-  border: .1rem solid #5c6ac4;
+  /* border: .1rem solid #5c6ac4; */
   color: #fff;
 }
 .underlineHover:hover:after{
@@ -755,7 +771,11 @@ input[type=text]:placeholder {
 *:focus {
     outline: none;
 } 
-
+.Polaris-DatePicker__Day--inRange {
+  z-index: 20;
+  background: #5c6ac4;
+  /* border: .1rem solid #9ca6de; */
+}
 #icon {
   width:60%;
 }
@@ -767,7 +787,9 @@ input[type=text]:placeholder {
 .fontjn{
   font-family: 'Jim Nightshade', cursive;
 }
-
+.Home-select-product:focus{
+  background: #28a745;
+}
 
 /* ............................................................................................ */
 

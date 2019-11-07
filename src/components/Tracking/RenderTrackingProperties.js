@@ -11,7 +11,7 @@ class RenderTrackingProperties extends Component {
       render() {
 
             let dataTracking = this.props.dataTracking;
-            console.log(dataTracking);
+            // console.log(dataTracking);
 
 
             return (

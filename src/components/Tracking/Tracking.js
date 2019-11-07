@@ -12,7 +12,8 @@ class TrackingSearch extends Component {
             super(props, context);
             this.state = {
                   listOrder: [],
-                  dataRenderTracking: []
+                  dataRenderTracking: null,
+                  select: "all"
             }
       }
 
@@ -24,12 +25,16 @@ class TrackingSearch extends Component {
 
 
       componentDidUpdate() {
+            console.log(this.state.dataRenderTracking);
+
             this.CDU_checkRequest();
             this.CDU_renderListTrackingSucsess();
 
       }
       CDU_renderListTrackingSucsess = () => {
-            if (this.state.dataRenderTracking.length === 0 && JSON.parse(localStorage.listTrackingSucsess).length > 0) {
+            console.log(this.state.dataRenderTracking);
+
+            if (this.state.dataRenderTracking === null && JSON.parse(localStorage.listTrackingSucsess).length > 0) {
                   this.setState({ dataRenderTracking: JSON.parse(localStorage.listTrackingSucsess) })
             }
       }
@@ -88,7 +93,7 @@ class TrackingSearch extends Component {
                         }
                         else {
                               this.props.StateStoreTrackingToDefault();
-
+                              this.setState({ dataRenderTracking: JSON.parse(localStorage.listTrackingSucsess),select:"all" })
                         }
                   }
 
@@ -118,8 +123,11 @@ class TrackingSearch extends Component {
 
 
       }
-      setDataRenderTracking = (param) => {
-            this.setState({ dataRenderTracking: param });
+      setDataRenderTracking = (param,param2) => {
+            console.log(param);
+            console.log(this);
+
+            this.setState({ dataRenderTracking: param,select:param2 });
       }
       render() {
             let listTrackingSucsess = JSON.parse(localStorage.listTrackingSucsess);
@@ -136,26 +144,32 @@ class TrackingSearch extends Component {
                   pending = listTrackingSucsess.filter(param => param.status === "pending");
                   wrongName = _.difference(this.state.listOrder, listNameTrackingSucsess);
             }
+            console.log(this.state.dataRenderTracking);
+            console.log(pickup);
 
 
-            let RenderoneTracking = this.state.dataRenderTracking.map((param, id) => <RenderTrackingProperties key={id} dataTracking={param} />);
+            let RenderoneTracking = [];
+            if (this.state.dataRenderTracking !== null)
+                  RenderoneTracking = this.state.dataRenderTracking.map((param, id) => <RenderTrackingProperties key={id} dataTracking={param} />);
             return (<React.Fragment>
 
                   <div className="row">
                         <div className="col-2 left-tracking-properties p-0">
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(listTrackingSucsess)}><span>All</span><span>{listTrackingSucsess.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(transit)}><span>Transit</span><span>{transit.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(delivered)}><span>Delivered</span><span>{delivered.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(pickup)}><span>Out for Delivery</span><span>{pickup.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(exception)}><span>Exception</span><span>{exception.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(expired)}><span>Expired</span><span>{expired.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(notfound)}><span>Not Found</span><span>{notfound.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(undelivered)}><span>Failed Attempt</span><span>{undelivered.length}</span></div>
-                              <div className="tracking-count" onClick={() => this.setDataRenderTracking(pending)}><span>Pending</span><span>{pending.length}</span></div>
-                              <div className="tracking-count mb-5" onClick={() => this.setDataRenderTracking(wrongName)}><span>Wrong Name</span><span>{wrongName.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="all")?" select-product":"")} onClick={() => this.setDataRenderTracking(listTrackingSucsess,"all")}><span>All</span><span>{listTrackingSucsess.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="transit")?" select-product":"")} onClick={() => this.setDataRenderTracking(transit,"transit")}><span>Transit</span><span>{transit.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="delivered")?" select-product":"")} onClick={() => this.setDataRenderTracking(delivered,"delivered")}><span>Delivered</span><span>{delivered.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="pickup")?" select-product":"")} onClick={() => this.setDataRenderTracking(pickup,"pickup")}><span>Out for Delivery</span><span>{pickup.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="exception")?" select-product":"")} onClick={() => this.setDataRenderTracking(exception,"exception")}><span>Exception</span><span>{exception.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="expired")?" select-product":"")} onClick={() => this.setDataRenderTracking(expired,"expired")}><span>Expired</span><span>{expired.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="notfound")?" select-product":"")} onClick={() => this.setDataRenderTracking(notfound,"notfound")}><span>Not Found</span><span>{notfound.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="undelivered")?" select-product":"")} onClick={() => this.setDataRenderTracking(undelivered,"undelivered")}><span>Failed Attempt</span><span>{undelivered.length}</span></div>
+                              <div className={"tracking-count"+((this.state.select==="pending")?" select-product":"")} onClick={() => this.setDataRenderTracking(pending,"pending")}><span>Pending</span><span>{pending.length}</span></div>
+                              <div className={"mb-5 tracking-count"+((this.state.select==="wrongName")?" select-product":"")}  onClick={() => this.setDataRenderTracking(wrongName,"wrongName")}><span>Wrong Name</span><span>{wrongName.length}</span></div>
 
-                              <SelectDate {...this.props} />
+                              <div className="p-1">
+                                    <SelectDate {...this.props} />
 
+                              </div>
                         </div>
                         <div className="col-10">
                               <div className="row p-2">
