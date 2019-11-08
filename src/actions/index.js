@@ -82,8 +82,8 @@ export function getUseAPI(payload) {
     return ({ type: type.GET_USE_INFO_REQUEST, payload })
 }
 
-export function setStateUserToDefault(payload) {
-    return ({ type: type.STATE_USER_TO_DEFAULT, payload })
+export function setStateUserToDefault() {
+    return ({ type: type.STATE_USER_TO_DEFAULT })
 }
 
 export function getListUserAPI(payload) {

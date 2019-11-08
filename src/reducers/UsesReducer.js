@@ -140,11 +140,12 @@ export default (state = DEFAULT_STATE, action) => {
 
             case type.STATE_USER_TO_DEFAULT:
                   return {
+                        ...state,
                         listItem: [],
                         dataFetched: false,
                         isFetching: false,
                         error: false,
-                        type: null,
+                        type: "STATE_USER_TO_DEFAULT",
                         errorMessesage: null
                   }
 

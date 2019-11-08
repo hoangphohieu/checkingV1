@@ -11,13 +11,14 @@ class UserProperties extends Component {
                   delete: false,
                   partner: this.props.userProperties.item_post.partner,
                   router: this.props.userProperties.item_post.router,
+                  show: false
 
             }
       }
 
       saveChange = (id) => {
             let item = this.props.userProperties.item_post;
-console.log(item);
+            console.log(item);
 
             this.setState({ change: false });
             let obj = {
@@ -43,7 +44,7 @@ console.log(item);
 
             else {
                   if (this.refs["paid"].value !== "0") {
-                        obj.paid=[...obj.paid,[Date.parse(new Date().toDateString()),this.refs["paid"].value]];
+                        obj.paid = [...obj.paid, [Date.parse(new Date().toDateString()), this.refs["paid"].value]];
                   }
                   obj.code = obj.code.split(",").filter(param => param !== "");
                   obj = { ...this.props.userProperties, item_post: obj };
@@ -68,20 +69,57 @@ console.log(item);
       handleShow = () => { this.setState({ change: true }) };
       handleDeleteClose = () => { this.setState({ delete: false }) };
       handleDeleteShow = () => { this.setState({ delete: true }) };
+      showProperties = () => {
+            this.setState({ show: !this.state.show })
+      }
       render() {
             let item = this.props.userProperties.item_post;
+            let paid = 0;
+            if (item.paid.length !== 0) item.paid.forEach(param => {
+                  paid += parseInt(param[1]);
+            })
 
 
-            
-            // console.log(this.state.router);
+            // console.log(this.state.router); 
 
             return (
                   <React.Fragment>
-                        <div className="row border-item-checking">
+
+                        {/* properties */}
+                        <div className="row p-2 hover-pointer one-properties-tracking align-items-center" onClick={this.showProperties}>
+                              <div className="col-2 text-center">
+                                    {item.name.substr(4)}
+                              </div>
+                              <div className="col-2 text-center">
+                                    {item.sumBaseCost}
+                              </div>
+                              <div className="col-2 text-center">
+                                    {paid}
+                              </div>
+                              <div className="col-2 text-center">
+                                    {Math.abs(item.sumBaseCost - paid)}
+                              </div>
+                              <div className="col-2 text-center">
+                                    {(item.sumBaseCost - paid>0)?"còn nợ":"còn dư"}
+                              </div>
+                              <div className="col-2 text-center">
+                                    some thing !
+                              </div>
+                        </div>
+                        {/* properties */}
+
+                        {/* more */}
+                        {(this.state.show === true) ? <div className="row mb-1">
+                              <div className="col-12">
+                                    <h6 className="titletracking-properties">Other Information</h6>
+                                    <p className="more-tracking-info">Courie</p>
+                              </div>
+
                               <div className="col-12">
                                     <p className="checking-item-altribute"><span className="checking-item-title">User:</span><span>{item.name.substr(4)}</span></p>
-                                    <p className="checking-item-altribute"><span className="checking-item-title">PassWord:</span><span>{item.pass}</span></p>
+                                    <p className="checking-item-altribute"><span className="checking-item-title">Base Cost:</span><span>{item.sumBaseCost}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Sản phẩm:</span><span>{item.product.join(",")}</span></p>
+                                    <p className="checking-item-altribute"><span className="checking-item-title">PassWord:</span><span>{item.pass}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Chứ Năng:</span><span>{(item.router === "R") ? "Đọc" : "Đọc, thêm, sửa, xóa"}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">Phân quyền:</span><span>{item.partner.substr(4)}</span></p>
                                     <p className="checking-item-altribute"><span className="checking-item-title">SDT:</span><span>{item.phone}</span></p>
@@ -180,7 +218,11 @@ console.log(item);
                                           </Button>
                                     </Modal.Footer>
                               </Modal>
-                        </div>
+                        </div> : ""}
+                        {/* more */}
+
+
+
 
                   </React.Fragment>
             );

@@ -35,10 +35,10 @@ class PartnersPagination extends Component {
 
     }
     componentDidUpdate() {
-        console.log(this.props.partnersPaginations);
+        
         if (JSON.parse(localStorage.SumOrderHome).length !== 0 && this.state.activePage === 0) {
             if (this.props.partnersPaginations.length !== 0) {
-                console.log(this.props.partnersPaginations);
+                
 
                 this.props.getBaseCostByList(this.props.partnersPaginations[0]);
                 this.setState({ activePage: 1 })
@@ -54,7 +54,7 @@ class PartnersPagination extends Component {
         let totalPage = this.props.partnersPaginations.length;
         let partnerName = "";
         if (listPartner.length !== 0 && this.state.activePage !== 0) partnerName = listPartner[this.state.activePage - 1].map((param, id) => <div className="tracking-count" key={id} >{param}</div>)
-        console.log(listPartner);
+        
         return (
             <React.Fragment>
                 {partnerName}

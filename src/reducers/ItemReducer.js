@@ -7,7 +7,7 @@ let DEFAULT_STATE = {
     errorMessesage: null
 }
 export default (state = DEFAULT_STATE, action) => {
-    console.log(action);
+    // console.log(action);
 
     switch (action.type) {
 
