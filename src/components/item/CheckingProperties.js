@@ -39,89 +39,102 @@ class CheckingProperties extends Component {
       handleDeleteClose = () => { this.setState({ delete: false }) };
       handleDeleteShow = () => { this.setState({ delete: true }) };
       render() {
-            let item = this.props.proppertiesitem;
+            let item = JSON.parse(this.props.proppertiesitem);
+            let valueItem = JSON.parse(this.props.proppertiesitem).item_post;
+            console.log(item);
 
-            item = _.toPairs(item); // props.proppertiesitem là object => array
-            let printStatus = item.filter(param => { return param[0] === "printStatus" });
+            valueItem = _.toPairs(valueItem); // props.proppertiesitem là object => array
+            let printStatus = valueItem.filter(param => { return param[0] === "printStatus" });
             if (printStatus.length === 0) { printStatus = [["printStatus", false]] }
 
-            let idStatus = item.filter(param => { return param[0] === "id" });
+            let idStatus = valueItem.filter(param => { return param[0] === "id" });
 
             return (
                   <React.Fragment>
-                        <div className="row border-item-checking">
-                              <div className="col-12">
-                                    <button onClick={() => this.changePrintStatus({ printStatus: !printStatus[0][1], idStatus: idStatus[0][1] })} type="button" className={"btn btn-" + ((printStatus[0][1] === true) ? "primary" : "danger") + " checking-right-state"}>
-                                          {(printStatus[0][1] === true) ? "Done !" : "Print ..."}
-                                    </button>
+
+                        <div className="card col-4 card-style">
+
+
+                              <div className="card-body">
+
+                                    <h5 className="card-title">Card title</h5>
                                     {
-                                          item.map((param, id) => {
+                                          valueItem.map((param, id) => {
                                                 if (param[0] !== "id" && param[0] !== "printStatus")
                                                       return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
                                           })
                                     }
+
                               </div>
+                              <div className="card-footer text-muted">
+                                    <div className="row">
+                                          <div className="col-8">
+                                                <img className="card-img-top" src="https://res.cloudinary.com/hieudz/image/upload/v1566581774/demo%20tool/DK1882.jpg" alt="Card image cap" />
+                                          </div>
+                                          <div className="col-4">
+                                                <div className="state_itemChecking">
+                                                      <button onClick={() => this.changePrintStatus({ printStatus: !printStatus[0][1], idStatus: idStatus[0][1] })} type="button"
+                                                            className={" mb-2 btn btn-" + ((printStatus[0][1] === true) ? "primary" : "danger") + " checking-right-state"}>
+                                                            {(printStatus[0][1] === true) ? "Done !" : "Print ..."}
+                                                      </button>
+                                                      <Button className="state_itemChecking_button" variant="primary" onClick={this.handleShow}>
+                                                            Change
+                                                      </Button>
+                                                      <Button className="state_itemChecking_button" variant="danger" onClick={this.handleDeleteShow}>
+                                                            Delele
+                                                      </Button>
+                                                </div>
+                                          </div>
+                                    </div>
 
-
-                              {/* modal */}
-                              <div className="state_itemChecking">
-                                    <Button className="state_itemChecking_button" variant="primary" onClick={this.handleShow}>
-                                          Thay đổi
-                              </Button>
-                                    <Button className="state_itemChecking_button" variant="danger" onClick={this.handleDeleteShow}>
-                                          Xóa
-                              </Button>
                               </div>
-
-                              <Modal show={this.state.change} onHide={this.handleClose}>
-                                    <Modal.Header closeButton>
-                                          <Modal.Title>Modal heading</Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                          {
-                                                item.map((param, id) => {
-                                                      if (param[0] !== "id" && param[0] !== "printStatus")
-                                                            return <p className="checking-item-altribute" key={id}>
-                                                                  <span className="checking-item-title">{param[0]}:</span>
-                                                                  <input type="text" className="form-control" placeholder="" ref={param[0]} defaultValue={param[1]} />
-                                                            </p>
-
-                                                })
-                                          }
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                          <Button variant="secondary" onClick={this.handleClose}>
-                                                Close
-                                    </Button>
-                                          <Button variant="primary" onClick={() => this.saveChange(item, idStatus[0][1])}>
-                                                Save Changes
-                                     </Button>
-                                    </Modal.Footer>
-                              </Modal>
-
-
-
-
-                              {/* modal */}
-
-
-                              <Modal show={this.state.delete} onHide={this.handleDeleteClose}>
-                                    <Modal.Header closeButton>
-                                          <Modal.Title>Ấn oke để xóa</Modal.Title>
-                                    </Modal.Header>
-
-                                    <Modal.Footer>
-                                          <Button variant="primary" onClick={() => this.deleteItemChecking(idStatus[0][1])}>
-                                                OK
-                                          </Button>
-                                          <Button variant="secondary" onClick={this.handleDeleteClose}>
-                                                Close
-                                          </Button>
-                                    </Modal.Footer>
-                              </Modal>
                         </div>
 
-                  </React.Fragment>
+
+                        <Modal show={this.state.change} onHide={this.handleClose}>
+                              <Modal.Header closeButton>
+                                    <Modal.Title>Modal heading</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                    {
+                                          valueItem.map((param, id) => {
+                                                if (param[0] !== "id" && param[0] !== "printStatus")
+                                                      return <p className="checking-item-altribute" key={id}>
+                                                            <span className="checking-item-title">{param[0]}:</span>
+                                                            <input type="text" className="form-control" placeholder="" ref={param[0]} defaultValue={param[1]} />
+                                                      </p>
+
+                                          })
+                                    }
+                              </Modal.Body>
+                              <Modal.Footer>
+                                    <Button variant="secondary" onClick={this.handleClose}>
+                                          Close
+                                    </Button>
+                                    <Button variant="primary" onClick={() => this.saveChange(valueItem, idStatus[0][1])}>
+                                          Save Changes
+                                     </Button>
+                              </Modal.Footer>
+                        </Modal>
+
+
+                        <Modal show={this.state.delete} onHide={this.handleDeleteClose}>
+                              <Modal.Header closeButton>
+                                    <Modal.Title>Ấn oke để xóa</Modal.Title>
+                              </Modal.Header>
+
+                              <Modal.Footer>
+                                    <Button variant="primary" onClick={() => this.deleteItemChecking(idStatus[0][1])}>
+                                          OK
+                                          </Button>
+                                    <Button variant="secondary" onClick={this.handleDeleteClose}>
+                                          Close
+                                          </Button>
+                              </Modal.Footer>
+                        </Modal>
+
+
+                  </React.Fragment >
             );
       }
 }

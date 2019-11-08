@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from "lodash";
 class CheckingInput extends Component {
       constructor(props, context) {
             super(props, context);
@@ -10,7 +11,8 @@ class CheckingInput extends Component {
             this.setState({ valueInput: e.target.value });
       }
       searchChecking = () => {
-            this.props.searchChecking(this.state.valueInput)
+           
+            this.props.searchChecking("?datatype=item&name=" +_.replace(this.state.valueInput, '#', '%23') );
       }
       SearchItemByEnter = (e) => {
             if (e.key === "Enter") { this.searchChecking() }
@@ -22,7 +24,7 @@ class CheckingInput extends Component {
             return (
                   <React.Fragment> 
                         <input type="text" className="form-control" placeholder="Recipient's username" onChange={this.changeValueInput} onKeyDown={this.SearchItemByEnter}  autoFocus />
-                        <button type="button" className="btn btn-primary" onClick={this.searchChecking}>Search</button>
+                        <button type="button" className="btn btn-primary" onClick={this.searchChecking}>Search item</button>
                   </React.Fragment>
             );
       }

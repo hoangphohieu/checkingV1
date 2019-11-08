@@ -4,7 +4,7 @@ import * as actions from '../actions';
 import Item from '../components/item/Item';
 function mapStateToProps(state) {
       return {
-            dataChecking: state.items
+            ItemPayload: state.items
       };
 }
 
