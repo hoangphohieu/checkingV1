@@ -16,6 +16,9 @@ class UserProperties extends Component {
       }
 
       saveChange = (id) => {
+            let item = this.props.userProperties.item_post;
+console.log(item);
+
             this.setState({ change: false });
             let obj = {
                   id: id,
@@ -25,7 +28,8 @@ class UserProperties extends Component {
                   note: this.refs["note"].value,
                   code: this.refs["code"].value,
                   pass: this.refs["pass"].value,
-                  // product: this.refs["product"].value
+                  paid: item.paid
+
 
             };
             console.log(obj);
@@ -36,8 +40,11 @@ class UserProperties extends Component {
                   alert("Không thành Công, hãy chọn quyền !");
 
             }
+
             else {
-                  // obj.product = obj.product.split(",").filter(param => param !== "");
+                  if (this.refs["paid"].value !== "0") {
+                        obj.paid=[...obj.paid,[Date.parse(new Date().toDateString()),this.refs["paid"].value]];
+                  }
                   obj.code = obj.code.split(",").filter(param => param !== "");
                   obj = { ...this.props.userProperties, item_post: obj };
                   this.props.changeUserProperties(obj);
@@ -65,7 +72,7 @@ class UserProperties extends Component {
             let item = this.props.userProperties.item_post;
 
 
-            console.log(item);
+            
             // console.log(this.state.router);
 
             return (
@@ -117,6 +124,10 @@ class UserProperties extends Component {
                                           <p className="checking-item-altribute">
                                                 <span className="checking-item-title">Code:</span> <br />
                                                 <input type="text" className="form-control" placeholder="" ref="code" defaultValue={item.code.join(",")} />
+                                          </p>
+                                          <p className="checking-item-altribute">
+                                                <span className="checking-item-title">paid:</span> <br />
+                                                <input type="text" className="form-control" placeholder="" ref="paid" defaultValue={0} />
                                           </p>
 
                                           <p className="checking-item-altribute">

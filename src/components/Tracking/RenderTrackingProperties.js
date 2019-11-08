@@ -20,19 +20,19 @@ class RenderTrackingProperties extends Component {
 
 
                         {/* properties */}
-                        <div className="row p-1 hover-pointer one-properties-tracking" onClick={this.showProperties}>
-                              <div className="col-2 d-flex align-items-center">
+                        <div className="row p-1 hover-pointer one-properties-tracking align-items-center"  onClick={this.showProperties}>
+                              <div className="col-2 text-center">
                                     {dataTracking.tracking_number}
 
                               </div>
-                              <div className="col-2 d-flex align-items-center">
+                              <div className="col-2 text-center">
                                     {dataTracking.order_id}
                               </div>
                               <div className="col-6 d-flex  Parcel-Status">
                                     <span className={"mr-1 border-" + dataTracking.status}>{dataTracking.status}</span>
                                     <span >{dataTracking.lastEvent}</span>
                               </div>
-                              <div className="col-2 d-flex align-items-center">
+                              <div className="col-2 text-center">
                                     {dataTracking.itemTimeLength}
 
                               </div>

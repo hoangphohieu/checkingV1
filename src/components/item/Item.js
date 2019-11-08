@@ -19,33 +19,21 @@ class Item extends Component {
 
             return (
                   <React.Fragment>
+                        <div className="row justify-content-center nav-top-item">
+                              <div className="col-4 d-flex align-items-center">
+                                    <CheckingInput {...this.props} />
 
-                        {/* input and search  */}
-                        <div className="row mt-3">
-                              <div className="col-12">
-                                    <div className="row justify-content-center">
-                                          <div className="col-5 d-flex">
-                                                <CheckingInput {...this.props} />
-                                          </div>
-                                    </div>
                               </div>
                         </div>
-                        {/* end input search  */}
+
                         <div className="row">
-                              {/* left  */}
                               <div className="col-12 checking-right mt-3">
                                     {items}
                               </div>
-                              {/* end left  */}
-                              {/* right  */}
-                              {/* <div className="col-6 checking-left mt-3">
-                                                      <CheckingImage {...this.props} newItems={newItems} />
-                                                </div> */}
-                              {/* end right  */}
                         </div>
 
 
-                        <div className="row UtilitiesChecking_position">
+                        <div className="row ">
                               <UtilitiesChecking {...this.props} newItems={newItems} />
                         </div>
 

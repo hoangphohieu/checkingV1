@@ -38,10 +38,7 @@ class App extends Component {
           <div className="container-fluid h-100 ">
             <div className="row h-100">
               <div className="col-2 border-right-gray">
-              <div className="row">
-                  <div className="nav-top">
-                  </div>
-                </div>
+                <div className="row"> <div className="nav-top"></div> </div>
                 <div className="row flex-column ">
                   {(partnerTypeUser === undefined) ? ""
                     : <Link to="/" className=" nav-item-h">
@@ -121,10 +118,7 @@ class App extends Component {
 
 
               <div className="col-10">
-                <div className="row">
-                  <div className="nav-top">
-                  </div>
-                </div>
+              
                 <Switch  >
 
                   {(partnerTypeUser !== undefined) ?

@@ -5,7 +5,7 @@ let DEFAULT_STATE = {
       isFetching: false,
       error: false,
       type: null,
-      errorMessesage: null 
+      errorMessesage: null
 }
 export default (state = DEFAULT_STATE, action) => {
       // console.log(action);
@@ -45,6 +45,16 @@ export default (state = DEFAULT_STATE, action) => {
                   }
 
 
+            case type.GET_SUM_ITEM_SUCSESS:
+                  return {
+                        ...state,
+                        isFetching: false,
+                        dataFetched: true,
+                        error: false,
+                        type: "GET_SUM_ITEM_SUCSESS",
+                        errorMessesage: null,
+                        listItem: action.payload
+                  }
 
 
             case type.GET_USE_INFO_RFAILURE:

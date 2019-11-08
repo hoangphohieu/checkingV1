@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import RenderTrackingProperties from './RenderTrackingProperties';
 import SelectDate from './SelectDate';
-
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 class TrackingSearch extends Component {
       constructor(props, context) {
@@ -13,7 +13,9 @@ class TrackingSearch extends Component {
             this.state = {
                   listOrder: [],
                   dataRenderTracking: null,
-                  select: "all"
+                  select: "all",
+                  valueInput: "",
+                  searchStyle: "by Order"
             }
       }
 
@@ -93,7 +95,7 @@ class TrackingSearch extends Component {
                         }
                         else {
                               this.props.StateStoreTrackingToDefault();
-                              this.setState({ dataRenderTracking: JSON.parse(localStorage.listTrackingSucsess),select:"all" })
+                              this.setState({ dataRenderTracking: JSON.parse(localStorage.listTrackingSucsess), select: "all" })
                         }
                   }
 
@@ -123,11 +125,32 @@ class TrackingSearch extends Component {
 
 
       }
-      setDataRenderTracking = (param,param2) => {
+      setDataRenderTracking = (param, param2) => {
             console.log(param);
             console.log(this);
 
-            this.setState({ dataRenderTracking: param,select:param2 });
+            this.setState({ dataRenderTracking: param, select: param2 });
+      }
+      changeValueInput = (e) => {
+            this.setState({ valueInput: e.target.value });
+      }
+      SearchItemByEnter = (e) => {
+            if (e.key === "Enter") { this.searchChecking() }
+      }
+      searchChecking = () => {
+            let _this = this;
+            let endPoint = ((this.state.searchStyle === "by Order") ? "?orders=" : "?numbers=") + _.replace(this.state.valueInput, '#', '%23') + "&limit=500";
+            console.log(endPoint);
+
+            setTimeout(function () { _this.props.getTrackingMore(endPoint); }, 1000);
+            localStorage.setItem("listNameForTracking", JSON.stringify([_.replace(this.state.valueInput, '#', '%23')]));
+            localStorage.setItem("listTrackingSucsess", JSON.stringify([]));
+
+
+
+      }
+      setSearchStyle = (param) => {
+            this.setState({ searchStyle: param })
       }
       render() {
             let listTrackingSucsess = JSON.parse(localStorage.listTrackingSucsess);
@@ -152,19 +175,40 @@ class TrackingSearch extends Component {
             if (this.state.dataRenderTracking !== null)
                   RenderoneTracking = this.state.dataRenderTracking.map((param, id) => <RenderTrackingProperties key={id} dataTracking={param} />);
             return (<React.Fragment>
+                  <div className="row justify-content-center nav-top-item">
+                        <div className="col-4 d-flex align-items-center">
+                              <div className="input-group ">
+                                    <input className="text" className="form-control"
+                                          placeholder="Search by TrackingNumber or Order"
+                                          aria-label="Username"
+                                          aria-describedby="basic-addon2"
+                                          onChange={this.changeValueInput}
+                                          onKeyDown={this.SearchItemByEnter}
+                                          autoFocus />
+                                    <div className="input-group-prepend">
+                                          <DropdownButton id="dropdown-Secondary-button" title={this.state.searchStyle} variant="secondary">
+                                                <Dropdown.Item onClick={() => this.setSearchStyle("by Tracking")}>By Tracking</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => this.setSearchStyle("by Order")}>By Order</Dropdown.Item>
+                                          </DropdownButton>
+                                          <span className="input-group-text hover-pointer" id="basic-addon2" onClick={this.searchChecking}><i className="fa fa-search"></i></span>
+                                    </div>
 
+                              </div>
+
+                        </div>
+                  </div>
                   <div className="row">
                         <div className="col-2 left-tracking-properties p-0">
-                              <div className={"tracking-count"+((this.state.select==="all")?" select-product":"")} onClick={() => this.setDataRenderTracking(listTrackingSucsess,"all")}><span>All</span><span>{listTrackingSucsess.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="transit")?" select-product":"")} onClick={() => this.setDataRenderTracking(transit,"transit")}><span>Transit</span><span>{transit.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="delivered")?" select-product":"")} onClick={() => this.setDataRenderTracking(delivered,"delivered")}><span>Delivered</span><span>{delivered.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="pickup")?" select-product":"")} onClick={() => this.setDataRenderTracking(pickup,"pickup")}><span>Out for Delivery</span><span>{pickup.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="exception")?" select-product":"")} onClick={() => this.setDataRenderTracking(exception,"exception")}><span>Exception</span><span>{exception.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="expired")?" select-product":"")} onClick={() => this.setDataRenderTracking(expired,"expired")}><span>Expired</span><span>{expired.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="notfound")?" select-product":"")} onClick={() => this.setDataRenderTracking(notfound,"notfound")}><span>Not Found</span><span>{notfound.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="undelivered")?" select-product":"")} onClick={() => this.setDataRenderTracking(undelivered,"undelivered")}><span>Failed Attempt</span><span>{undelivered.length}</span></div>
-                              <div className={"tracking-count"+((this.state.select==="pending")?" select-product":"")} onClick={() => this.setDataRenderTracking(pending,"pending")}><span>Pending</span><span>{pending.length}</span></div>
-                              <div className={"mb-5 tracking-count"+((this.state.select==="wrongName")?" select-product":"")}  onClick={() => this.setDataRenderTracking(wrongName,"wrongName")}><span>Wrong Name</span><span>{wrongName.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "all") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(listTrackingSucsess, "all")}><span>All</span><span>{listTrackingSucsess.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "transit") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(transit, "transit")}><span>Transit</span><span>{transit.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "delivered") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(delivered, "delivered")}><span>Delivered</span><span>{delivered.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "pickup") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(pickup, "pickup")}><span>Out for Delivery</span><span>{pickup.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "exception") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(exception, "exception")}><span>Exception</span><span>{exception.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "expired") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(expired, "expired")}><span>Expired</span><span>{expired.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "notfound") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(notfound, "notfound")}><span>Not Found</span><span>{notfound.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "undelivered") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(undelivered, "undelivered")}><span>Failed Attempt</span><span>{undelivered.length}</span></div>
+                              <div className={"tracking-count" + ((this.state.select === "pending") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(pending, "pending")}><span>Pending</span><span>{pending.length}</span></div>
+                              <div className={"mb-5 tracking-count" + ((this.state.select === "wrongName") ? " select-product" : "")} onClick={() => this.setDataRenderTracking(wrongName, "wrongName")}><span>Wrong Name</span><span>{wrongName.length}</span></div>
 
                               <div className="p-1">
                                     <SelectDate {...this.props} />
@@ -173,7 +217,7 @@ class TrackingSearch extends Component {
                         </div>
                         <div className="col-10">
                               <div className="row p-2">
-                                    <div className="col-2 title-properties-tracking">
+                                    <div className="col-2 title-properties-tracking ">
                                           Tracking No
                                      </div>
                                     <div className="col-2 title-properties-tracking">

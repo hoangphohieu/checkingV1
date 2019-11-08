@@ -108,12 +108,12 @@ class Home extends Component {
         const activator = <Button onClick={this.togglePopoverActive} disclosure >More actions</Button>;
         console.log(JSON.parse(localStorage.SumOrderHome));
         let data = this.state.dataChart;
-        return (
-
+        return (<React.Fragment>
+            <div className="row"> <div className="nav-top"></div> </div>
             <div className="row">
                 <div className="col-2 left-tracking-properties p-0">
                     <div className={"Home-select-product" + ((this.state.selectProduct === "all") ? " select-product" : "")} onClick={() => this.setState({ dataChart: JSON.parse(localStorage.SumOrderHome), selectProduct: "all" })}>All</div>
-                    {JSON.parse(localStorage.SumOrderHome).map((param, id) => <div className={"Home-select-product" + ((this.state.selectProduct === param[0]) ? " select-product" : "")} key={id} onClick={() => this.setState({ dataChart: [param],selectProduct:param[0] })}>{param[0]} </div>)}
+                    {JSON.parse(localStorage.SumOrderHome).map((param, id) => <div className={"Home-select-product" + ((this.state.selectProduct === param[0]) ? " select-product" : "")} key={id} onClick={() => this.setState({ dataChart: [param], selectProduct: param[0] })}>{param[0]} </div>)}
 
 
                     <div className="p-1 mt-5">
@@ -135,7 +135,7 @@ class Home extends Component {
                 </div>
             </div>
 
-
+        </React.Fragment>
 
         );
     }

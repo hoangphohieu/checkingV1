@@ -297,7 +297,7 @@ class InputExcel extends Component {
     alertError = (param) => {
         alert(param);
         window.location = "/Upload";
-        
+
     }
     readSingleFile = (e) => {
         let _this = this;
@@ -357,7 +357,8 @@ class InputExcel extends Component {
         }
 
 
-        return (
+        return (<React.Fragment>
+            <div className="row"> <div className="nav-top"></div> </div>
             <div className="App mt-4">
 
                 {(JSON.parse(localStorage.getItem("ItemsExcelFail")).length === 0) ?
@@ -370,6 +371,8 @@ class InputExcel extends Component {
                 <Exceltable dataExcelTable={ItemsExcel} />
                 {ItemsExcelFail}
             </div>
+        </React.Fragment>
+
         );
     }
 }

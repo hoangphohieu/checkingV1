@@ -17,9 +17,7 @@ function mapDispatchToProps(dispatch) {
         changeUserProperties: (param) => dispatch(actions.changeUserPropertiesAPI(param)),
         createUser: (param) => dispatch(actions.createUser(param)),
         deleteUser: (param) => dispatch(actions.deleteUser(param)),
-
-        
-        
+        getSumItem:(param)=>dispatch(actions.getSumItem(param))
 
     };
 }

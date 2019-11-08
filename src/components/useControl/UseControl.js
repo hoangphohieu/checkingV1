@@ -14,18 +14,17 @@ class UseControl extends Component {
     }
     getUserInfoSucsess = () => {
         let user = this.props.itemsPayload.listItem;
-        console.log(this.props.itemsPayload);
 
         if (user.length === 2) {
             let properties = [];
-            user=user[0].item_post;
+            user = user[0].item_post;
             properties.push(user.router);
             properties.push(user.partner);
             properties.push(user.name);
             properties.push(user.phone);
             localStorage.setItem("UserProperties", JSON.stringify(properties));
             // this.props.setStateStoreToDefault(); 
-            window.location="/useControl";
+            window.location = "/useControl";
         }
     }
     getUserInfoFail = () => {
@@ -33,20 +32,23 @@ class UseControl extends Component {
         this.props.setStateStoreToDefault();
 
     }
-   
+
     render() {
 
 
         let UserProperties = JSON.parse(localStorage.UserProperties);
 
-        console.log(UserProperties);
 
 
 
         return (
-            <div>
-                {(UserProperties.length === 0) ? <LoginUses  {...this.props} /> : ((UserProperties[0] === "retc_000") ? <UserCRUD  {...this.props} /> : <UserR  {...this.props} />)}
-            </div>
+            <React.Fragment>
+                <div className="row"> <div className="nav-top"></div> </div>
+
+                <div>
+                    {(UserProperties.length === 0) ? <LoginUses  {...this.props} /> : ((UserProperties[0] === "retc_000") ? <UserCRUD  {...this.props} /> : <UserR  {...this.props} />)}
+                </div>
+            </React.Fragment>
         );
     }
 }

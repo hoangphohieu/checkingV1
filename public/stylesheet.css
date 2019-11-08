@@ -4,6 +4,31 @@
   
 }
 
+ul.pagination {
+    justify-content: center;
+}
+
+.page-link {
+    padding: 0.55rem;
+}
+
+.nav-top-item {
+    height: 5vh;
+    margin: 0 -15px;
+    background: rgb(28, 34, 96);
+}
+
+.form-control:focus {
+    border: 0;
+    box-shadow: 0;
+    box-shadow: 0 0 0 0;
+}
+
+span#basic-addon2 {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
 .state_itemChecking {
     display: flex;
     flex-direction: column;
