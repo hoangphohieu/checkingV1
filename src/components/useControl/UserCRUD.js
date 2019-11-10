@@ -15,7 +15,7 @@ class UserCRUD extends Component {
     }
 
     componentWillMount() {
-        console.log();
+
 
         if (localStorage.SumOrderHome === undefined) {
             localStorage.setItem("SumOrderHome", JSON.stringify([]));
@@ -51,7 +51,7 @@ class UserCRUD extends Component {
             this.props.setStateStoreToDefault();
         }
         else {
-            console.log(this.props.itemsPayload);
+
 
             let ListGetBaseCost = JSON.parse(localStorage.ListGetBaseCost);
             if (ListGetBaseCost.length > 0) {
@@ -113,7 +113,17 @@ class UserCRUD extends Component {
         this.props.getSumItem("sumitem/?datatype=item&partner=user" + param[param.length - 1]);
         this.setState({ listGetBaseCost: param });
     }
-
+    sumAndDelete = (dataChart) => { // hàm tính những ngày bị trùng nhau, cộng lại là để lại 1 ngày duy nhất
+        for (let i = 0; i <= dataChart.length - 2; i++) {
+            if (dataChart[i].day === dataChart[i + 1].day) {
+                dataChart[i + 1].basecost += dataChart[i].basecost;
+                dataChart[i] = null;
+            }
+        }
+        dataChart = dataChart.filter(param => { return param !== null }).map(param => { return { day: param.day, basecost: param.basecost } });
+        dataChart = _.orderBy(dataChart, ['day'], ['desc']);
+        return [...dataChart];
+    }
     render() {
         let listUser = this.state.listUser;
 
@@ -139,9 +149,7 @@ class UserCRUD extends Component {
             })
         }
         // tính cái khác
-        console.log(listUser);
-        console.log(this.state.listPartner);
-        console.log(this.state.listGetBaseCost);
+        // tính tổng base cose
         let listGetBaseCost = this.state.listGetBaseCost.map((param, id) => {
             let user = listUser.filter(param2 => param2.item_post.partner.substr(4) === param)[0];
             let basecost = _.toPairs(JSON.parse(localStorage.ListBaseCostProperties)[id]);
@@ -156,18 +164,31 @@ class UserCRUD extends Component {
             user.item_post["sumBaseCost"] = sumBaseCost;
             return user
         })
-        console.log(listGetBaseCost);
 
-        if (listGetBaseCost.length > 0) {
-            listGetBaseCost = listGetBaseCost.map((param, id) => { return <UserProperties {...this.props} userProperties={param} key={id} /> })
-        }
-
+        // đưa danh sách 10 ngày gần nhất
+        let listGetBaseCost2 = this.state.listGetBaseCost.map((param, id) => {
+            let basecost = _.toPairs(JSON.parse(localStorage.ListBaseCostProperties)[id]);
+            let arr = [];
+            if (basecost.length !== 0) {
+                basecost.forEach(param => {
+                    for (let index = 0; index < 10; index++) {
+                        arr.push(param[1].pop())
+                    }
+                    // param[1].length = 10;
+                    // param[1] = param[1].filter(param2 => { return param2 !== undefined });
+                    // arr = [...arr, ...param[1]];
+                })
+            }
+            arr = arr.filter(param2 => { return param2 !== undefined });
+            arr = this.sumAndDelete(arr);
+            return arr
+        })
         return (
             <div>
                 <div className="row">
                     <div className="col-2 left-tracking-properties p-0">
                         <AddUser {...this.props} />
-                        <div className="tracking-count mt-3" >Al Partner</div>
+                        <div className="tracking-count mt-3 border-list" >List Partner</div>
                         <PartnersPagination partnersPaginations={this.state.listPartner} getBaseCostByList={this.getBaseCostByList} />
 
 
@@ -186,12 +207,12 @@ class UserCRUD extends Component {
                                         <h4 className="m-0">{paid}</h4>
                                         <p>Paid</p>
                                     </div>
-                                    <div className="user-sum-number">
+                                    <div className={"user-sum-number" + ((sumBaseCost - paid <= 0) ? " btn btn-success" : "")}>
                                         <h4 className="m-0">{Math.abs(sumBaseCost - paid)}</h4>
                                         <p> In Debt</p>
                                     </div>
                                     <div className="user-sum-number">
-                                        <h4 className="m-0">{ _.flattenDeep(this.state.listPartner).length }</h4>
+                                        <h4 className="m-0">{_.flattenDeep(this.state.listPartner).length}</h4>
                                         <p>Partner</p>
                                     </div>
                                 </div>
@@ -223,7 +244,7 @@ class UserCRUD extends Component {
                                     </div>
                                 </div>
 
-                                {listGetBaseCost}
+                                {(listGetBaseCost.length > 0) ? listGetBaseCost.map((param, id) => { return <UserProperties {...this.props} userProperties={param} listDayBaseCost={listGetBaseCost2[id]} key={id} /> }) : ""}
                             </div>
                         </div>
 

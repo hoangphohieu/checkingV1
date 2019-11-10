@@ -7,6 +7,8 @@ class UseControl extends Component {
 
     componentDidUpdate() {
         this.CDU_checkRequest();
+        console.log(this.props.itemsPayload.type);
+
     }
     CDU_checkRequest = () => {
         if (this.props.itemsPayload.type === "GET_USE_INFO_SUCSESS") { this.getUserInfoSucsess() }
@@ -37,12 +39,17 @@ class UseControl extends Component {
 
 
         let UserProperties = JSON.parse(localStorage.UserProperties);
+        
 
 
 
 
         return (
             <React.Fragment>
+                {this.props.itemsPayload.type !== "STATE_TO_DEFAULT" ? <div className="css-loader">
+                    <div className="loader ">Loading...</div>
+                </div> : ""}
+
                 <div className="row"> <div className="nav-top"></div> </div>
 
                 <div>

@@ -4,11 +4,11 @@ let DEFAULT_STATE = {
       dataFetched: false,
       isFetching: false,
       error: false,
-      type: null,
+      type: "STATE_TO_DEFAULT",
       errorMessesage: null
 }
 export default (state = DEFAULT_STATE, action) => {
-      // console.log(action);
+      console.log(action);
       switch (action.type) {
 
             case type.GET_ORDER_BY_DAY_SUCSESS:
@@ -48,11 +48,12 @@ export default (state = DEFAULT_STATE, action) => {
                   }
             case type.STATE_STORE_TRACKING_TO_DEFAULT:
                   return {
+                        ...state,
                         listItem: [],
                         dataFetched: false,
                         isFetching: false,
                         error: false,
-                        type: null,
+                        type: "STATE_TO_DEFAULT",
                         errorMessesage: null
                   }
 

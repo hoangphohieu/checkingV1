@@ -27,10 +27,10 @@ class TrackingSearch extends Component {
 
 
       componentDidUpdate() {
-            console.log(this.state.dataRenderTracking);
 
             this.CDU_checkRequest();
             this.CDU_renderListTrackingSucsess();
+            console.log(this.props.itemsPayload.type);
 
       }
       CDU_renderListTrackingSucsess = () => {
@@ -49,7 +49,6 @@ class TrackingSearch extends Component {
       }
       getOrderByDaySucsess = () => {
             if (_.toPairs(this.props.itemsPayload.listItem).length !== 0) {
-                  console.log(this.props.itemsPayload);
                   let listOrder = [];
                   let data = _.mapValues(this.props.itemsPayload.listItem, function (o) { return o[0].name; });
                   _.toPairs(data).forEach(param => {
@@ -58,9 +57,10 @@ class TrackingSearch extends Component {
                   listOrder = _.uniq(_.flattenDeep(listOrder));
                   console.log(listOrder);
                   this.searchTracking(listOrder);
-                  this.props.StateStoreTrackingToDefault();
                   this.setState({ listOrder: listOrder });
             }
+            this.props.StateStoreTrackingToDefault();
+
       }
 
 
@@ -175,6 +175,9 @@ class TrackingSearch extends Component {
             if (this.state.dataRenderTracking !== null)
                   RenderoneTracking = this.state.dataRenderTracking.map((param, id) => <RenderTrackingProperties key={id} dataTracking={param} />);
             return (<React.Fragment>
+                  {this.props.itemsPayload.type !== "STATE_TO_DEFAULT" ? <div className="css-loader">
+                        <div className="loader ">Loading...</div>
+                  </div> : ""}
                   <div className="row justify-content-center nav-top-item">
                         <div className="col-4 d-flex align-items-center">
                               <div className="input-group ">

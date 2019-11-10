@@ -19,17 +19,12 @@ class Home extends Component {
         }
     }
     componentWillMount() {
-        console.log("jkgskjsddsf");
-
         localStorage.setItem("SumOrderHome", JSON.stringify([]));
-
         let user = JSON.parse(localStorage.UserProperties)[1];
         user = user.substr(4);
         if (user === "all") { this.props.getSumItem("sumitem/?datatype=item") }
         else { this.props.getSumItem("sumitem/?datatype=item&partner=user" + user) }
 
-        // if (user === "all") {  this.props.getSumItem(this.getEndPoint("", this.state.selectedDates.start, this.state.selectedDates.end));}
-        // else { this.props.getSumItem(this.getEndPoint("?partner=" + user, this.state.selectedDates.start, this.state.selectedDates.end));}
     }
     togglePopoverActive = () => {
         this.setState({ popoverActive: !this.state.popoverActive })
@@ -40,22 +35,12 @@ class Home extends Component {
         this.setState({ selectedDates: param });
         let user = JSON.parse(localStorage.UserProperties)[1];
         user = user.substr(4);
-        // if (user === "all") { this.props.getSumItem(this.getEndPoint("", param.start, param.end)); }
-        // else { this.props.getSumItem(this.getEndPoint("?partner=" + user, param.start, param.end)); }
-        console.log(user);
-
-
     }
-    checkYesterday = () => {
-        console.log("checkYesterday");
 
-    }
-    checkOnWeak = () => {
-        console.log("checkOnWeak");
-
-    }
     componentDidUpdate() {
         this.CDU_checkRequest();
+        console.log(this.props.items.type);
+
     }
     CDU_checkRequest = () => {
         if (this.props.items.type === "GET_SUM_ITEM_SUCSESS") { this.getSumItemSucsess() }
@@ -74,41 +59,14 @@ class Home extends Component {
     }
 
 
-    // getEndPoint = (partner, start, end) => {
-    //     let endPoint = "sumitem/?datatype=item";
-    //     let monthStart = new Date(start).getMonth() + 1;
-    //     let monthEnd = new Date(end).getMonth() + 1;
-    //     if (monthStart === monthEnd) {
-    //         endPoint += partner
-    //             + "&month=" + monthEnd
-    //             + "&month=" + ((monthEnd === 1) ? "12" : (monthEnd - 1));
-    //     }
-    //     else if (monthStart < monthEnd) {
-    //         endPoint += partner;
-    //         for (let i = monthStart; i <= monthEnd; i++) {
-    //             endPoint += endPoint + "&month=" + i
-    //         }
-    //     }
-    //     else if (monthStart > monthEnd) {
-    //         endPoint += partner;
-    //         for (let i = monthStart; i <= 12; i++) {
-    //             endPoint += endPoint + "&month=" + i
-    //         }
-    //         for (let i = 1; i <= monthEnd; i++) {
-    //             endPoint += endPoint + "&month=" + i
-    //         }
-    //     }
-    //     return endPoint;
-    // }
-    setproduct = (e) => {
-        console.log(e.target.value);
-
-    }
     render() {
         const activator = <Button onClick={this.togglePopoverActive} disclosure >More actions</Button>;
         console.log(JSON.parse(localStorage.SumOrderHome));
         let data = this.state.dataChart;
         return (<React.Fragment>
+            {this.props.items.type !== "STATE_TO_DEFAULT" ? <div className="css-loader">
+                <div className="loader ">Loading...</div>
+            </div> : ""}
             <div className="row"> <div className="nav-top"></div> </div>
             <div className="row">
                 <div className="col-2 left-tracking-properties p-0">

@@ -51,41 +51,45 @@ class CheckingProperties extends Component {
 
             return (
                   <React.Fragment>
-
-                        <div className="card col-4 card-style">
-
-
-                              <div className="card-body">
-
-                                    <h5 className="card-title">Card title</h5>
-                                    {
-                                          valueItem.map((param, id) => {
-                                                if (param[0] !== "id" && param[0] !== "printStatus")
-                                                      return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
-                                          })
-                                    }
-
-                              </div>
-                              <div className="card-footer text-muted">
-                                    <div className="row">
-                                          <div className="col-8">
-                                                <img className="card-img-top" src="https://res.cloudinary.com/hieudz/image/upload/v1566581774/demo%20tool/DK1882.jpg" alt="Card image cap" />
-                                          </div>
+                        <div className="row">
+                              <div className=" col-6">
+                                    <div className="row border-card">
                                           <div className="col-4">
-                                                <div className="state_itemChecking">
-                                                      <button onClick={() => this.changePrintStatus({ printStatus: !printStatus[0][1], idStatus: idStatus[0][1] })} type="button"
-                                                            className={" mb-2 btn btn-" + ((printStatus[0][1] === true) ? "primary" : "danger") + " checking-right-state"}>
-                                                            {(printStatus[0][1] === true) ? "Done !" : "Print ..."}
-                                                      </button>
-                                                      <Button className="state_itemChecking_button" variant="primary" onClick={this.handleShow}>
-                                                            Change
+                                                <div className="p-1 pt-5 text-muted">
+                                                      <div className="row justify-content-center">
+                                                            <div className="col-8">
+                                                                  <img className="card-img-top" src={"https://res.cloudinary.com/hieudz/image/upload/c_scale,q_80,w_500/v1573400959/demo%20tool/" + item.item_post.lineitemname.trim().split(" ").pop() + ".jpg"} alt="has no file" />
+                                                            </div>
+                                                            <div className="col-10">
+                                                                  <div className="state_itemChecking">
+                                                                        <button onClick={() => this.changePrintStatus({ printStatus: !printStatus[0][1], idStatus: idStatus[0][1] })} type="button"
+                                                                              className={" mt-2 mb-2 btn btn-" + ((printStatus[0][1] === true) ? "primary" : "danger") + " checking-right-state"}>
+                                                                              {(printStatus[0][1] === true) ? "Done !" : "Print ..."}
+                                                                        </button>
+                                                                        <Button className="state_itemChecking_button" variant="primary" onClick={this.handleShow}>
+                                                                              Change
                                                       </Button>
-                                                      <Button className="state_itemChecking_button" variant="danger" onClick={this.handleDeleteShow}>
-                                                            Delele
+                                                                        <Button className="state_itemChecking_button" variant="danger" onClick={this.handleDeleteShow}>
+                                                                              Delele
                                                       </Button>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                          <div className="col-8">
+                                                <div className="card-body">
+                                                      <h5 className="card-title">{item.item_post.name}</h5>
+                                                      {
+                                                            valueItem.map((param, id) => {
+                                                                  if (param[0] !== "id" && param[0] !== "printStatus")
+                                                                        return <p className="checking-item-altribute" key={id}><span className="checking-item-title">{param[0]}:</span><span>{[param[1]]}</span></p>
+                                                            })
+                                                      }
                                                 </div>
                                           </div>
                                     </div>
+
 
                               </div>
                         </div>

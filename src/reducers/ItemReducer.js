@@ -4,7 +4,8 @@ let DEFAULT_STATE = {
     dataFetched: false,
     isFetching: false,
     error: false,
-    errorMessesage: null
+    errorMessesage: null,
+    type: "STATE_TO_DEFAULT"
 }
 export default (state = DEFAULT_STATE, action) => {
     // console.log(action);

@@ -21,17 +21,14 @@ class App extends Component {
   }
   render() {
     let userProperties = JSON.parse(localStorage.UserProperties);
-    // console.log(userProperties);
     let partnerTypeUser = userProperties[0];
-    console.log(partnerTypeUser);
+    
+
 
     return (
       <React.Fragment>
         <div className="container-fluid">
-          {/* <div className="row">
-            <div className="nav-top">
-            </div>
-          </div> */}
+
         </div>
 
         <div className="App h-100">

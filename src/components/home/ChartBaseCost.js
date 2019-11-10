@@ -33,8 +33,6 @@ export default class Example extends Component {
       }
     }
     dataChart = dataChart.filter(param => { return param !== null });
-
-
     return [...dataChart];
   }
   Math_dataChartAll = (dataChart, rangeDay) => {

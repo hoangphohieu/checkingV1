@@ -4,7 +4,7 @@ let DEFAULT_STATE = {
       dataFetched: false,
       isFetching: false,
       error: false,
-      type: null,
+      type: "STATE_TO_DEFAULT",
       errorMessesage: null
 }
 export default (state = DEFAULT_STATE, action) => {
@@ -145,7 +145,7 @@ export default (state = DEFAULT_STATE, action) => {
                         dataFetched: false,
                         isFetching: false,
                         error: false,
-                        type: "STATE_USER_TO_DEFAULT",
+                        type: "STATE_TO_DEFAULT",
                         errorMessesage: null
                   }
 

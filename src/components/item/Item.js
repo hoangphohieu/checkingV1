@@ -7,8 +7,8 @@ class Item extends Component {
 
       render() {
 
-            let items = this.props.ItemPayload.listItem;
-            console.log(items);
+            let items = [...this.props.ItemPayload.listItem];
+            console.log(this.props.ItemPayload.listItem);
 
             let newItems = items;
 
