@@ -99,7 +99,7 @@ class UserCRUD extends Component {
         if (listUser.length > 1) {
             listUser.pop();
             listUser = listUser.filter(param => param.item_post.id !== "adminretc_000");
-            let listPartner = _.chunk(listUser.map(param => param.item_post.partner.substr(4)), 2);
+            let listPartner = _.chunk(listUser.map(param => param.item_post.partner.substr(4)), 6);
 
             this.setState({ listUser: listUser, listPartner: listPartner });
             this.props.setStateStoreToDefault();

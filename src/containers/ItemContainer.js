@@ -15,6 +15,9 @@ function mapDispatchToProps(dispatch) {
             patchItemCheckingProperties:(param)=>dispatch(actions.patchItemCheckingProperties(param)),
             deleteItemChecking:(param)=>dispatch(actions.deleteItemChecking(param)),
             itemsPrintFalse:()=>dispatch(actions.itemsPrintFalse()),
+            postItem:(param)=>dispatch(actions.itemPostItem(param)),
+
+            
       };
 }
 

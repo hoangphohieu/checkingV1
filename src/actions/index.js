@@ -28,6 +28,10 @@ export function itemsPrintFalse(payload) {
     return ({ type: type.ITEMS_PRINT_FALSE_REQUEST, payload })
 }
 
+export function itemPostItem(payload) {
+    return ({ type: type.ITEM_POST_ITEM_REQUEST, payload })
+}
+
 export function getListById(payload) {
     return ({ type: type.GET_LIST_BY_ID_REQUEST, payload })
 }

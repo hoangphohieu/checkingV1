@@ -4,6 +4,20 @@
   
 }
 
+.card-title {
+    position: relative;
+}
+
+.show-position-re {
+    position: absolute;
+    bottom: -0.5rem;
+}
+
+.change-re {
+    position: absolute;
+    right: 0;
+}
+
 .height-table-paid {
     overflow-y: auto;
     width: 100%;

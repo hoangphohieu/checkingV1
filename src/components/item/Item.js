@@ -28,7 +28,9 @@ class Item extends Component {
 
                         <div className="row">
                               <div className="col-12 checking-right mt-3">
-                                    {items}
+                                    <div className="row">
+                                          {items}
+                                    </div>
                               </div>
                         </div>
 
