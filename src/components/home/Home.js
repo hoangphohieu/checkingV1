@@ -19,7 +19,7 @@ class Home extends Component {
         }
     }
     componentWillMount() {
-        localStorage.setItem("SumOrderHome", JSON.stringify([]));
+       
         let user = JSON.parse(localStorage.UserProperties)[1];
         user = user.substr(4);
         if (user === "all") { this.props.getSumItem("sumitem/?datatype=item") }

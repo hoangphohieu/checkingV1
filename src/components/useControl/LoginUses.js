@@ -4,6 +4,7 @@ class names extends Component {
     submit = () => {
         let endPoint = "?name=user"+this.refs["name"].value.trim() + "&pass="+this.refs["pass"].value.trim();
         this.props.getUse(endPoint);
+        localStorage.setItem("SumOrderHome", JSON.stringify([]));
         // console.log(endPoint);
 
     }

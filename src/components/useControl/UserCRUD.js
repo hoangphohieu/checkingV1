@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UserProperties from './UserProperties';
+import UserCRUDProperties from './UserCRUDProperties';
 import PartnersPagination from './PartnersPagination';
 
 import AddUser from './AddUser';
@@ -244,7 +244,7 @@ class UserCRUD extends Component {
                                     </div>
                                 </div>
 
-                                {(listGetBaseCost.length > 0) ? listGetBaseCost.map((param, id) => { return <UserProperties {...this.props} userProperties={param} listDayBaseCost={listGetBaseCost2[id]} key={id} /> }) : ""}
+                                {(listGetBaseCost.length > 0) ? listGetBaseCost.map((param, id) => { return <UserCRUDProperties {...this.props} userProperties={param} listDayBaseCost={listGetBaseCost2[id]} key={id} /> }) : ""}
                             </div>
                         </div>
 

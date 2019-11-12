@@ -14,6 +14,7 @@ class App extends Component {
     if (JSON.parse(localStorage.getItem("UserProperties")) === null) {
       localStorage.setItem("UserProperties", JSON.stringify([]));
     }
+    localStorage.setItem("SumOrderHome", JSON.stringify([]));
   }
   logOut = () => {
     localStorage.setItem("UserProperties", JSON.stringify([]));
